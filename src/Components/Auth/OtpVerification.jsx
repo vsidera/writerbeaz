@@ -5,14 +5,12 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../api/api';
-import { clearUser } from '../../Redux/store';
 
 
 const OtpVerification = () => {
     const [otp, setOtp] = useState('');
     const [verificationStatus, setVerificationStatus] = useState('');
   
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
     const emailAddress = useSelector(state => state.emailAddress);
@@ -38,8 +36,6 @@ const OtpVerification = () => {
     
           if (response.status === 200) {
             setVerificationStatus('User is verified');
-            // Dispatch the clearUser action to reset user data in Redux
-            // dispatch(clearUser());
             toast.success('Account verified. You can now log in.');
             navigate('/login');
           } else {

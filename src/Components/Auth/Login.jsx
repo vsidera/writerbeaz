@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../api/api';
-import { setEmailAddress } from '../../Redux/store';
+import { setUser, setEmailAddress, setRefreshToken, setTokenExpiry, setAccessToken } from '../../Redux/store';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,26 +15,40 @@ function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const emailAddress = useSelector(state => state.emailAddress);
+    const user = useSelector(state => state.user);
+    const tokenExpiry = useSelector(state => state.tokenExpiry);
+    const refreshToken = useSelector(state => state.refreshToken);
+    const accessToken = useSelector(state => state.accessToken);
+
+    console.log('Stored Email in Redux:', emailAddress);
+    console.log('User Details in Redux:', user);
+
     const handleLogin = async () => {
         try {
-        const response = await api.post('/accounts/signin/', {
-            email: email,
-            password: password,
-        });
-
-        if (response.status === 200) {
-            const { email } = response.data; // Assuming the API response contains the user's email
-            dispatch(setEmailAddress(email));
-            toast.success('Logged in successfully.');
-            navigate('/'); // Change this route to the appropriate dashboard route
-        } else {
-            toast.error('Login failed. Please check your credentials.');
-        }
+            const response = await api.post('/accounts/signin/', {
+                email: email,
+                password: password,
+            });
+    
+            if (response.status === 200) {
+                const { user, access_token, refresh_token, token_expiry } = response.data;
+                dispatch(setUser(user));
+                dispatch(setEmailAddress(email));
+                dispatch(setAccessToken(access_token));
+                dispatch(setRefreshToken(refresh_token));
+                dispatch(setTokenExpiry(token_expiry));
+                toast.success('Logged in successfully.');
+                navigate('/');
+            } else {
+                toast.error('Login failed. Please check your credentials.');
+            }
         } catch (error) {
-        console.error('Login Error:', error);
-        toast.error('An error occurred during login.');
+            console.error('Login Error:', error);
+            toast.error('An error occurred during login.');
         }
     };
+    
     
     return (
         <div className="flex min-h-screen">

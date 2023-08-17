@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { setEmailAddress } from '../../Redux/store';
+import { setUser, setEmailAddress } from '../../Redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import OtpVerification from './OtpVerification';
 import { Link, useNavigate } from 'react-router-dom';
@@ -136,6 +136,7 @@ const Signup = () => {
       console.log('Response:', response.data);
   
       if (response.status === 201) {
+        dispatch(setUser(response.data));
         dispatch(setEmailAddress(email));
         toast.success("Registration success. Please Enter your OTP and verify your account.");
         navigate('/otp-verification');
