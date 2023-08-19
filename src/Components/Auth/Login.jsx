@@ -39,7 +39,14 @@ function Login() {
                 dispatch(setRefreshToken(refresh_token));
                 dispatch(setTokenExpiry(token_expiry));
                 toast.success('Logged in successfully.');
-                navigate('/');
+                if (user.user_type === "Admin") {
+                    navigate('/admin');
+                } else if (user.user_type === "User") {
+                    navigate('/');
+                } else if (user.user_type === "Freelancer") {
+                    navigate('/freelancer');
+                }
+                
             } else {
                 toast.error('Login failed. Please check your credentials.');
             }

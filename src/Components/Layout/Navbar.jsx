@@ -6,7 +6,6 @@ import Logout from '../Auth/Logout';
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const user = useSelector(state => state.user);
-    const emailAddress = useSelector(state => state.emailAddress);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
@@ -62,7 +61,7 @@ function Navbar() {
                                     </div>
                                 </button>
                                 {dropdownOpen && (
-                                    <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                                     <div className={`origin-top-right absolute md:right-0 ${menuOpen ? 'mt-2' : 'mt-4'} w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5`}>
                                         <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="about-menu">
                                             <NavLink
                                                 to="/about"
@@ -77,16 +76,7 @@ function Navbar() {
                                                 </lord-icon>
                                                 {user.username}
                                             </NavLink>
-                                            <div
-                                                className="block px-4 py-2 text-base font-medium text-red-500 hover:bg-gray-100"
-                                                role="menuitem"
-                                            >
-                                                <lord-icon
-                                                    src="https://cdn.lordicon.com/jfhbogmw.json"
-                                                    trigger="loop"
-                                                    colors="primary:#c71f16"
-                                                    style={{width:"30px", height:"30px", paddingTop: "10px"}}>
-                                                </lord-icon>
+                                            <div>
                                                 <Logout />
                                             </div>
                                         </div>

@@ -16,7 +16,20 @@ function Logout() {
         
     };
   return (
-    <button onClick={handleLogout}>Logout</button>
+    <div
+        className="block px-4 py-2 text-base font-medium text-red-500 hover:bg-gray-100"
+        role="menuitem"
+        onClick={handleLogout}
+        style={{cursor: "pointer"}}
+    >
+        <lord-icon
+            src="https://cdn.lordicon.com/jfhbogmw.json"
+            trigger="loop"
+            colors="primary:#c71f16"
+            style={{width:"30px", height:"30px", paddingTop: "10px"}}>
+        </lord-icon>
+        Logout
+    </div>
   )
 }
 
