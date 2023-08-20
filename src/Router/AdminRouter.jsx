@@ -11,7 +11,7 @@ function AdminRouter() {
     <Routes>
         <Route path="/" element={<AdminDashboard />} />
         <Route path="/category" element={<AdminCategory />} />
-        <Route path="/user-management" element={<AdminUserManagement />} />
+        <Route path="/management" element={<AdminUserManagement />} />
         <Route path="/transactions" element={<AdminTransactions />} />
         <Route path="/wallet" element={<AdminWallet />} />
     </Routes>

@@ -9,6 +9,8 @@ function App() {
   const user = useSelector(state => state.user);
 
   const isAdmin = user && user.user_type === 'Admin';
+  const isUser = user && user.user_type === 'User';
+  const isFreelancer = user && user.user_type === 'Freelancer';
 
   return (
     <>
@@ -21,7 +23,11 @@ function App() {
 
 
           {/* FREELANCER */}
-          <Route path="/freelancer/*" element={<FreelancerRouter />} />
+          {isFreelancer || isAdmin ? (
+            <Route path="/freelancer/*" element={<FreelancerRouter />} />
+          ) : (
+            <Route path="/freelancer/*" element={<Navigate to="/login" />} />
+          )}
 
 
           {/* ADMIN */}

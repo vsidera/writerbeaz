@@ -43,7 +43,7 @@ function Navbar() {
                     <div className="text-gray-800 py-2 md:py-0 md:space-x-2">
                         <NavLink to='/' className="block md:inline font-bold text-white hover:bg-gray-900 hover:text-gray-100 hover:font-extrabold py-2 px-2 md:py-0 rounded-md">Home</NavLink>
                         <NavLink to='/' className="block md:inline font-bold text-white hover:bg-gray-900 hover:text-gray-100 hover:font-extrabold py-2 px-2 md:py-0 rounded-md">Find Freelancer</NavLink>
-                        <NavLink to='/' className="block md:inline font-bold text-white hover:bg-gray-900 hover:text-gray-100 hover:font-extrabold py-2 px-2 md:py-0 rounded-md">Become a Seller</NavLink>
+                        <NavLink to='/signup' className="block md:inline font-bold text-white hover:bg-gray-900 hover:text-gray-100 hover:font-extrabold py-2 px-2 md:py-0 rounded-md">Become a Seller</NavLink>
                         <NavLink to='/' className="block md:inline font-bold text-white hover:bg-gray-900 hover:text-gray-100 hover:font-extrabold py-2 px-2 md:py-0 rounded-md">About</NavLink>
                         {user ? (
                         <>

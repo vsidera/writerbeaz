@@ -5,7 +5,7 @@ function AdminTransactions() {
   return (
     <div>
         <AdminSidebar />
-        <h1>AdminTransactions</h1>
+        <h1></h1>
     </div>
   )
 }
