@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../api/api'
+import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setEmailAddress, setUser } from '../../Redux/store';
 
 function FreelancerRegister() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
+    const emailAddress = useSelector(state => state.emailAddress);
+    const user = useSelector(state => state.user);
     const authToken = useSelector(state => state.accessToken);
 
     const [userLevel, setUserLevel] = useState('');
@@ -20,6 +24,7 @@ function FreelancerRegister() {
     const [yearOfExperience, setYearOfExperience] = useState('');
     const [age, setAge] = useState('');
     const [profileImage, setProfileImage] = useState(null);
+    console.log(authToken)
 
 
     const handleRegisterProfile = async () => {
@@ -35,10 +40,8 @@ function FreelancerRegister() {
         formData.append('age', age);
         formData.append('profileImage', profileImage);
 
-        console.log(authToken)
-
         try {
-            const response = await api.put('/freelancers/freelancer-profile/53/', formData, {
+            const response = await api.put('/freelancers/freelancer-createprofile/53/', formData, {
                 headers: {
                     'Authorization': `Bearer ${authToken}`,
                 },

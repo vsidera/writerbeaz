@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../api/api';
+import api from '../../api/axiosConfig';
 import { setUser, setEmailAddress, setRefreshToken, setTokenExpiry, setAccessToken } from '../../Redux/store';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';

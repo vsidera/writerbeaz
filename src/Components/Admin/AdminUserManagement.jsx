@@ -1,7 +1,27 @@
-import React from 'react'
-import AdminSidebar from '../Layout/AdminSidebar'
+import React, { useEffect, useState } from 'react';
+import AdminSidebar from '../Layout/AdminSidebar';
+import api from '../../api/axiosConfig';
 
 function AdminUserManagement() {
+  const [profiles, setProfiles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Define an async function to fetch profiles
+    async function fetchProfiles() {
+      try {
+        const response = await api.get('/freelancers/freelancer-profiles/');
+        setProfiles(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching profiles:', error);
+        setLoading(false);
+      }
+    }
+
+    fetchProfiles();
+  }, []); // Empty dependency array to run once on component mount
+  
   return (
     <div>
       <AdminSidebar />
@@ -207,100 +227,42 @@ function AdminUserManagement() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="px-6 py-4">
-                            White
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop PC
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Mouse 2
-                        </th>
-                        <td class="px-6 py-4">
-                            Black
-                        </td>
-                        <td class="px-6 py-4">
-                            Accessories
-                        </td>
-                        <td class="px-6 py-4">
-                            $99
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                </tbody>
+  {profiles.map((profile) => (
+    <tr
+      key={profile.id} // Assuming each profile has a unique ID
+      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+    >
+      <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        {profile.freelancer.username}
+      </td>
+      <td className="px-6 py-4">
+        {profile.date_of_birth}
+      </td>
+      <td className="px-6 py-4">
+        {profile.level}
+      </td>
+      <td className="px-6 py-4">
+        {profile.year_of_experience}
+      </td>
+      <td className="px-6 py-4">
+        {profile.country}
+      </td>
+      {/* Add more table cells for other profile fields */}
+      <td className="px-6 py-4">
+        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+      </td>
+      <td className="px-6 py-4">
+        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Status</a>
+      </td>
+    </tr>
+  ))}
+</tbody>
             </table>
            </div>
           </div>
         </div>
+    </div>
 
-      </div>
   )
 }
 

@@ -3,7 +3,7 @@ import { setUser, setEmailAddress } from '../../Redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import OtpVerification from './OtpVerification';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../api/api'
+import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
