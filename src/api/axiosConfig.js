@@ -62,7 +62,7 @@ api.interceptors.response.use(
 
             // Retry the original request with the new access token
             error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-            return axios.request(error.config); // Retry the request
+            return axios.request(error.config);
           } else {
             dispatch(clearUser());
             toast.error('Authentication Token expired. Please login!');

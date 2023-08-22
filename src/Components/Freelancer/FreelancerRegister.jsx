@@ -17,14 +17,16 @@ function FreelancerRegister() {
 
     const [userLevel, setUserLevel] = useState('');
     const [about, setAbout] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [date_of_birth, setDateOfBirth] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
-    const [yearOfExperience, setYearOfExperience] = useState('');
+    const [year_of_experience, setYearOfExperience] = useState('');
     const [age, setAge] = useState('');
-    const [profileImage, setProfileImage] = useState(null);
+    const [profile_photo, setProfilePhoto] = useState(null);
     console.log(authToken)
+    const userId = user.user_id;
+    const route = `/freelancers/freelancer-createprofile/${userId}/`;
 
 
     const handleRegisterProfile = async () => {
@@ -32,17 +34,18 @@ function FreelancerRegister() {
         const formData = new FormData();
         formData.append('userLevel', userLevel);
         formData.append('about', about);
-        formData.append('dateOfBirth', dateOfBirth);
+        formData.append('date_of_birth', date_of_birth);
         formData.append('city', city);
         formData.append('state', state);
         formData.append('country', country);
-        formData.append('yearOfExperience', yearOfExperience);
+        formData.append('year_of_experience', year_of_experience);
         formData.append('age', age);
-        formData.append('profileImage', profileImage);
+        formData.append('profile_photo', profile_photo);
 
         try {
-            const response = await api.put('/freelancers/freelancer-createprofile/53/', formData, {
+            const response = await api.put(route, formData, {
                 headers: {
+                    'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${authToken}`,
                 },
             });
@@ -51,7 +54,7 @@ function FreelancerRegister() {
                 // Registration was successful, handle accordingly
                 // You can also dispatch actions to update Redux store if needed
                 // Redirect the user to a success page or perform other actions
-                navigate('/success');
+                navigate('/freelancer');
             } else {
                 // Handle registration failure (e.g., show error message)
                 toast.error('Registration failed. Please try again.');
@@ -136,7 +139,7 @@ function FreelancerRegister() {
     
                             <input
                             type="date"
-                            value={dateOfBirth}
+                            value={date_of_birth}
                             onChange={(e) => setDateOfBirth(e.target.value)}
                             className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
                             />
@@ -163,7 +166,7 @@ function FreelancerRegister() {
                             <input
                             type="number"
                             placeholder="Year of Experience"
-                            value={yearOfExperience}
+                            value={year_of_experience}
                             onChange={(e) => setYearOfExperience(e.target.value)}
                             className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
                             min={0}
@@ -182,7 +185,7 @@ function FreelancerRegister() {
                             <input
                             type="file"
                             accept="image/*"
-                            onChange={(e) => setProfileImage(e.target.files[0])}
+                            onChange={(e) => setProfilePhoto(e.target.files[0])}
                             className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
                             />
 

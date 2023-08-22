@@ -44,7 +44,11 @@ function Login() {
                 } else if (user.user_type === "User") {
                     navigate('/');
                 } else if (user.user_type === "Freelancer") {
-                    navigate('/freelancer');
+                    if (user.is_profile) {
+                        navigate('/freelancer');
+                      } else {
+                        navigate('/freelancer/register');
+                      }
                 }
                 
             } else {
