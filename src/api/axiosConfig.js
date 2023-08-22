@@ -1,9 +1,13 @@
 import axios from "axios";
 import store from "../Redux/store";
-import { setAccessToken, setRefreshToken, setTokenExpiry, clearUser, } from "../Redux/store";
+import {
+  setAccessToken,
+  setRefreshToken,
+  setTokenExpiry,
+  clearUser,
+} from "../Redux/store";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 const dispatch = store.dispatch;
 const api = axios.create({
@@ -58,18 +62,16 @@ api.interceptors.response.use(
 
             // Retry the original request with the new access token
             error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-            return axios.request(error.config);
+            return axios.request(error.config); // Retry the request
           } else {
             dispatch(clearUser());
             toast.error('Authentication Token expired. Please login!');
           }
         } catch (refreshError) {
           dispatch(clearUser());
-          toast.error('Authentication Token expired. Please login!');
         }
       } else {
         dispatch(clearUser());
-        toast.error('Authentication Token expired. Please login!');
       }
     }
     return Promise.reject(error);
