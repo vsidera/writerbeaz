@@ -7,6 +7,7 @@ function AdminUserManagement() {
   const [userProfiles, setUserProfiles] = useState([])
   const [freelancerProfiles, setFreelancerProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [blockUnblock, setBlockUnblock] = useState(true)
 
   useEffect(() => {
     async function fetchFreelancerProfiles() {
@@ -36,6 +37,18 @@ function AdminUserManagement() {
 
     fetchUserProfiles();
   }, []);
+
+
+  const handleBlockUnblock = (userId) => {
+    api.post(`/admin/block-unblock-user/${userId}/`)
+      .then((response) => {
+        console.log('Block/Unblock response:', response);
+        {blockUnblock? setBlockUnblock(false) : setBlockUnblock(true)}
+      })
+      .catch((error) => {
+        console.error('Error blocking/unblocking user:', error);
+      });
+  };  
   
   return (
     <div>
@@ -120,11 +133,10 @@ function AdminUserManagement() {
                               <td className="px-3 py-2 md:px-6 md:py-4">
                                   {profile.user.is_verified ? <p>Verified</p> : <p>Not Verified</p>}
                               </td>
-                              <td className="px-3 py-2 md:px-6 md:py-4">
-                                  <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2">
-                                      {profile.user.is_active ? <>Block</> : <>UnBloack</>}
-                                  </a>
-                              </td>
+                              <button onClick={() => handleBlockUnblock(profile.user.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2">
+                                {blockUnblock ? <>Block</> : <>UnBloack</>}
+                              </button>
+
                           </tr>
                       ))}
                   </tbody>
