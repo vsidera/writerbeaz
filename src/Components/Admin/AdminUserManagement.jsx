@@ -14,6 +14,8 @@ function AdminUserManagement() {
   const [selectedFreelancerId, setSelectedFreelancerId] = useState(null);
   const [blockAction, setBlockAction] = useState(true);
   const [acceptedFreelancers, setAcceptedFreelancers] = useState([]);
+  const [userSearchInput, setUserSearchInput] = useState('');
+  const [freelancerSearchInput, setFreelancerSearchInput] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -111,6 +113,24 @@ function AdminUserManagement() {
       });
   };
 
+  const filteredUserProfiles = userProfiles.filter((profile) =>
+    profile.user.username.toLowerCase().includes(userSearchInput.toLowerCase()) ||
+    profile.user.email.toLowerCase().includes(userSearchInput.toLowerCase())
+  );
+
+  const filteredFreelancerProfiles = freelancerProfiles.filter((profile) =>
+    profile.freelancer.username.toLowerCase().includes(freelancerSearchInput.toLowerCase()) ||
+    profile.freelancer.email.toLowerCase().includes(freelancerSearchInput.toLowerCase())
+  );
+
+  const handleUserSearchChange = (event) => {
+    setUserSearchInput(event.target.value);
+  };
+
+  const handleFreelancerSearchChange = (event) => {
+    setFreelancerSearchInput(event.target.value);
+  };
+
   return (
     <div>
       <AdminSidebar />
@@ -133,7 +153,15 @@ function AdminUserManagement() {
                       <path id="Icon_awesome-search" data-name="search" d="M35.508,31.127l-7.01-7.01a1.686,1.686,0,0,0-1.2-.492H26.156a14.618,14.618,0,1,0-2.531,2.531V27.3a1.686,1.686,0,0,0,.492,1.2l7.01,7.01a1.681,1.681,0,0,0,2.384,0l1.99-1.99a1.7,1.7,0,0,0,.007-2.391Zm-20.883-7.5a9,9,0,1,1,9-9A8.995,8.995,0,0,1,14.625,23.625Z"></path>
                     </svg>
                   </span>
-                  <input type="search" name="leadingIcon" id="leadingIcon" placeholder="Search here" className="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition" />
+                  <input
+                    type="search"
+                    name="userSearchInput"
+                    id="userSearchInput"
+                    placeholder="Search here"
+                    className="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition"
+                    value={userSearchInput}
+                    onChange={handleUserSearchChange}
+                  />
                 </div>
               </div>
             </div>
@@ -172,7 +200,7 @@ function AdminUserManagement() {
                   </tr>
                 </thead>
                 <tbody>
-                  {userProfiles.map((profile) => (
+                  {filteredUserProfiles.map((profile) => (
                     <tr
                       key={profile.id}
                       className="bg-white border-b dark:bg-black dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
@@ -230,7 +258,15 @@ function AdminUserManagement() {
                       <path id="Icon_awesome-search" data-name="search" d="M35.508,31.127l-7.01-7.01a1.686,1.686,0,0,0-1.2-.492H26.156a14.618,14.618,0,1,0-2.531,2.531V27.3a1.686,1.686,0,0,0,.492,1.2l7.01,7.01a1.681,1.681,0,0,0,2.384,0l1.99-1.99a1.7,1.7,0,0,0,.007-2.391Zm-20.883-7.5a9,9,0,1,1,9-9A8.995,8.995,0,0,1,14.625,23.625Z"></path>
                     </svg>
                   </span>
-                  <input type="search" name="leadingIcon" id="leadingIcon" placeholder="Search here" className="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-400 focus:border-cyan-500 transition" />
+                  <input
+                    type="search"
+                    name="freelancerSearchInput"
+                    id="freelancerSearchInput"
+                    placeholder="Search here"
+                    className="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition"
+                    value={freelancerSearchInput}
+                    onChange={handleFreelancerSearchChange}
+                  />
                 </div>
               </div>
             </div>
@@ -272,7 +308,7 @@ function AdminUserManagement() {
                   </tr>
                 </thead>
                 <tbody>
-                  {freelancerProfiles.map((profile) => (
+                  {filteredFreelancerProfiles.map((profile) => (
                     <tr
                       key={profile.id}
                       className="bg-white border-b dark:bg-black dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
