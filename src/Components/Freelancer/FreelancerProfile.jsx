@@ -9,6 +9,7 @@ function FreelancerProfile() {
   const [skills, setSkills] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSkillModalOpen, setIsSkillModalOpen] = useState(false);
+  const [isEditingSkills, setIsEditingSkills] = useState(false);
 
   useEffect(() => {
     // Fetch profile data
@@ -52,10 +53,36 @@ function FreelancerProfile() {
     setSkills([...skills, newSkill]);
   };
 
+  const removeSkill = (skillToRemove) => {
+    const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
+    setSkills(updatedSkills);
+  };
+
   const updateProfileDataInParent = (newProfileData) => {
     setProfileData(newProfileData);
   };
 
+  const handleSaveSkills = async () => {
+    try {
+      const currentSkills = await api.get('/freelancers/freelancer-skills/');
+      const currentSkillIds = currentSkills.data.map(skill => skill.id);
+  
+      const skillsToDelete = currentSkillIds.filter(skillId => !skills.map(skill => skill.id).includes(skillId));
+  
+      for (const skillId of skillsToDelete) {
+        const response = await api.delete(`/freelancers/freelancer-skills/update/${skillId}/`);
+        if (response.status !== 200) {
+          console.error(`Failed to update skill with ID ${skillId}`);
+        }
+      }
+  
+      setIsEditingSkills(false);
+    } catch (error) {
+      console.error('Error updating skills:', error);
+    }
+  };
+    
+  
     return (
         <div>
         <FreelancerSidebar />
@@ -117,9 +144,17 @@ function FreelancerProfile() {
                                         </span>
                                         <ul>
                                             {skills.map((skill) => (
-                                            <>
-                                                <li className="mb-2">{skill.skill}</li>
-                                            </>
+                                                <li key={skill.id} className="mb-2">
+                                                {isEditingSkills ? (
+                                                    <button
+                                                    className="text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full w-6 mx-2"
+                                                    onClick={() => removeSkill(skill)}
+                                                    >
+                                                    &#10005;
+                                                    </button>
+                                                ) : null}
+                                                {skill.skill}
+                                                </li>
                                             ))}
                                         </ul>
                                         <div className="mt-6 flex flex-wrap gap-4 justify-center">
@@ -129,12 +164,21 @@ function FreelancerProfile() {
                                             >
                                             Add Skills
                                             </button>
-                                            <a
-                                            href="#"
-                                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
-                                            >
-                                            Edit Skills
-                                            </a>
+                                            {isEditingSkills ? (
+                                                <button
+                                                    className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+                                                    onClick={handleSaveSkills}
+                                                >
+                                                    Save Skills
+                                                </button>
+                                                ) : (
+                                                <button
+                                                    className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
+                                                    onClick={() => setIsEditingSkills(true)}
+                                                >
+                                                    Edit Skills
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

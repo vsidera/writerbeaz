@@ -71,6 +71,7 @@ function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
       onRequestClose={closeModal}
       style={customStyles}
       contentLabel="Add Skill Modal"
+      overlayClassName="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-70"
     >
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-4">Add a New Skill</h2>
