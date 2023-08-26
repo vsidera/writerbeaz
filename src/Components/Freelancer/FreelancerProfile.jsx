@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import FreelancerSidebar from '../Layout/FreelancerSidebar';
 import api from '../../api/axiosConfig';
 import FreelancerEditProfileModal from './FreelancerEditProfileModal';
+import FreelancerSkillModal from './FreelancerSkillModal';
 
 function FreelancerProfile() {
   const [profileData, setProfileData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSkillModalOpen, setIsSkillModalOpen] = useState(false)
 
   useEffect(() => {
     api
@@ -24,6 +26,16 @@ function FreelancerProfile() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    window.location.reload();
+  };
+
+  const openSkillModal = () => {
+    setIsSkillModalOpen(true);
+  };
+
+  const closeSkillModal = () => {
+    setIsSkillModalOpen(false);
+    window.location.reload();
   };
 
     return (
@@ -73,7 +85,7 @@ function FreelancerProfile() {
                                     </div>
                                 <div className="col-span-4 sm:col-span-3 text-center">
                                     <button
-                                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-3"
                                         onClick={openModal}
                                         >
                                         Edit Profile
@@ -93,17 +105,17 @@ function FreelancerProfile() {
                                             <li className="mb-2">Tailwind CSS</li>
                                         </ul>
                                         <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                                            <a
-                                            href="#"
-                                            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                                            <button
+                                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                                                onClick={openSkillModal}
                                             >
-                                            Contact
-                                            </a>
+                                            Add Skills
+                                            </button>
                                             <a
                                             href="#"
                                             className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
                                             >
-                                            Resume
+                                            Edit Skills
                                             </a>
                                         </div>
                                     </div>
@@ -210,6 +222,7 @@ function FreelancerProfile() {
                 </div>
             </div>
         <FreelancerEditProfileModal isOpen={isModalOpen} closeModal={closeModal} />
+        <FreelancerSkillModal isOpen={isSkillModalOpen} closeModal={closeSkillModal} />
         </div>
     )
 }

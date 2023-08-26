@@ -10,9 +10,12 @@ const customStyles = {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   content: {
-    maxWidth: '90%',
+    maxWidth: '50%',
     width: 'auto',
-    padding: 0,
+    padding: '20px',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 };
 

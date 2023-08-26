@@ -17,7 +17,6 @@ function FreelancerRouter() {
         <Route path="/inbox" element={<FreelancerInbox />} />
         <Route path="/works" element={<FreelancerWorks />} />
         <Route path="/chatx" element={<FreelancerChatX />} />
-        <Route path='/profile-update' element={<FreelancerEditProfileModal />} />
     </Routes>
   )
 }
