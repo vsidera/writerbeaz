@@ -6,6 +6,7 @@ import FreelancerProfile from '../Components/Freelancer/FreelancerProfile'
 import FreelancerInbox from '../Components/Freelancer/FreelancerInbox'
 import FreelancerWorks from '../Components/Freelancer/FreelancerWorks'
 import FreelancerChatX from '../Components/Freelancer/FreelancerChatX'
+import FreelancerEditProfileModal from '../Components/Freelancer/FreelancerEditProfileModal'
 
 function FreelancerRouter() {
   return (
@@ -16,6 +17,7 @@ function FreelancerRouter() {
         <Route path="/inbox" element={<FreelancerInbox />} />
         <Route path="/works" element={<FreelancerWorks />} />
         <Route path="/chatx" element={<FreelancerChatX />} />
+        <Route path='/profile-update' element={<FreelancerEditProfileModal />} />
     </Routes>
   )
 }
