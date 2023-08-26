@@ -6,10 +6,12 @@ import FreelancerSkillModal from './FreelancerSkillModal';
 
 function FreelancerProfile() {
   const [profileData, setProfileData] = useState(null);
+  const [skills, setSkills] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSkillModalOpen, setIsSkillModalOpen] = useState(false)
+  const [isSkillModalOpen, setIsSkillModalOpen] = useState(false);
 
   useEffect(() => {
+    // Fetch profile data
     api
       .get('/freelancers/freelancer-profile/')
       .then((response) => {
@@ -17,6 +19,16 @@ function FreelancerProfile() {
       })
       .catch((error) => {
         console.error('Error fetching profile data:', error);
+      });
+
+    // Fetch skills
+    api
+      .get('/freelancers/freelancer-skills/')
+      .then((response) => {
+        setSkills(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching skills:', error);
       });
   }, []);
 
@@ -26,7 +38,6 @@ function FreelancerProfile() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    window.location.reload();
   };
 
   const openSkillModal = () => {
@@ -35,7 +46,14 @@ function FreelancerProfile() {
 
   const closeSkillModal = () => {
     setIsSkillModalOpen(false);
-    window.location.reload();
+  };
+
+  const addSkillToSkillsList = (newSkill) => {
+    setSkills([...skills, newSkill]);
+  };
+
+  const updateProfileDataInParent = (newProfileData) => {
+    setProfileData(newProfileData);
   };
 
     return (
@@ -98,11 +116,11 @@ function FreelancerProfile() {
                                             Skills
                                         </span>
                                         <ul>
-                                            <li className="mb-2">JavaScript</li>
-                                            <li className="mb-2">React</li>
-                                            <li className="mb-2">Node.js</li>
-                                            <li className="mb-2">HTML/CSS</li>
-                                            <li className="mb-2">Tailwind CSS</li>
+                                            {skills.map((skill) => (
+                                            <>
+                                                <li className="mb-2">{skill.skill}</li>
+                                            </>
+                                            ))}
                                         </ul>
                                         <div className="mt-6 flex flex-wrap gap-4 justify-center">
                                             <button
@@ -221,8 +239,8 @@ function FreelancerProfile() {
                 )}
                 </div>
             </div>
-        <FreelancerEditProfileModal isOpen={isModalOpen} closeModal={closeModal} />
-        <FreelancerSkillModal isOpen={isSkillModalOpen} closeModal={closeSkillModal} />
+        <FreelancerEditProfileModal isOpen={isModalOpen} closeModal={closeModal} updateProfileData={updateProfileDataInParent}/>
+        <FreelancerSkillModal isOpen={isSkillModalOpen} closeModal={closeSkillModal} addSkillToParent={addSkillToSkillsList} />
         </div>
     )
 }

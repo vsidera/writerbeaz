@@ -19,7 +19,7 @@ const customStyles = {
   },
 };
 
-function FreelancerEditProfileModal({ isOpen, closeModal }) {
+function FreelancerEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
   const authToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -83,6 +83,7 @@ function FreelancerEditProfileModal({ isOpen, closeModal }) {
       );
 
       if (response.status === 200) {
+        updateProfileData(response.data);
         toast.success('Profile Updated Successfully');
         closeModal();
       } else {

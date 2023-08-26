@@ -22,7 +22,7 @@ const customStyles = {
   
   
 
-function FreelancerSkillModal({ isOpen, closeModal }) {
+function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
   const authToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -53,6 +53,7 @@ function FreelancerSkillModal({ isOpen, closeModal }) {
       );
   
       if (response.status === 201) {
+        addSkillToParent(response.data);
         toast.success('Skill added successfully');
         closeModal();
       } else {
