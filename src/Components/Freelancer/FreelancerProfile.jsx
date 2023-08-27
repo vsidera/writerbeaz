@@ -4,16 +4,20 @@ import api from '../../api/axiosConfig';
 import FreelancerEditProfileModal from './FreelancerEditProfileModal';
 import FreelancerSkillModal from './FreelancerSkillModal';
 import FreelancerExperienceModal from './FreelancerExperienceModal';
+import FreelancerEducationModal from './FreelancerEducationModal';
 
 function FreelancerProfile() {
   const [profileData, setProfileData] = useState(null);
   const [skills, setSkills] = useState([]);
   const [experience, setExperience] = useState([]);
+  const [education, setEducation] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSkillModalOpen, setIsSkillModalOpen] = useState(false);
   const [isExperienceModalOpen, setIsExperienceModalOpen] = useState(false);
+  const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
   const [isEditingSkills, setIsEditingSkills] = useState(false);
-  const [isEditingExperience, setIsEditingExperience] = useState(false)
+  const [isEditingExperience, setIsEditingExperience] = useState(false);
+  const [isEditingEducation, setIsEditingEducation] = useState(false);
 
   useEffect(() => {
     // Fetch profile data
@@ -40,10 +44,20 @@ function FreelancerProfile() {
     api
       .get('/freelancers/freelancer-experience/')
       .then((response) => {
-        setExperience(response.data); // Corrected variable name
+        setExperience(response.data);
       })
       .catch((error) => {
         console.error('Error fetching experience: ', error);
+      })
+
+    // Fetch Education
+    api
+      .get('/freelancers/freelancer-education/')
+      .then((response) => {
+        setEducation(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching education: ', error);
       })
   }, []);
 
@@ -89,6 +103,23 @@ function FreelancerProfile() {
     setExperience(updatedExperiences);
   };
 
+  const openEducationModal = () => {
+    setIsEducationModalOpen(true);
+  };
+
+  const closeEducationModal = () => {
+    setIsEducationModalOpen(false);
+  };
+
+  const addEducationToEducationList = (newEducation) => {
+    setEducation([...education, newEducation]);
+  };
+
+  const removeEducation = (educationToRemove) => {
+    const updatedEducations = education.filter((edu) => edu !== educationToRemove);
+    setEducation(updatedEducations);
+  };
+
   const updateProfileDataInParent = (newProfileData) => {
     setProfileData(newProfileData);
   };
@@ -130,6 +161,26 @@ function FreelancerProfile() {
       setIsEditingExperience(false);
     } catch (error) {
       console.error('Error updating experience:', error);
+    }
+  };
+
+  const handleSaveEducation = async () => {
+    try {
+      const currentEducation = await api.get('/freelancers/freelancer-education/');
+      const currentEducationIds = currentEducation.data.map(education => education.id);
+  
+      const educationToDelete = currentEducationIds.filter(educationId => !education.map(education => education.id).includes(educationId));
+  
+      for (const educationId of educationToDelete) {
+        const response = await api.delete(`/freelancers/freelancer-education/update/${educationId}/`);
+        if (response.status !== 200) {
+          console.error(`Failed to update education with ID ${educationId}`);
+        }
+      }
+  
+      setIsEditingEducation(false);
+    } catch (error) {
+      console.error('Error updating education:', error);
     }
   };
     
@@ -235,48 +286,96 @@ function FreelancerProfile() {
                                 <div>
                                     <hr className="my-6 border-t border-gray-300" />
                                     <div className="flex flex-col">
-    <span className="text-gray-800 uppercase font-bold tracking-wider mb-2">
-      Experience
-    </span>
-    <ul>
-      {experience.map((exp) => (
-        <li key={exp.id} className="mb-2">
-          {isEditingExperience ? (
-            <button
-              className="text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full w-6 mx-2"
-              onClick={() => removeExperience(exp)}
-            >
-              &#10005;
-            </button>
-          ) : null}
-          {exp.title}
-        </li>
-      ))}
-    </ul>
-    <div className="mt-6 flex flex-wrap gap-4 justify-center">
-      <button
-        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-        onClick={openExperienceModal}
-      >
-        Add Experience
-      </button>
-      {isEditingExperience ? (
-        <button
-          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-          onClick={handleSaveExperience}
-        >
-          Save Experience
-        </button>
-      ) : (
-        <button
-          className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
-          onClick={() => setIsEditingExperience(true)}
-        >
-          Edit Experience
-        </button>
-      )}
-    </div>
-  </div>
+                                        <span className="text-gray-800 uppercase font-bold tracking-wider mb-2">
+                                            Experience
+                                        </span>
+                                        <ul>
+                                        {experience.map((exp) => (
+                                            <li key={exp.id} className="mb-2">
+                                            {isEditingExperience ? (
+                                                <button
+                                                className="text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full w-6 mx-2"
+                                                onClick={() => removeExperience(exp)}
+                                                >
+                                                &#10005;
+                                                </button>
+                                            ) : null}
+                                            {exp.title}
+                                            </li>
+                                        ))}
+                                        </ul>
+                                        <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                                            <button
+                                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                                                onClick={openExperienceModal}
+                                            >
+                                                Add Experience
+                                            </button>
+                                            {isEditingExperience ? (
+                                            <button
+                                            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+                                            onClick={handleSaveExperience}
+                                            >
+                                            Save Experience
+                                            </button>
+                                            ) : (
+                                            <button
+                                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
+                                            onClick={() => setIsEditingExperience(true)}
+                                            >
+                                            Edit Experience
+                                            </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <hr className="my-6 border-t border-gray-300" />
+                                    <div className="flex flex-col">
+                                        <span className="text-gray-800 uppercase font-bold tracking-wider mb-2">
+                                            Education
+                                        </span>
+                                        <ul>
+                                        {education.map((edu) => (
+                                            <li key={edu.id} className="mb-2">
+                                            {isEditingEducation ? (
+                                                <button
+                                                className="text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full w-6 mx-2"
+                                                onClick={() => removeEducation(edu)}
+                                                >
+                                                &#10005;
+                                                </button>
+                                            ) : null}
+                                            {edu.course}
+                                            </li>
+                                        ))}
+                                        </ul>
+                                        <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                                            <button
+                                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                                                onClick={openEducationModal}
+                                            >
+                                                Add Education
+                                            </button>
+                                            {isEditingEducation ? (
+                                            <button
+                                            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+                                            onClick={handleSaveEducation}
+                                            >
+                                            Save Education
+                                            </button>
+                                            ) : (
+                                            <button
+                                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
+                                            onClick={() => setIsEditingEducation(true)}
+                                            >
+                                            Edit Education
+                                            </button>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -287,7 +386,8 @@ function FreelancerProfile() {
                                 <p className="text-gray-700">
                                     {profileData.about}
                                 </p>
-
+                                </div>
+                            <div className="bg-white shadow-xl rounded-lg p-6 mt-5">
                                 <h2 className="text-xl font-bold mt-6 mb-4">Experience</h2>
                                 <>
                                     {experience.map((experience) => (
@@ -304,6 +404,22 @@ function FreelancerProfile() {
                                     ))}
                                 </>
                             </div>
+                            <div className="bg-white shadow-xl rounded-lg p-6 mt-5">
+                                <h2 className="text-xl font-bold mt-6 mb-4">Education</h2>
+                                <>
+                                    {education.map((education) => (
+                                    <div className="mb-6" key={education.id}>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600 font-bold">{education.course}</span>
+                                            <p>
+                                                <span className="text-gray-600 mr-2">{education.college}</span>
+                                                <span className="text-gray-600">{education.year}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    ))}
+                                </>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -313,6 +429,7 @@ function FreelancerProfile() {
     <FreelancerEditProfileModal isOpen={isModalOpen} closeModal={closeModal} updateProfileData={updateProfileDataInParent}/>
     <FreelancerSkillModal isOpen={isSkillModalOpen} closeModal={closeSkillModal} addSkillToParent={addSkillToSkillsList} />
     <FreelancerExperienceModal isOpen={isExperienceModalOpen} closeModal={closeExperienceModal} addExperienceToParent={addExperienceToExperienceList} />
+    <FreelancerEducationModal isOpen={isEducationModalOpen} closeModal={closeEducationModal} addEducationToParent={addEducationToEducationList} />
     </div>
 )
 }

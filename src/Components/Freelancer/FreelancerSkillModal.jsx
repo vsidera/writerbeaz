@@ -6,21 +6,19 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    },
-    content: {
-      maxWidth: '25%',
-      width: 'auto',
-      maxHeight: '30%',
-      padding: '20px',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-  
-  
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  },
+  content: {
+    maxWidth: '25%',
+    width: 'auto',
+    maxHeight: '30%',
+    padding: '20px',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
 function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
   const authToken = useSelector((state) => state.accessToken);
@@ -37,7 +35,7 @@ function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await api.post(
         '/freelancers/freelancer-addskill/',
@@ -51,7 +49,7 @@ function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
           },
         }
       );
-  
+
       if (response.status === 201) {
         addSkillToParent(response.data);
         toast.success('Skill added successfully');
@@ -73,6 +71,11 @@ function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
       contentLabel="Add Skill Modal"
       overlayClassName="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-70"
     >
+      <button onClick={closeModal} className="absolute top-2 right-2 text-gray-600 focus:outline-none hover:text-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </button>
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-4">Add a New Skill</h2>
         <form onSubmit={handleSubmit}>
