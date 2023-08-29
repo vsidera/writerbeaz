@@ -3,12 +3,16 @@ import AdminSidebar from '../Layout/AdminSidebar'
 import AdminAddCategoryModal from './AdminAddCategoryModal'
 import Loading from '../Layout/Loading';
 import api from '../../api/axiosConfig';
+import BlockUnblockModal from '../Layout/BlockUnblockModal';
 
 function AdminCategory() {
 
   const [categoryData, setCategoryData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [loading, setLoading] = useState(true);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [blockAction, setBlockAction] = useState(true);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -36,8 +40,45 @@ function AdminCategory() {
   };
 
   useEffect(() => {
-    fetchCategoryData(); // Fetch category data when component mounts
+    fetchCategoryData();
   }, []);
+
+  const openCategoryModal = (categoryId, blockAction) => {
+    setSelectedCategoryId(categoryId);
+    setBlockAction(blockAction);
+    setIsCategoryModalOpen(true);
+  };
+  
+  const closeCategoryModal = () => {
+    setIsCategoryModalOpen(false);
+  };
+
+  const handleBlockUnblockCategory = (categoryId) => {
+    const newStatus = !blockAction;
+    const endpoint = `/admin/block-unblock-category/${categoryId}/`;
+  
+    api
+      .post(endpoint, { is_active: newStatus })
+      .then((response) => {
+        console.log('Block/Unblock response:', response);
+  
+        const updatedCategoryData = categoryData.map((category) => {
+          if (category.id === categoryId) {
+            return { ...category, is_active: newStatus };
+          }
+          return category;
+        });
+        setCategoryData(updatedCategoryData);
+  
+        closeCategoryModal();
+        setBlockAction(newStatus);
+      })
+      .catch((error) => {
+        console.error('Error blocking/unblocking category:', error);
+      });
+  };
+  
+  
 
   return (
     <div>
@@ -86,6 +127,9 @@ function AdminCategory() {
                     <th scope="col" className="px-6 py-3 md:px-3">
                       <span className="hidden md:block">Status</span>
                     </th>
+                    <th scope="col" className="px-6 py-3 md:px-3">
+                      <span className="hidden md:block">Edit</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -110,6 +154,14 @@ function AdminCategory() {
                     <td className="px-3 py-2 md:px-6 md:py-4">
                       {category.is_active ? 'Active' : 'Inactive'}
                     </td>
+                    <td className="px-3 py-2 md:px-6 md:py-4">
+                      <button
+                        onClick={() => openCategoryModal(category.id, category.is_active)}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
+                      >
+                        {category.is_active ? 'Block' : 'Unblock'}
+                      </button>
+                    </td>
                   </tr>
                   ))}
                 </tbody>
@@ -118,6 +170,11 @@ function AdminCategory() {
           </div>
         )}
       <AdminAddCategoryModal isOpen={isModalOpen} closeModal={closeModal} updateCategoryData={updateCategoryDataInParent}/>
+      <BlockUnblockModal
+        isOpen={isCategoryModalOpen}
+        onRequestClose={closeCategoryModal}
+        onConfirm={() => handleBlockUnblockCategory(selectedCategoryId)}
+      />
     </div>
   )
 }
