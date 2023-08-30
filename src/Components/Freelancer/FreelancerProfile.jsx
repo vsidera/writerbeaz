@@ -5,19 +5,23 @@ import FreelancerEditProfileModal from './FreelancerEditProfileModal';
 import FreelancerSkillModal from './FreelancerSkillModal';
 import FreelancerExperienceModal from './FreelancerExperienceModal';
 import FreelancerEducationModal from './FreelancerEducationModal';
+import FreelancerGigsModal from './FreelancerGigsModal';
 
 function FreelancerProfile() {
   const [profileData, setProfileData] = useState(null);
   const [skills, setSkills] = useState([]);
   const [experience, setExperience] = useState([]);
   const [education, setEducation] = useState([]);
+  const [gigs, setGigs] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSkillModalOpen, setIsSkillModalOpen] = useState(false);
   const [isExperienceModalOpen, setIsExperienceModalOpen] = useState(false);
   const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
+  const [isGigsModalOpen, setIsGigsModalOpen] = useState(false);
   const [isEditingSkills, setIsEditingSkills] = useState(false);
   const [isEditingExperience, setIsEditingExperience] = useState(false);
   const [isEditingEducation, setIsEditingEducation] = useState(false);
+  const [isEditingGigs, setIsEditingGigs] = useState(false);
 
   useEffect(() => {
     // Fetch profile data
@@ -58,6 +62,16 @@ function FreelancerProfile() {
       })
       .catch((error) => {
         console.error('Error fetching education: ', error);
+      })
+
+    // Fetch Gigs
+    api
+      .get('/freelancers/freelancer-gigs/')
+      .then((response) => {
+        setGigs(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching gigs: ', error);
       })
   }, []);
 
@@ -118,6 +132,23 @@ function FreelancerProfile() {
   const removeEducation = (educationToRemove) => {
     const updatedEducations = education.filter((edu) => edu !== educationToRemove);
     setEducation(updatedEducations);
+  };
+
+  const openGigsModal = () => {
+    setIsGigsModalOpen(true);
+  };
+
+  const closeGigsModal = () => {
+    setIsGigsModalOpen(false);
+  };
+
+  const addGigsToGigsList = (newGigs) => {
+    setGigs([...gigs, newGigs]);
+  };
+
+  const removeGigs = (gigsToRemove) => {
+    const updatedGigs = gigs.filter((gig) => gig !== gigsToRemove);
+    setGigs(updatedGigs);
   };
 
   const updateProfileDataInParent = (newProfileData) => {
@@ -183,7 +214,27 @@ function FreelancerProfile() {
       console.error('Error updating education:', error);
     }
   };
-    
+
+  const handleSaveGigs = async () => {
+    try {
+      const currentGigs = await api.get('/freelancers/freelancer-gigs/');
+      const currentGigsIds = currentGigs.data.map(gigs => gigs.id);
+  
+      const gigsToDelete = currentGigsIds.filter(gigsId => !gigs.map(gigs => gigs.id).includes(gigsId));
+  
+      for (const gigsId of gigsToDelete) {
+        const response = await api.delete(`/freelancers/freelancer-gigs/update/${gigsId}/`);
+        if (response.status !== 200) {
+          console.error(`Failed to update education with ID ${gigsId}`);
+        }
+      }
+  
+      setIsEditingGigs(false);
+    } catch (error) {
+      console.error('Error updating gigs:', error);
+    }
+  };
+  console.log(education)
 
   return (
     <div>
@@ -377,6 +428,53 @@ function FreelancerProfile() {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div>
+                                    <hr className="my-6 border-t border-gray-300" />
+                                    <div className="flex flex-col">
+                                        <span className="text-gray-800 uppercase font-bold tracking-wider mb-2">
+                                          Gigs
+                                        </span>
+                                        <ul>
+                                        {gigs.map((gig) => (
+                                            <li key={gig.id} className="mb-2">
+                                            {isEditingGigs ? (
+                                                <button
+                                                className="text-white font-bold bg-blue-500 hover:bg-blue-700 rounded-full w-6 mx-2"
+                                                onClick={() => removeGigs(gig)}
+                                                >
+                                                &#10005;
+                                                </button>
+                                            ) : null}
+                                            {gig.title}
+                                            </li>
+                                        ))}
+                                        </ul>
+                                        <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                                            <button
+                                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                                                onClick={openGigsModal}
+                                            >
+                                                Create Gigs
+                                            </button>
+                                            {isEditingGigs ? (
+                                            <button
+                                            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+                                            onClick={handleSaveGigs}
+                                            >
+                                            Save Gigs
+                                            </button>
+                                            ) : (
+                                            <button
+                                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
+                                            onClick={() => setIsEditingGigs(true)}
+                                            >
+                                            Edit Gigs
+                                            </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -420,6 +518,28 @@ function FreelancerProfile() {
                                     ))}
                                 </>
                             </div>
+                            <div className="bg-white shadow-xl rounded-lg p-6 mt-5">
+                              <h2 className="text-xl font-bold mt-6 mb-4">Gigs</h2>
+                              <>
+                                {gigs.map((gig) => (
+                                  <div className="mb-6" key={gig.id}>
+                                    <div className="flex items-center">
+                                      <div className="rounded-lg overflow-hidden w-80 h-40">
+                                        <img
+                                          src={process.env.REACT_APP_API_BASE_URL + gig.images}
+                                          alt={gig.title}
+                                          className="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                      <div className="ml-4">
+                                        <span className="text-gray-600 font-bold text-lg">{gig.title}</span>
+                                        <p className="text-gray-600">{gig.description}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -430,6 +550,7 @@ function FreelancerProfile() {
     <FreelancerSkillModal isOpen={isSkillModalOpen} closeModal={closeSkillModal} addSkillToParent={addSkillToSkillsList} />
     <FreelancerExperienceModal isOpen={isExperienceModalOpen} closeModal={closeExperienceModal} addExperienceToParent={addExperienceToExperienceList} />
     <FreelancerEducationModal isOpen={isEducationModalOpen} closeModal={closeEducationModal} addEducationToParent={addEducationToEducationList} />
+    <FreelancerGigsModal isOpen={isGigsModalOpen} closeModal={closeGigsModal} addGigsToParent={addGigsToGigsList} />
     </div>
 )
 }
