@@ -63,9 +63,11 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setGigs({ ...gigs, images: file });
-  };
+    const files = e.target.files;
+    // Convert the FileList to an array
+    const imageFiles = Array.from(files);
+    setGigs({ ...gigs, images: imageFiles });
+  };  
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -78,10 +80,12 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
     formData.append('available_requirements', gigs.available_requirements);
     formData.append('tags', gigs.tags);
     formData.append('freelancer', userId);
-    if (gigs.images) {
-      formData.append('images', gigs.images);
+    if (gigs.images && gigs.images.length > 0) {
+        gigs.images.forEach((image) => {
+          formData.append('images', image);
+        });
     }
-
+    
     try {
       const response = await api.post(
         `/freelancers/freelancer-addgigs/`,
@@ -143,20 +147,23 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
             </div>
 
             <div className="w-1/2 ml-2">
-              <label className="block text-sm text-gray-700 capitalize">Category:</label>
-              <select
-                name="category"
-                value={gigs.category.id}
-                onChange={handleInputChange}
-                className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-              >
-                <option value="">Select a Category</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+                <label className="block text-sm text-gray-700 capitalize">Category:</label>
+                <select
+                    name="category"
+                    value={gigs.category.id}
+                    onChange={handleInputChange}
+                    className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+                >
+                    <option value="">Select a Category</option>
+                    {categories
+                    .filter((category) => category.is_active)
+                    .map((category) => (
+                        <option key={category.id} value={category.id}>
+                        {category.name}
+                        </option>
+                    ))
+                    }
+                </select>
             </div>
           </div>
 
@@ -218,10 +225,11 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
           <div className="mb-4">
             <label className="block text-sm text-gray-700 capitalize">Upload Image:</label>
             <input
-              type="file"
-              name="images"
-              onChange={handleFileChange}
-              className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+                type="file"
+                name="images"
+                onChange={handleFileChange}
+                multiple
+                className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
             />
           </div>
 

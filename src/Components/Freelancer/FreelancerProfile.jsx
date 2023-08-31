@@ -234,7 +234,23 @@ function FreelancerProfile() {
       console.error('Error updating gigs:', error);
     }
   };
-  console.log(education)
+  
+  const handleToggleGigStatus = async (gigId, gigIndex, currentStatus) => {
+    try {
+      const response = await api.post(`/freelancers/block-unblock-gigs/${gigId}/`);
+      
+      if (response.status === 200) {
+        const updatedGigs = [...gigs];
+        updatedGigs[gigIndex].is_active = !currentStatus;
+        setGigs(updatedGigs);
+      } else {
+        console.error('Failed to toggle gig status');
+      }
+    } catch (error) {
+      console.error('Error toggling gig status:', error);
+    }
+  };
+  
 
   return (
     <div>
@@ -521,19 +537,34 @@ function FreelancerProfile() {
                             <div className="bg-white shadow-xl rounded-lg p-6 mt-5">
                               <h2 className="text-xl font-bold mt-6 mb-4">Gigs</h2>
                               <>
-                                {gigs.map((gig) => (
+                                {gigs.map((gig, gigIndex) => (
                                   <div className="mb-6" key={gig.id}>
                                     <div className="flex items-center">
                                       <div className="rounded-lg overflow-hidden w-80 h-40">
                                         <img
-                                          src={process.env.REACT_APP_API_BASE_URL + gig.images}
+                                          src={process.env.REACT_APP_API_BASE_URL + gig.gig_images[0].image}
                                           alt={gig.title}
                                           className="w-full h-full object-cover"
                                         />
                                       </div>
-                                      <div className="ml-4">
-                                        <span className="text-gray-600 font-bold text-lg">{gig.title}</span>
-                                        <p className="text-gray-600">{gig.description}</p>
+                                      <div className="ml-4 flex-grow">
+                                        <div className="flex items-center justify-between">
+                                          <div>
+                                            <span className="text-gray-600 font-bold text-lg">{gig.title}</span>
+                                            <p className="text-gray-600">{gig.description}</p>
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="bg-gray-300 text-gray-700 py-2 px-4 rounded">{gig.is_active ? 'Active' : 'Blocked'}</p>
+                                            <button
+                                              className={`mt-2 ${
+                                                gig.is_active ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
+                                              } text-white py-2 px-4 rounded`}
+                                              onClick={() => handleToggleGigStatus(gig.id, gigIndex, gig.is_active)}
+                                            >
+                                              {gig.is_active ? 'Block' : 'Unblock'}
+                                            </button>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
