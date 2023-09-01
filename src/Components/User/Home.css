@@ -20,8 +20,3 @@
 .black-cover:hover::before {
     opacity: 0;
   }
-
-.xxx {
-    opacity: 1 !important;
-}
-  

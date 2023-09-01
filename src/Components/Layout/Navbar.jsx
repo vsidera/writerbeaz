@@ -11,7 +11,7 @@ function Navbar() {
 
 
     return (
-        <nav className="bg-gradient-to-r from-cyan-600 to-blue-700 shadow-lg">
+        <nav className="bg-gradient-to-r from-cyan-600 to-blue-700 shadow-lg" style={{ position: 'fixed', top: '0', width: '100%', zIndex: '1000'}}>
             <div className="md:flex items-center justify-between py-2 px-4 md:px-8 lg:px-12">
                 <div className="flex justify-between items-center">
                     <div className="md:hidden">

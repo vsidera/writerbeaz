@@ -24,7 +24,7 @@ function Home() {
   return (
     <div className="w-full">
       <Navbar />
-      <div className="flex flex-col lg:flex-row bg-gradient-to-r from-cyan-600 to-blue-700" style={{ height: "620px" }} >
+      <div className="flex flex-col lg:flex-row bg-gradient-to-r from-cyan-600 to-blue-700 mt-12" style={{ height: "620px" }} >
         <div className="hidden lg:block lg:w-1/2" style={{ clipPath: "polygon(10% 0, 100% 0%, 100% 100%, 0 100%)" }} >
           <div className="h-full object-cover" style={{ backgroundImage: "url(/images/main1-removebg.png)" }} ></div>
         </div>
@@ -36,12 +36,13 @@ function Home() {
             <p className="mt-2 text-base text-white md:text-lg font-serif">
               Forget old rules, get the best people right here, right now!
             </p>
-            <div className="mt-6 relative" style={{ width: "100%" }}>
-              <input type="text" className="px-4 py-2 border rounded w-full" placeholder="Search for any Service" />
-              <button
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 py-2 bg-gray-900 text-gray-200 font-semibold rounded hover:bg-blue-900"
-                style={{ padding: "3px" }}
-              >
+            <div className="mt-6 relative w-full">
+              <input
+                type="text"
+                className="px-4 py-2 border rounded w-full"
+                placeholder="Search for any Service"
+              />
+              <button className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 py-2 bg-gray-900 text-gray-200 font-semibold rounded hover:bg-blue-900">
                 <lord-icon
                   src="https://cdn.lordicon.com/xfftupfv.json"
                   trigger="hover"
@@ -107,12 +108,58 @@ function Home() {
             >
               <div className="mb-8"></div>
               <div className="text-center relative">
-                <p className="text-xl text-white xxx font-bold mb-2">{category.name}</p>
+                <p className="text-xl text-white font-bold mb-2">{category.name}</p>
               </div>
             </div>            
             ))}
           </div>
         </section>
+      </div>
+      <div className='text-center'>
+        <button className="h-10 w-28 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
+          See All Skills
+        </button>
+      </div>
+      <div className="bg-gradient-to-r from-cyan-600 to-blue-700 mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
+        <h1 className="font-bold text-3xl text-white mb-10 mt-10">
+          Why Freelancers and People Choose this platform?
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-4 pb-12 items-center">
+          <div className="text-white sm:col-span-1 mt-10 sm:mt-20 md:w-96">
+            <div class="mb-6">
+              <h2 class="font-bold text-lg mb-2">Credibility:</h2>
+              <p class="mt-2">
+                At WorkX, we take pride in ensuring that every freelancer on our platform is verified and thoroughly vetted. We understand the importance of trust when hiring professionals for your projects.
+              </p>
+            </div>
+            <div class="mb-6 mt-10 md:mt-20">
+              <h2 class="font-bold text-lg mb-2">Support:</h2>
+              <p class="mt-2">
+                We believe in providing unwavering support to our users. Our dedicated support team is available 24/7 to assist you, no matter where you are located.
+              </p>
+            </div>
+          </div>
+          <div className="col-span-1 flex justify-center items-center">
+            <img src="/images/main3-removebg-preview.png" alt="Image" className="w-full h-auto max-w-lg" />
+          </div>
+          <div class="text-white sm:col-span-1 mt-10 sm:mt-20 md:w-96">
+            <div class="mb-6">
+              <h2 class="font-bold text-lg mb-2">Flexibility:</h2>
+              <p class="mt-2">
+                WorkX understands that every project is unique, and every freelancer has specific preferences. That's why we offer multiple payment terms and flexible agreements to cater to your needs.
+              </p>
+            </div>
+            <div class="mb-6 mt-10 md:mt-20">
+              <h2 class="font-bold text-lg mb-2">Security:</h2>
+              <p class="mt-2 mb-8">
+                Your peace of mind matters to us. WorkX offers SafePay payment protection, ensuring that your funds are secure throughout the entire transaction process.
+              </p>
+              <button class="bg-black hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md mt-6">
+                More about WorkX
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
