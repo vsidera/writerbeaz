@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Layout/Navbar';
+import Footer from '../Layout/Footer';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 import './Home.css';
@@ -127,14 +128,14 @@ function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-4 pb-12 items-center">
           <div className="text-white sm:col-span-1 mt-10 sm:mt-20 md:w-96">
             <div class="mb-6">
-              <h2 class="font-bold text-lg mb-2">Credibility:</h2>
-              <p class="mt-2">
+              <h2 className="font-bold text-lg mb-2">Credibility:</h2>
+              <p className="mt-2">
                 At WorkX, we take pride in ensuring that every freelancer on our platform is verified and thoroughly vetted. We understand the importance of trust when hiring professionals for your projects.
               </p>
             </div>
-            <div class="mb-6 mt-10 md:mt-20">
-              <h2 class="font-bold text-lg mb-2">Support:</h2>
-              <p class="mt-2">
+            <div className="mb-6 mt-10 md:mt-20">
+              <h2 className="font-bold text-lg mb-2">Support:</h2>
+              <p className="mt-2">
                 We believe in providing unwavering support to our users. Our dedicated support team is available 24/7 to assist you, no matter where you are located.
               </p>
             </div>
@@ -142,25 +143,205 @@ function Home() {
           <div className="col-span-1 flex justify-center items-center">
             <img src="/images/main3-removebg-preview.png" alt="Image" className="w-full h-auto max-w-lg" />
           </div>
-          <div class="text-white sm:col-span-1 mt-10 sm:mt-20 md:w-96">
-            <div class="mb-6">
-              <h2 class="font-bold text-lg mb-2">Flexibility:</h2>
-              <p class="mt-2">
+          <div className="text-white sm:col-span-1 mt-10 sm:mt-20 md:w-96">
+            <div className="mb-6">
+              <h2 className="font-bold text-lg mb-2">Flexibility:</h2>
+              <p className="mt-2">
                 WorkX understands that every project is unique, and every freelancer has specific preferences. That's why we offer multiple payment terms and flexible agreements to cater to your needs.
               </p>
             </div>
-            <div class="mb-6 mt-10 md:mt-20">
-              <h2 class="font-bold text-lg mb-2">Security:</h2>
-              <p class="mt-2 mb-8">
+            <div className="mb-6 mt-10 md:mt-20">
+              <h2 className="font-bold text-lg mb-2">Security:</h2>
+              <p className="mt-2 mb-8">
                 Your peace of mind matters to us. WorkX offers SafePay payment protection, ensuring that your funds are secure throughout the entire transaction process.
               </p>
-              <button class="bg-black hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md mt-6">
+              <button className="bg-black hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md mt-6">
                 More about WorkX
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
+        <div className="text-center pb-12">
+          <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
+            Top Skills 
+          </h1>
+        </div>
+        <section className="bg-whit">
+          <div className="container px-6 py-10 mx-auto">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Business
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    3D Planning
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Python
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Ai development
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Automation
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    JavaScript
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Ai development
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Automation
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    JavaScript
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Ai development
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Automation
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    JavaScript
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className='text-center mt-5'>
+              <button className="h-10 w-28 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
+                See All Skills
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
+        <div className="text-center pb-12">
+          <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
+            Top Locations 
+          </h1>
+        </div>
+        <section className="bg-whit">
+          <div className="container px-6 py-10 mx-auto">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Delhi
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Kerala
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Banglore
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Mumbai
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Chennai
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    JavaScript
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Kolkatta
+                  </a>
+                </div>
+              </div>
+              <div className="lg:flex">
+                <div className="flex flex-col justify-between py-6 lg:mx-6">
+                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
+                    Rajasthan
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+            <div className='text-center mt-5'>
+              <button className="h-10 w-28 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
+                See Locations
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <Footer />
     </div>
   );
 }
