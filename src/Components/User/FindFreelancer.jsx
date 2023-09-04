@@ -5,19 +5,41 @@ import api from '../../api/axiosConfig';
 
 function FindFreelancer() {
     const [gigsData, setGigsData] = useState([]);
+  const [gigsSearch, setGigsSearch] = useState('');
+  const [filteredGigsData, setFilteredGigsData] = useState([]);
 
-    useEffect(() => {
-        async function fetchData() {
-          try {
-            const gigs = await api.get('/users/user-gigs/');
-    
-            setGigsData(gigs.data);
-          } catch (error) {
-            console.error('Error fetching gigs:', error);
-          }
-        }
-        fetchData();
-      }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const gigs = await api.get('/users/user-gigs/');
+        setGigsData(gigs.data);
+        setFilteredGigsData(gigs.data); // Set filtered data to all gigs initially
+      } catch (error) {
+        console.error('Error fetching gigs:', error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const handleGigsSearchChange = (event) => {
+    setGigsSearch(event.target.value);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    // Check if the search input is empty, if yes, display all gigs
+    if (gigsSearch.trim() === '') {
+      setFilteredGigsData(gigsData);
+    } else {
+      // Filter gigsData based on the search input when the search button is clicked
+      const filteredGigs = gigsData.filter(
+        (gigs) =>
+          gigs.title.toLowerCase().includes(gigsSearch.toLowerCase()) ||
+          gigs.freelancer.first_name.toLowerCase().includes(gigsSearch.toLowerCase())
+      );
+      setFilteredGigsData(filteredGigs);
+    }
+  };
 
   return (
     <div>
@@ -34,12 +56,18 @@ function FindFreelancer() {
             </div>
 
             <div class="max-w-2xl mx-auto">
-                <form class="flex items-center">
+                <form class="flex items-center" onSubmit={handleSearch}>
                     <div class="relative w-full">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                         </div>
-                        <input type="text" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search Freelancers" required />
+                        <input 
+                            type="text" 
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" 
+                            placeholder="Search Freelancers" required 
+                            value={gigsSearch}
+                            onChange={handleGigsSearchChange}
+                        />
                     </div>
                     <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300"><svg class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search</button>
                 </form>
@@ -114,8 +142,13 @@ function FindFreelancer() {
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-                {gigsData.map((gigs) => (
+            {filteredGigsData.length === 0 ? (
+        <div className="col-span-1 flex justify-center items-center">
+            <img src="/images/2953962.jpg" alt="Image" className="w-full h-auto max-w-lg" />
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+          {filteredGigsData.map((gigs) => (
                 <div 
                 key={gigs.id}
                 class="w-full bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center">
@@ -140,6 +173,7 @@ function FindFreelancer() {
                 </div>
                 ))}
             </div>
+            )}
         </section>
         <Footer />
     </div>
