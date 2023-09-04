@@ -542,7 +542,7 @@ function FreelancerProfile() {
                                     <div className="flex items-center">
                                       <div className="rounded-lg overflow-hidden w-80 h-40">
                                         <img
-                                          src={process.env.REACT_APP_API_BASE_URL + gig.gig_images[0].image}
+                                          src={process.env.REACT_APP_API_BASE_URL + gig.image1}
                                           alt={gig.title}
                                           className="w-full h-full object-cover"
                                         />

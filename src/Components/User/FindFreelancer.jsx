@@ -1,8 +1,24 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Navbar from '../Layout/Navbar'
 import Footer from '../Layout/Footer'
+import api from '../../api/axiosConfig';
 
 function FindFreelancer() {
+    const [gigsData, setGigsData] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+          try {
+            const gigs = await api.get('/users/user-gigs/');
+    
+            setGigsData(gigs.data);
+          } catch (error) {
+            console.error('Error fetching gigs:', error);
+          }
+        }
+        fetchData();
+      }, []);
+
   return (
     <div>
         <Navbar />
@@ -99,71 +115,30 @@ function FindFreelancer() {
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-                <div class="w-full bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center">
+                {gigsData.map((gigs) => (
+                <div 
+                key={gigs.id}
+                class="w-full bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center">
                     <div class="mb-2">
-                        <img class="object-center object-cover rounded-xl h-56 w-80" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
+                        <img class="object-center object-cover rounded-xl h-56 w-80" 
+                        src={process.env.REACT_APP_API_BASE_URL + gigs.image1}
+                        alt={gigs.title}/>
                     </div>
                     <div class="text-center">
-                        <p class="text-lg text-gray-700 font-bold">3D house plans</p>
-                        <p class="text-sm text-gray-400 font-normal">Engineering & Architecture</p>
+                        <p class="text-lg text-gray-700 font-bold">{gigs.title}</p>
+                        <p class="text-sm text-gray-400 font-normal">{gigs.category.name}</p>
                     </div>
                     <div class="mt-2 text-base text-gray-600 font-normal w-80 sm:w-64 md:w-80">
-                        <p class="mb-3">i will create 3D house plans or blueprints for your dream house. 3D house design will give you the best experience to understand how your house will look like and what are the other requirements needed.</p>
+                        <p class="mb-3">{gigs.description}</p>
                         <div class="flex flex-wrap justify-between">
-                            <p class="w-1/2">from: $500</p>
+                            <p class="w-1/2">from: ₹{gigs.starting_price}</p>
                             <div class="w-1/2 flex bg-gray-500 rounded-xl">
-                                <img class="object-center object-cover rounded-xl h-8 w-8 " src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                                <p class="mt-1 mx-3 font-semibold text-sm text-white">Dany Bailey</p>
+                                <p class="mx-12 font-semibold text-sm text-white">{gigs.freelancer.first_name}</p>
                             </div>
                         </div>
-                    </div>
+                    </div>    
                 </div>
-
-                <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
-                    <div class="mb-8">
-                        <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                    </div>
-                    <div class="text-center">
-                        <p class="text-xl text-gray-700 font-bold mb-2">Lucy Carter</p>
-                        <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
-                    </div>
-                </div>
-                <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
-                    <div class="mb-8">
-                        <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1176&q=80" alt="photo" />
-                    </div>
-                    <div class="text-center">
-                        <p class="text-xl text-gray-700 font-bold mb-2">Jade Bradley</p>
-                        <p class="text-base text-gray-400 font-normal">Dev Ops</p>
-                    </div>
-                </div>
-                <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
-                    <div class="mb-8">
-                        <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                    </div>
-                    <div class="text-center">
-                        <p class="text-xl text-gray-700 font-bold mb-2">Dany Bailey</p>
-                        <p class="text-base text-gray-400 font-normal">Software Engineer</p>
-                    </div>
-                </div>
-                <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
-                    <div class="mb-8">
-                        <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                    </div>
-                    <div class="text-center">
-                        <p class="text-xl text-gray-700 font-bold mb-2">Lucy Carter</p>
-                        <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
-                    </div>
-                </div>
-                <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
-                    <div class="mb-8">
-                        <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1176&q=80" alt="photo" />
-                    </div>
-                    <div class="text-center">
-                        <p class="text-xl text-gray-700 font-bold mb-2">Jade Bradley</p>
-                        <p class="text-base text-gray-400 font-normal">Dev Ops</p>
-                    </div>
-                </div>
+                ))}
             </div>
         </section>
         <Footer />

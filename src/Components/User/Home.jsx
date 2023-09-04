@@ -20,7 +20,6 @@ function Home() {
     }
     fetchData();
   }, []);
-  console.log(categoryData)
 
   return (
     <div className="w-full">

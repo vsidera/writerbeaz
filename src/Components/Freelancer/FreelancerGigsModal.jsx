@@ -32,7 +32,11 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
     delivery_time: '',
     available_requirements: '',
     tags: '',
-    images: null,
+    images: {
+      image1: null,
+      image2: null,
+      image3: null,
+    },
   });
 
   const [categories, setCategories] = useState([]);
@@ -62,17 +66,27 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
     }
   };
 
-  const handleFileChange = (e) => {
-    const files = e.target.files;
-    // Convert the FileList to an array
-    const imageFiles = Array.from(files);
-    setGigs({ ...gigs, images: imageFiles });
-  };  
+  const handleFileChange1 = (e) => {
+    const file = e.target.files[0];
+    setGigs({ ...gigs, images: { ...gigs.images, image1: file } });
+  };
+  
+  const handleFileChange2 = (e) => {
+    const file = e.target.files[0];
+    setGigs({ ...gigs, images: { ...gigs.images, image2: file } });
+  };
+  
+  const handleFileChange3 = (e) => {
+    const file = e.target.files[0];
+    setGigs({ ...gigs, images: { ...gigs.images, image3: file } });
+  };
 
   const handleSubmit = async () => {
+    // Add this line to log the form data before creating FormData
+    console.log(gigs);
+  
     const formData = new FormData();
     formData.append('title', gigs.title);
-    console.log('Category ID:', gigs.category.id);
     formData.append('category', parseInt(gigs.category.id));
     formData.append('description', gigs.description);
     formData.append('starting_price', gigs.starting_price);
@@ -80,12 +94,16 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
     formData.append('available_requirements', gigs.available_requirements);
     formData.append('tags', gigs.tags);
     formData.append('freelancer', userId);
-    if (gigs.images && gigs.images.length > 0) {
-        gigs.images.forEach((image) => {
-          formData.append('images', image);
-        });
+    if (gigs.images.image1) {
+      formData.append('images1', gigs.images.image1);
     }
-    
+    if (gigs.images.image2) {
+      formData.append('images2', gigs.images.image2);
+    }
+    if (gigs.images.image3) {
+      formData.append('images3', gigs.images.image3);
+    }
+  
     try {
       const response = await api.post(
         `/freelancers/freelancer-addgigs/`,
@@ -97,7 +115,7 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
           },
         }
       );
-
+  
       if (response.status === 201) {
         addGigsToParent(response.data);
         toast.success('Gig Created successfully');
@@ -110,6 +128,7 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
       toast.error('Failed to Create Gig');
     }
   };
+  
 
   return (
     <Modal
@@ -223,13 +242,32 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm text-gray-700 capitalize">Upload Image:</label>
+            <label className="block text-sm text-gray-700 capitalize">Upload Image 1:</label>
             <input
-                type="file"
-                name="images"
-                onChange={handleFileChange}
-                multiple
-                className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+              type="file"
+              name="image1"
+              onChange={handleFileChange1}
+              className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm text-gray-700 capitalize">Upload Image 2:</label>
+            <input
+              type="file"
+              name="image2"
+              onChange={handleFileChange2}
+              className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm text-gray-700 capitalize">Upload Image 3:</label>
+            <input
+              type="file"
+              name="image3"
+              onChange={handleFileChange3}
+              className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
             />
           </div>
 
