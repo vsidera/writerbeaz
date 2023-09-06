@@ -194,9 +194,9 @@ function Home() {
               <p className="mt-2 mb-8">
                 Your peace of mind matters to us. WorkX offers SafePay payment protection, ensuring that your funds are secure throughout the entire transaction process.
               </p>
-              <button className="bg-black hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md mt-6">
+              <Link to='/about' className="bg-black hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md mt-6">
                 More about WorkX
-              </button>
+              </Link>
             </div>
           </div>
         </div>

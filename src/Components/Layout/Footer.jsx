@@ -1,11 +1,31 @@
-import React from 'react'
+import React from 'react';
 
 function Footer() {
   return (
-    <div className="flex flex-col md:flex-row bg-gradient-to-r from-gray-300 to-gray-400 justify-center items-center">
-        <h1 className='font-bold text-3xl text-black mb-10 mt-10'>Footer</h1>
+    <div className="bg-black py-4">
+      <div className="container mx-auto flex items-center justify-between">
+        <div className="text-xl md:text-3xl mx-5">
+          <a href="/">
+              <span className="logo-letter font-bold text-white">w</span>
+              <lord-icon
+                  src="https://cdn.lordicon.com/dycatgju.json"
+                  trigger="loop"
+                  delay="2000"
+                  colors="primary:#ffffff"
+                  style={{width: "25px", height: "25px", paddingTop: "4px"}}
+              >
+              </lord-icon>
+              <span className="logo-letter font-bold text-white">rkX</span>
+          </a>
+        </div>
+        <div className="text-white text-sm">
+          <p>&copy; {new Date().getFullYear()} workX. All rights reserved.</p>
+          <p>Privacy Policy</p>
+          <p>Terms of Service</p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
