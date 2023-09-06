@@ -3,11 +3,13 @@ import Navbar from '../Layout/Navbar';
 import Footer from '../Layout/Footer';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
   const [categoryData, setCategoryData] = useState([]);
+  const [skillsData, setSkillsData] = useState([]);
+  const [uniqueStates, setUniqueStates] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -15,13 +17,28 @@ function Home() {
     async function fetchData() {
       try {
         const categories = await api.get('/users/user-categories/');
+        const skills = await api.get('/users/user-skills/');
 
         setCategoryData(categories.data);
+        setSkillsData(skills.data)
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching data:', error);
       }
     }
     fetchData();
+  }, []);
+
+  const fetchUniqueStates = async () => {
+    try {
+      const response = await api.get('/users/user-locations/');
+      setUniqueStates(response.data.states);
+    } catch (error) {
+      console.error('Error fetching unique states:', error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchUniqueStates();
   }, []);
 
   const handleSearch = (e) => {
@@ -33,6 +50,9 @@ function Home() {
   const handleCategoryClick = (categoryId) => {
     navigate(`/find-freelancer?category=${categoryId}`);
   };  
+
+  console.log("categories: ", categoryData)
+  console.log("skills: ", skillsData)
 
   return (
     <div className="w-full">
@@ -136,9 +156,9 @@ function Home() {
         </section>
       </div>
       <div className='text-center'>
-        <button className="h-10 w-28 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
-          See All Skills
-        </button>
+        <Link to='/find-freelancer' className="p-2 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
+          See All Services
+        </Link>
       </div>
       <div className="bg-gradient-to-r from-cyan-600 to-blue-700 mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
         <h1 className="font-bold text-3xl text-white mb-10 mt-10">
@@ -191,95 +211,20 @@ function Home() {
         <section className="bg-whit">
           <div className="container px-6 py-10 mx-auto">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-              <div className="lg:flex">
+            {skillsData.skills && skillsData.skills.map((skill, index) => (
+              <div key={index} className="lg:flex">
                 <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Business
-                  </a>
+                  <p className="text-xl font-semibold text-gray-800 hover:underline dark:text-black">
+                    {skill}
+                  </p>
                 </div>
               </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    3D Planning
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Python
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Ai development
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Automation
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    JavaScript
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Ai development
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Automation
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    JavaScript
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Ai development
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Automation
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    JavaScript
-                  </a>
-                </div>
-              </div>
+            ))}
             </div>
             <div className='text-center mt-5'>
-              <button className="h-10 w-28 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
+              <Link to='/find-freelancer' className="p-2 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
                 See All Skills
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -294,68 +239,20 @@ function Home() {
         <section className="bg-whit">
           <div className="container px-6 py-10 mx-auto">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-              <div className="lg:flex">
+            {uniqueStates.map((state, index) => (
+              <div key={index} className="lg:flex">
                 <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Delhi
-                  </a>
+                  <p className="text-xl font-semibold text-gray-800 hover:underline dark:text-black">
+                    {state}
+                  </p>
                 </div>
               </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Kerala
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Banglore
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Mumbai
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Chennai
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    JavaScript
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Kolkatta
-                  </a>
-                </div>
-              </div>
-              <div className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <a href="#" className="text-xl font-semibold text-gray-800 hover:underline dark:text-black ">
-                    Rajasthan
-                  </a>
-                </div>
-              </div>
-              
+            ))}
             </div>
             <div className='text-center mt-5'>
-              <button className="h-10 w-28 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
-                See Locations
-              </button>
+              <Link to='/find-freelancer' className="p-2 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
+                See All Locations
+              </Link>
             </div>
           </div>
         </section>
