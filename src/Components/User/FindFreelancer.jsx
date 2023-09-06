@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../Layout/Navbar';
 import Footer from '../Layout/Footer';
 import api from '../../api/axiosConfig';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 
 function FindFreelancer() {
   const [gigsData, setGigsData] = useState([]);
@@ -14,21 +16,43 @@ function FindFreelancer() {
   const [sortBy, setSortBy] = useState('lowToHigh');
   const [priceRange, setPriceRange] = useState('');
 
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  const initialSearchQuery = queryParams.search || '';
+  const selectedCategoryId = queryParams.category || '';
+
   useEffect(() => {
     async function fetchData() {
       try {
         const gigs = await api.get('/users/user-gigs/');
         const categories = await api.get('/admin/categories/');
-
+        
         setGigsData(gigs.data);
         setFilteredGigsData(gigs.data);
         setCategoryData(categories.data);
+
+        if (initialSearchQuery.trim() !== '') {
+          const filteredGigs = gigs.data.filter(
+            (gig) =>
+              gig.title.toLowerCase().includes(initialSearchQuery.toLowerCase()) ||
+              gig.freelancer.first_name.toLowerCase().includes(initialSearchQuery.toLowerCase())
+          );
+          setFilteredGigsData(filteredGigs);
+        }
+
+        if (selectedCategoryId !== '') {
+            const filteredGigs = gigs.data.filter(
+              (gig) => gig.category.id === parseInt(selectedCategoryId) && gig.is_active === true
+            );
+            setFilteredGigsData(filteredGigs);
+        }
+
       } catch (error) {
         console.error('Error fetching gigs or categories:', error);
       }
     }
     fetchData();
-  }, []);
+  }, [initialSearchQuery, selectedCategoryId]);
 
   const fetchUniqueStates = async () => {
     try {
@@ -119,8 +143,6 @@ function FindFreelancer() {
     }
     setFilteredGigsData(filteredGigs);
   };
-  
-  
 
   return (
     <div>

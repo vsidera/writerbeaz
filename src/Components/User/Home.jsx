@@ -3,10 +3,13 @@ import Navbar from '../Layout/Navbar';
 import Footer from '../Layout/Footer';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
   const [categoryData, setCategoryData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -20,6 +23,16 @@ function Home() {
     }
     fetchData();
   }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const encodedSearchQuery = encodeURIComponent(searchQuery);
+    navigate(`/find-freelancer?search=${encodedSearchQuery}`);
+  };  
+
+  const handleCategoryClick = (categoryId) => {
+    navigate(`/find-freelancer?category=${categoryId}`);
+  };  
 
   return (
     <div className="w-full">
@@ -41,8 +54,14 @@ function Home() {
                 type="text"
                 className="px-4 py-2 border rounded w-full"
                 placeholder="Search for any Service"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 py-2 bg-gray-900 text-gray-200 font-semibold rounded hover:bg-blue-900">
+              <button
+                type="submit"
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 py-2 bg-gray-900 text-gray-200 font-semibold rounded hover:bg-blue-900"
+                onClick={handleSearch}
+              >
                 <lord-icon
                   src="https://cdn.lordicon.com/xfftupfv.json"
                   trigger="hover"
@@ -97,20 +116,21 @@ function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categoryData.map((category) => (
               <div
-              key={category.id}
-              className="w-full bg-black rounded-lg p-12 flex flex-col justify-center items-center black-cover"
-              style={{
-                backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL + category.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div className="mb-8"></div>
-              <div className="text-center relative">
-                <p className="text-xl text-white font-bold mb-2">{category.name}</p>
+                key={category.id}
+                className="w-full bg-black rounded-lg p-12 flex flex-col justify-center items-center black-cover"
+                style={{
+                  backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL + category.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
+                onClick={() => handleCategoryClick(category.id)}
+              >
+                <div className="mb-8"></div>
+                <div className="text-center relative">
+                  <p className="text-xl text-white font-bold mb-2">{category.name}</p>
+                </div>
               </div>
-            </div>            
             ))}
           </div>
         </section>
@@ -165,7 +185,7 @@ function Home() {
       <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
         <div className="text-center pb-12">
           <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
-            Top Skills 
+            Skills
           </h1>
         </div>
         <section className="bg-whit">
@@ -268,7 +288,7 @@ function Home() {
       <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
         <div className="text-center pb-12">
           <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
-            Top Locations 
+            Locations
           </h1>
         </div>
         <section className="bg-whit">

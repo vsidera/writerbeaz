@@ -15,6 +15,7 @@
     "flowbite": "^1.8.1",
     "lord-icon-element": "^4.1.1",
     "postcss": "^8.4.27",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
