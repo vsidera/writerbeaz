@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../Layout/Navbar';
 import Footer from '../Layout/Footer';
 import api from '../../api/axiosConfig';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
 function FindFreelancer() {
@@ -281,30 +281,32 @@ function FindFreelancer() {
                 key={gigs.id}
                 className="w-full bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center"
               >
-                <div className="mb-2">
-                  <img
-                    className="object-center object-cover rounded-xl h-56 w-80"
-                    src={process.env.REACT_APP_API_BASE_URL + gigs.image1}
-                    alt={gigs.title}
-                  />
-                </div>
-                <div className="text-center">
-                  <p className="text-lg text-gray-700 font-bold">{gigs.title}</p>
-                  <p className="text-sm text-gray-400 font-normal">
-                    {gigs.category.name}
-                  </p>
-                </div>
-                <div className="mt-2 text-base text-gray-600 font-normal w-80 sm:w-64 md:w-80">
-                  <p className="mb-3">{gigs.description}</p>
-                  <div className="flex flex-wrap justify-between">
-                    <p className="w-1/2">from: ₹{gigs.starting_price}</p>
-                    <div className="w-1/2 flex bg-gray-500 rounded-xl">
-                      <p className="mx-12 font-semibold text-sm text-white">
-                        {gigs.freelancer.first_name}
-                      </p>
+                <Link to={`/single-view/${gigs.id}`}>
+                  <div className="mb-2">
+                    <img
+                      className="object-center object-cover rounded-xl h-56 w-80"
+                      src={process.env.REACT_APP_API_BASE_URL + gigs.image1}
+                      alt={gigs.title}
+                    />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-lg text-gray-700 font-bold">{gigs.title}</p>
+                    <p className="text-sm text-gray-400 font-normal">
+                      {gigs.category.name}
+                    </p>
+                  </div>
+                  <div className="mt-2 text-base text-gray-600 font-normal w-80 sm:w-64 md:w-80">
+                    <p className="mb-3">{gigs.description}</p>
+                    <div className="flex flex-wrap justify-between">
+                      <p className="w-1/2">from: ₹{gigs.starting_price}</p>
+                      <div className="w-1/2 flex bg-gray-500 rounded-xl">
+                        <p className="mx-12 font-semibold text-sm text-white">
+                          {gigs.freelancer.first_name}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
