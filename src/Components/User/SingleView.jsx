@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Layout/Navbar';
 import api from '../../api/axiosConfig';
 import { Link, useParams } from 'react-router-dom';
+import Footer from '../Layout/Footer';
 
 function SingleView(props) {
   const { id } = useParams();
@@ -163,6 +164,7 @@ function SingleView(props) {
         </div>
         <h3 className="text-2xl font-semibold mt-8 mb-2">Product Reviews</h3>
         </div>
+        <Footer />
     </div>
   );
 }

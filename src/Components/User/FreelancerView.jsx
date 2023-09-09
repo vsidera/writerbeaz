@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../Layout/Navbar';
 import api from '../../api/axiosConfig';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function FreelancerView(props) {
   const { id } = useParams();
   const [profileData, setProfileData] = useState({});
   const [skillData, setSkillData] = useState({});
   const [educationData, setEducationData] = useState({});
+  const [experienceData, setExperienceData] = useState({});
+  const [gigData, setGigData] = useState({});
 
   useEffect(() => {
     api.get(`/users/user-freelancer/${id}/`)
@@ -33,6 +36,23 @@ function FreelancerView(props) {
       .catch((error) => {
         console.error(error);
       });
+    
+    api.get(`/users/user-freelancer-experience/${id}/`)
+      .then((response) => {
+        setExperienceData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    api.get(`/users/user-freelancer-gig/${id}/`)
+      .then((response) => {
+        setGigData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
   }, [id]);
 
   return (
@@ -103,7 +123,7 @@ function FreelancerView(props) {
 
                 <div className="col-span-4 sm:col-span-9">
                   <div className="bg-white shadow-xl rounded-lg p-6">
-                    <h2 className="text-xl font-bold mb-4">About Me</h2>
+                    <h2 className="text-xl font-bold mb-4">About Freelancer</h2>
                     <p className="text-gray-700">
                       {profileData.about || ''}
                     </p>
@@ -123,6 +143,51 @@ function FreelancerView(props) {
                         </div>
                         ))}
                     </>
+                    </div>
+                    <div className="bg-white shadow-xl rounded-lg p-6 mt-5">
+                        <h2 className="text-xl font-bold mt-6 mb-4">Experience</h2>
+                        <>
+                            {Array.isArray(experienceData) && experienceData.map((experience) => (
+                            <div className="mb-6" key={experience.id}>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600 font-bold">{experience.title}</span>
+                                    <p>
+                                        <span className="text-gray-600 mr-2">{experience.company}</span>
+                                        <span className="text-gray-600">{experience.year}</span>
+                                    </p>
+                                </div>
+                                <p className="mt-2">{experience.description}</p>
+                            </div>
+                            ))}
+                        </>
+                    </div>
+                    <div className="bg-white shadow-xl rounded-lg p-6 mt-5">
+                        <h2 className="text-xl font-bold mt-6 mb-4">Live Gigs</h2>
+                        <>
+                        {Array.isArray(gigData) && gigData.map((gig) => (
+                            <div className="mb-6" key={gig.id}>
+                                <Link to={`/single-view/${gig.id}`}>
+                                    <div className="flex items-center sm:flex-nowrap flex-wrap">
+                                        <div className="rounded-lg overflow-hidden w-80 h-40">
+                                        <img
+                                            src={process.env.REACT_APP_API_BASE_URL + gig.image1}
+                                            alt={gig.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        </div>
+                                        <div className="ml-4 flex-grow">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                            <span className="text-gray-600 font-bold text-lg">{gig.title}</span>
+                                            <p className="text-gray-600">{gig.description}</p>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                        </>
                     </div>
                 </div>
               </div>
