@@ -82,23 +82,23 @@ function SingleView(props) {
             <h2 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">
               {gig.title}
             </h2>
-            <Link to='/' className="text-black text-sm hover:underline">
-                {gig.freelancer && gig.freelancer.username ? (
-                    <span className="flex items-center">
-                    {gig.freelancer_profile_photo && (
-                        <img
-                        src={`${baseUrl}${gig.freelancer_profile_photo}`}
-                        alt={`Profile Photo of ${gig.freelancer.username}`}
-                        className="w-10 h-10 rounded-full mr-2"
-                        />
-                    )}
-                    <p className="text-black font-bold">
-                        {gig.freelancer.first_name} {gig.freelancer.last_name}
-                    </p>
-                    </span>
-                ) : (
-                    'Unknown Freelancer'
-                )}
+            <Link to={`/freelancer-view/${gig.freelancer && gig.freelancer.id}`} className="text-black text-sm hover:underline">
+              {gig.freelancer && gig.freelancer.username ? (
+                <span className="flex items-center">
+                  {gig.freelancer_profile_photo && (
+                    <img
+                      src={`${baseUrl}${gig.freelancer_profile_photo}`}
+                      alt={`Profile Photo of ${gig.freelancer.username}`}
+                      className="w-10 h-10 rounded-full mr-2"
+                    />
+                  )}
+                  <p className="text-black font-bold">
+                    {gig.freelancer.first_name} {gig.freelancer.last_name}
+                  </p>
+                </span>
+              ) : (
+                'Unknown Freelancer'
+              )}
             </Link>
             <div className="font-semibold text-gray-400 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
                 {gig.category && gig.category.name ? (

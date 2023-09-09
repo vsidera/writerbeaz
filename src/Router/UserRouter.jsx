@@ -9,6 +9,7 @@ import FindFreelancer from '../Components/User/FindFreelancer';
 import About from '../Components/User/About';
 import UserProfile from '../Components/User/UserProfile';
 import SingleView from '../Components/User/SingleView';
+import FreelancerView from '../Components/User/FreelancerView';
 
 function UserRouter() {
   return (
@@ -18,6 +19,7 @@ function UserRouter() {
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/single-view/:id" element={<SingleView />} />
+        <Route path="/freelancer-view/:id" element={<FreelancerView />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} />

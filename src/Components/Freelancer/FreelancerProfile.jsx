@@ -539,7 +539,7 @@ function FreelancerProfile() {
                               <>
                                 {gigs.map((gig, gigIndex) => (
                                   <div className="mb-6" key={gig.id}>
-                                    <div className="flex items-center">
+                                    <div className="flex items-center sm:flex-nowrap flex-wrap">
                                       <div className="rounded-lg overflow-hidden w-80 h-40">
                                         <img
                                           src={process.env.REACT_APP_API_BASE_URL + gig.image1}
