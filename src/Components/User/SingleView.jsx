@@ -142,12 +142,12 @@ function SingleView(props) {
                 </p>
             </div>
             <div>
-                <button
+                <Link to={`/orderconfirmation/${gig.id}`}
                 type="button"
-                className="h-14 px-6 py-2 mt-3 sm:mt-0 font-semibold sm:font-bold rounded-xl bg-blue-500 hover:bg-blue-600 text-white"
+                className="md:h-10 px-6 py-2 mt-3 sm:mt-0 font-semibold sm:font-bold rounded-xl bg-blue-500 hover:bg-blue-600 text-white"
                 >
                     Place Order
-                </button>
+                </Link>
             </div>
             </div>
         </div>

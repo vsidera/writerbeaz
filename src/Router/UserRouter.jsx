@@ -10,6 +10,8 @@ import About from '../Components/User/About';
 import UserProfile from '../Components/User/UserProfile';
 import SingleView from '../Components/User/SingleView';
 import FreelancerView from '../Components/User/FreelancerView';
+import OrderConfirmation from '../Components/User/OrderConfirmation';
+
 
 function UserRouter() {
   return (
@@ -20,6 +22,7 @@ function UserRouter() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/single-view/:id" element={<SingleView />} />
         <Route path="/freelancer-view/:id" element={<FreelancerView />} />
+        <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} />

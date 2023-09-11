@@ -3,6 +3,7 @@ import Navbar from '../Layout/Navbar';
 import api from '../../api/axiosConfig';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Footer from '../Layout/Footer';
 
 function FreelancerView(props) {
   const { id } = useParams();
@@ -195,6 +196,7 @@ function FreelancerView(props) {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
