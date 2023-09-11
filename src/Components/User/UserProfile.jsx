@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig'
 import UserEditProfileModal from './UserEditProfileModal';
+import { Link } from 'react-router-dom';
 
 function UserProfile() {
   const [profileData, setProfileData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ordersData, setOrdersData] = useState(null);
 
   const authToken = useSelector((state) => state.accessToken);
   const user = useSelector((state) => state.user);
@@ -20,6 +22,16 @@ function UserProfile() {
       .catch((error) => {
         console.error('Error fetching profile data:', error);
       });
+
+      // Fetch orders data
+    api
+    .get('/users/user-orderslist/')
+    .then((response) => {
+      setOrdersData(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching order data:', error);
+    });
     }, []);
 
     const openModal = () => {
@@ -105,72 +117,41 @@ function UserProfile() {
               </ul>
             </div>
             <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
-              <h4 className="text-xl text-gray-900 font-bold">Activity log</h4>
-              <div className="relative px-4">
-                <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
-
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Profile informations changed.</p>
-                    <p className="text-xs text-gray-500">3 min ago</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">
-                      Connected with <a href="#" className="text-blue-600 font-bold">Colby Covington</a>.</p>
-                    <p className="text-xs text-gray-500">15 min ago</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">Invoice <a href="#" className="text-blue-600 font-bold">#4563</a> was created.</p>
-                    <p className="text-xs text-gray-500">57 min ago</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">
-                      Message received from <a href="#" className="text-blue-600 font-bold">Cecilia Hendric</a>.</p>
-                    <p className="text-xs text-gray-500">1 hour ago</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">New order received <a href="#" className="text-blue-600 font-bold">#OR9653</a>.</p>
-                    <p className="text-xs text-gray-500">2 hours ago</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center w-full my-6 -ml-1.5">
-                  <div className="w-1/12 z-10">
-                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                  </div>
-                  <div className="w-11/12">
-                    <p className="text-sm">
-                      Message received from <a href="#" className="text-blue-600 font-bold">Jane Stillman</a>.</p>
-                    <p className="text-xs text-gray-500">2 hours ago</p>
-                  </div>
-                </div>
+              <h4 className="text-xl text-gray-900 font-bold">Orders</h4>
+              <div className="relative px-4 mt-4">
+              <>
+                {Array.isArray(ordersData) && ordersData.map((order) => (
+                    <div className="mb-6" key={order.id}>
+                        <Link to={`/orderstatus/${order.gig.id}`}>
+                            <div className="flex items-center sm:flex-nowrap flex-wrap">
+                                <div className="rounded-lg overflow-hidden w-56 h-32">
+                                <img
+                                    src={process.env.REACT_APP_API_BASE_URL + order.gig.image1}
+                                    alt='order-image'
+                                    className="w-full h-full object-cover"
+                                />
+                                </div>
+                                <div className="ml-4 flex-grow">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                      <span className="text-gray-600 font-semibold text-lg">{order.gig.title}</span>
+                                      <p className="text-gray-600 font-semibold text-lg">Freelancer: {order.freelancer.first_name}</p>
+                                      <p className={`font-semibold text-lg ${
+                                          order.status === 'Pending' ? 'text-blue-500' :
+                                          order.status === 'Rejected' || order.status === 'Payment Pending' ? 'text-red-500' :
+                                          order.status === 'Accepted' || order.status === 'Completed' || order.status === 'Work Started' || order.status === 'Deal Closed' ? 'text-green-500' :
+                                          ''
+                                      }`}>
+                                          Status: {order.status}
+                                      </p>
+                                  </div>
+                                </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
+              </>
               </div>
             </div>
           </div>
