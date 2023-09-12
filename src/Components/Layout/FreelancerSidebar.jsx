@@ -12,6 +12,7 @@ function FreelancerSidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     api.get('/freelancers/freelancer-profile/')
@@ -31,7 +32,41 @@ function FreelancerSidebar() {
 
   return (
     <>
-        <aside className="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
+        <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+            <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
+                <h2 className="text-2xl text-black font-bold lg:ml-72 lg:mt-2">Dashboard</h2>
+                <button
+                    className="w-12 h-16 -mr-2 border-r lg:hidden"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 my-auto"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                        />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <aside
+            className={`${
+            menuOpen ? 'ml-0' : '-ml-[100%]'
+            } fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]`}
+        >
+        <button onClick={() => setMenuOpen(false)} className="absolute top-2 right-2 text-blue-800 focus:outline-none hover:text-black lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </button>
         <div>
             <div className="-mx-6 px-6 py-4">
             <Link to="/freelancer" title="home">

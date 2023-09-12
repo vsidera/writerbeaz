@@ -23,7 +23,7 @@ function UserProfile() {
         console.error('Error fetching profile data:', error);
       });
 
-      // Fetch orders data
+    // Fetch orders data
     api
     .get('/users/user-orderslist/')
     .then((response) => {
@@ -122,7 +122,7 @@ function UserProfile() {
               <>
                 {Array.isArray(ordersData) && ordersData.map((order) => (
                     <div className="mb-6" key={order.id}>
-                        <Link to={`/orderstatus/${order.gig.id}`}>
+                        <Link to={`/orderstatus/${order.id}`}>
                             <div className="flex items-center sm:flex-nowrap flex-wrap">
                                 <div className="rounded-lg overflow-hidden w-56 h-32">
                                 <img
