@@ -119,39 +119,58 @@ function UserProfile() {
             <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
               <h4 className="text-xl text-gray-900 font-bold">Orders</h4>
               <div className="relative px-4 mt-4">
-              <>
-                {Array.isArray(ordersData) && ordersData.map((order) => (
-                    <div className="mb-6" key={order.id}>
-                        <Link to={`/orderstatus/${order.id}`}>
+                <>
+                  {Array.isArray(ordersData) &&
+                    ordersData.map((order) => {
+                      if (order.status === "Canceled") {
+                        return <img src="/images/2953962.jpg" alt="Image" className="sm:ml-14 sm:w-96 sm:h-96 sm:max-w-lg" />;
+                      }
+                      return (
+                        <div className="mb-6" key={order.id}>
+                          <Link to={`/orderstatus/${order.id}`}>
                             <div className="flex items-center sm:flex-nowrap flex-wrap">
-                                <div className="rounded-lg overflow-hidden w-56 h-32">
+                              <div className="rounded-lg overflow-hidden w-56 h-32">
                                 <img
-                                    src={process.env.REACT_APP_API_BASE_URL + order.gig.image1}
-                                    alt='order-image'
-                                    className="w-full h-full object-cover"
+                                  src={process.env.REACT_APP_API_BASE_URL + order.gig.image1}
+                                  alt="order-image"
+                                  className="w-full h-full object-cover"
                                 />
-                                </div>
-                                <div className="ml-4 flex-grow">
+                              </div>
+                              <div className="ml-4 flex-grow">
                                 <div className="flex items-center justify-between">
                                   <div>
-                                      <span className="text-gray-600 font-semibold text-lg">{order.gig.title}</span>
-                                      <p className="text-gray-600 font-semibold text-lg">Freelancer: {order.freelancer.first_name}</p>
-                                      <p className={`font-semibold text-lg ${
-                                          order.status === 'Pending' ? 'text-blue-500' :
-                                          order.status === 'Rejected' || order.status === 'Payment Pending' ? 'text-red-500' :
-                                          order.status === 'Accepted' || order.status === 'Completed' || order.status === 'Work Started' || order.status === 'Deal Closed' ? 'text-green-500' :
-                                          ''
-                                      }`}>
-                                          Status: {order.status}
-                                      </p>
+                                    <span className="text-gray-600 font-semibold text-lg">
+                                      {order.gig.title}
+                                    </span>
+                                    <p className="text-gray-600 font-semibold text-lg">
+                                      Freelancer: {order.freelancer.first_name}
+                                    </p>
+                                    <p
+                                      className={`font-semibold text-lg ${
+                                        order.status === "Pending"
+                                          ? "text-blue-500"
+                                          : order.status === "Rejected" ||
+                                            order.status === "Payment Pending"
+                                          ? "text-red-500"
+                                          : order.status === "Accepted" ||
+                                            order.status === "Completed" ||
+                                            order.status === "Work Started" ||
+                                            order.status === "Deal Closed"
+                                          ? "text-green-500"
+                                          : ""
+                                      }`}
+                                    >
+                                      Status: {order.status}
+                                    </p>
                                   </div>
                                 </div>
-                                </div>
+                              </div>
                             </div>
-                        </Link>
-                    </div>
-                ))}
-              </>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                </>
               </div>
             </div>
           </div>

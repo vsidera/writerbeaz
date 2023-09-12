@@ -5,15 +5,26 @@ import { useParams } from 'react-router-dom';
 import Footer from '../Layout/Footer';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CancelModal from './CancelModal';
 
 function OrderStatus(props) {
   const { id } = useParams();
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
+  const [currentStatus, setCurrentStatus] = useState(null);
   const [ordersData, setOrdersData] = useState(null);
   const [workPrice, setWorkPrice] = useState(0);
   const [commission, setCommission] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+
+  const openCanelModal = () => {
+    setIsCancelModalOpen(true);
+  };
+
+  const closeCancelModal = () => {
+    setIsCancelModalOpen(false);
+  };
 
   const commissionPercentage = 3.5
 
@@ -29,6 +40,13 @@ function OrderStatus(props) {
         setWorkPrice(newWorkPrice);
         setCommission(newCommission);
         setTotalPrice(newTotalPrice);
+
+        // Set the current status dynamically
+        const orderStatus = response.data.status;
+        const foundStatus = orderStatuses.find((status) => status.label === orderStatus);
+        if (foundStatus) {
+          setCurrentStatus(foundStatus);
+        }
       })
       .catch((error) => {
         console.error('Error fetching order data:', error);
@@ -43,8 +61,6 @@ function OrderStatus(props) {
     { id: 5, label: 'Payment Pending' },
     { id: 6, label: 'Deal Closed' },
   ];
-
-  const [currentStatus, setCurrentStatus] = useState(orderStatuses[0]);
 
   const updateOrderStatus = (statusId) => {
     const status = orderStatuses.find((status) => status.id === statusId);
@@ -92,27 +108,23 @@ function OrderStatus(props) {
                                 {orderStatuses.map((status, index) => (
                                 <div key={status.id} className="flex items-start">
                                     <div
-                                        className={`rounded-full w-8 h-8 flex items-center justify-center ${
-                                            currentStatus.id === status.id
-                                            ? 'bg-blue-500 text-white'
-                                            : 'bg-gray-200 text-gray-500'
-                                        }`}
-                                        >
-                                        {currentStatus.id === status.id ? (
-                                            <span className="text-sm">{status.id}</span>
-                                        ) : (
-                                            <span className="text-sm">{status.id}</span>
-                                        )}
+                                    className={`rounded-full w-8 h-8 flex items-center justify-center ${
+                                        currentStatus.id >= status.id
+                                        ? 'bg-green-500 text-white'
+                                        : 'bg-gray-200 text-gray-500'
+                                    }`}
+                                    >
+                                    <span className="text-sm">{status.id}</span>
                                     </div>
                                     {index < orderStatuses.length - 1 && (
                                     <div
                                         className={`border-2 border-gray-300 h-8 mx-2 ${
-                                        currentStatus.id === status.id ? 'border-blue-500' : 'border-gray-300'
+                                        currentStatus.id >= status.id ? 'border-green-500' : 'border-gray-300'
                                         }`}
                                     ></div>
                                     )}
-                                    <div className={`ml-2 ${currentStatus.id === status.id ? 'text-blue-500' : 'text-gray-400'}`}>
-                                        {status.label}
+                                    <div className={`ml-2 ${currentStatus.id >= status.id ? 'text-green-500' : 'text-gray-400'}`}>
+                                    {status.label}
                                     </div>
                                 </div>
                                 ))}
@@ -125,13 +137,13 @@ function OrderStatus(props) {
                     <h3 className="text-2xl font-bold mt-4 mb-2">Requirements:</h3>
                     <p className="text-gray-500">{ordersData.requirement}</p>
                     <p className="text-gray-500 mt-4">Expected Delivery in : {ordersData.gig.delivery_time}</p>
-                    <div className="flex flex-wrap items-center sm:space-x-4 sm:space-y-0 my-4 mb-16 mt-4">
+                    <div className="flex flex-wrap items-center sm:space-x-4 sm:space-y-0 my-4 mb-10 mt-4">
                         <div>
                             <p className="text-gray-400 text-sm sm:text-base">Starting Price:</p>
                             <div className="rounded-lg bg-gray-100 flex py-2 px-3">
                                 <span className="text-blue-400 mr-1 mt-1">₹</span>
                                 <span className="font-bold text-blue-500 text-3xl">
-                                {ordersData.amount}
+                                    {ordersData.amount}
                                 </span>
                             </div>
                         </div>
@@ -140,7 +152,7 @@ function OrderStatus(props) {
                             <div className="rounded-lg bg-gray-100 flex py-2 px-3">
                                 <span className="text-blue-400 mr-1 mt-1">₹</span>
                                 <span className="font-bold text-blue-500 text-3xl">
-                                {workPrice}
+                                    {workPrice || "------"}
                                 </span>
                             </div>
                         </div>
@@ -149,7 +161,7 @@ function OrderStatus(props) {
                             <div className="rounded-lg bg-gray-100 flex py-2 px-3">
                                 <span className="text-blue-400 mr-1 mt-1">₹</span>
                                 <span className="font-bold text-blue-500 text-3xl">
-                                {commission}
+                                {commission || "------"}
                                 </span>
                             </div>
                         </div>
@@ -158,15 +170,29 @@ function OrderStatus(props) {
                             <div className="rounded-lg bg-gray-100 flex py-2 px-3">
                                 <span className="text-blue-400 mr-1 mt-1">₹</span>
                                 <span className="font-bold text-blue-500 text-3xl">
-                                {totalPrice}
+                                {totalPrice || "------"}
                                 </span>
                             </div>
                         </div>
                     </div>
+                    {currentStatus.label === 'Pending' && (
+                        <div>
+                        <p className="text-gray-500 mt-4">
+                            * Changed your mind? Want to Cancel the Order? Do it before Freelancer Accept your work!
+                        </p>
+                        <button
+                            className="mt-5 mr-2 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mb-14"
+                            onClick={openCanelModal}
+                        >
+                            Cancel Order
+                        </button>
+                        </div>
+                    )}
                 </div>
             </>
             )}
         </div>
+        <CancelModal isOpen={isCancelModalOpen} closeModal={closeCancelModal} orderData={ordersData}/>
 
         <Footer />
     </div>

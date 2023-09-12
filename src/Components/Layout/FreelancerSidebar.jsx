@@ -14,6 +14,17 @@ function FreelancerSidebar() {
   const [profileData, setProfileData] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  let heading = 'Dashboard';
+  if (location.pathname === '/freelancer/inbox') {
+    heading = 'Inbox';
+  } else if (location.pathname === '/freelancer/works') {
+    heading = 'Works';
+  } else if (location.pathname === '/freelancer/chatx') {
+    heading = 'ChatX';
+  } else if (location.pathname === '/freelancer/profile') {
+    heading = 'My Profile'
+  }
+
   useEffect(() => {
     api.get('/freelancers/freelancer-profile/')
         .then(response => {
@@ -34,7 +45,7 @@ function FreelancerSidebar() {
     <>
         <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
             <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
-                <h2 className="text-2xl text-black font-bold lg:ml-72 lg:mt-2">Dashboard</h2>
+                <h2 className="text-2xl text-black font-bold lg:ml-72 lg:mt-2">{heading}</h2>
                 <button
                     className="w-12 h-16 -mr-2 border-r lg:hidden"
                     onClick={() => setMenuOpen(!menuOpen)}
