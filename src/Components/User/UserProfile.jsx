@@ -119,12 +119,9 @@ function UserProfile() {
             <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
               <h4 className="text-xl text-gray-900 font-bold">Orders</h4>
               <div className="relative px-4 mt-4">
-                <>
-                  {Array.isArray(ordersData) &&
-                    ordersData.map((order) => {
-                      if (order.status === "Canceled") {
-                        return <img src="/images/2953962.jpg" alt="Image" className="sm:ml-14 sm:w-96 sm:h-96 sm:max-w-lg" />;
-                      }
+                {Array.isArray(ordersData) && ordersData.length > 0 ? (
+                  ordersData.map((order) => {
+                    if (order.status !== "Canceled") {
                       return (
                         <div className="mb-6" key={order.id}>
                           <Link to={`/orderstatus/${order.id}`}>
@@ -169,8 +166,12 @@ function UserProfile() {
                           </Link>
                         </div>
                       );
-                    })}
-                </>
+                    }
+                    return null;
+                  })
+                ) : (
+                  <img src="/images/2953962.jpg" alt="Image" className="sm:ml-14 sm:w-96 sm:h-96 sm:max-w-lg" />
+                )}
               </div>
             </div>
           </div>

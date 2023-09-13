@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import FreelancerSidebar from '../Layout/FreelancerSidebar'
 import api from '../../api/axiosConfig';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function FreelancerInbox() {
   const [ordersData, setOrdersData] = useState(null);
@@ -18,6 +20,48 @@ function FreelancerInbox() {
   }, []);
 
   const hasMatchingOrders = Array.isArray(ordersData) && ordersData.some(order => ["Accepted", "Canceled", "Pending"].includes(order.status));
+
+  const handleDeleteOrder = (orderId) => {
+    api
+      .delete(`/users/user-orderdelete/${orderId}/`)
+      .then((response) => {
+        setOrdersData(prevOrdersData => prevOrdersData.filter(order => order.id !== orderId));
+      })
+      .catch((error) => {
+        console.error('Error deleting order:', error);
+      });
+  };
+
+  const handleAcceptOrder = (orderId) => {
+    api
+      .put(`/freelancers/freelancer-acceptorder/${orderId}/`)
+      .then(() => {
+        setOrdersData((prevOrdersData) =>
+          prevOrdersData.map((order) =>
+            order.id === orderId ? { ...order, status: 'Accepted' } : order
+          )
+        );
+      })
+      .catch((error) => {
+        console.error('Error accepting order:', error);
+      });
+  };
+
+  const handleStartWork = (orderId) => {
+    api
+      .put(`/freelancers/freelancer-startwork/${orderId}/`)
+      .then(() => {
+        setOrdersData((prevOrdersData) =>
+          prevOrdersData.map((order) =>
+            order.id === orderId ? { ...order, status: 'Work Started' } : order
+          )
+        );
+        toast.success('New Work Started successfully!');
+      })
+      .catch((error) => {
+        console.error('Error accepting order:', error);
+      });
+  };
 
   return (
     <div>
@@ -58,8 +102,29 @@ function FreelancerInbox() {
                                   <h1 className="text-gray-600 font-bold sm:text-lg mt-5">Requirements: </h1>
                                   <p className="text-gray-600 font-semibold sm:text-md">{order.requirement}</p>
                                   <div>
-                                    <button className='mt-5 mr-2 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded'>Decline</button>
-                                    <button className='mt-5 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>Accept</button>
+                                    {order.status === 'Pending' ? (
+                                      <>
+                                        <button
+                                          className='mt-5 mr-2 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded'
+                                          onClick={() => handleDeleteOrder(order.id)}
+                                        >
+                                          Decline
+                                        </button>
+                                        <button
+                                          className='mt-5 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'
+                                          onClick={() => handleAcceptOrder(order.id)}
+                                        >
+                                          Accept
+                                        </button>
+                                      </>
+                                    ) : order.status === 'Accepted' ? (
+                                      <button
+                                        className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+                                        onClick={() => handleStartWork(order.id)}
+                                      >
+                                        Start Work
+                                      </button>
+                                    ) : null}
                                   </div>
                                 </div>
                               </div>
@@ -84,7 +149,12 @@ function FreelancerInbox() {
                             <p className="text-gray-600 font-semibold sm:text-md">{order.reason}</p>
                             <p className="text-gray-600 font-semibold sm:text-md">By: {order.user.username}</p>
                             <div>
-                              <button className='mt-5 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>Ok</button>
+                              <button 
+                                className='mt-5 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'
+                                onClick={() => handleDeleteOrder(order.id)}
+                                >
+                                  Ok
+                              </button>
                             </div>
                           </div>
                         </div>
