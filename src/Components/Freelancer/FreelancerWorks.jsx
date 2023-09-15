@@ -3,9 +3,21 @@ import FreelancerSidebar from '../Layout/FreelancerSidebar';
 import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FreelancerWorkCompleteModal from './FreelancerWorkCompleteModal';
 
 function FreelancerWorks() {
   const [ordersData, setOrdersData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalOrderId, setModalOrderId] = useState('');
+
+  const openModal = (orderId) => {
+    setIsModalOpen(true);
+    setModalOrderId(orderId);
+  };  
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     // Fetch orders data
@@ -18,7 +30,6 @@ function FreelancerWorks() {
         console.error('Error fetching order data:', error);
       });
   }, []);
-  console.log('ordersData:', ordersData);
 
   // Define order statuses
   const orderStatuses = [
@@ -29,13 +40,7 @@ function FreelancerWorks() {
     { id: 5, label: 'Payment Pending' },
     { id: 6, label: 'Deal Closed' },
   ];
-
-  // Function to get the label of an order status by ID
-  const getOrderStatusLabel = (status) => {
-    return status ? status : 'Unknown';
-  };
   
-
   // Filter orders with status "Work Started", "Completed", and "Payment Pending"
   const ongoingWork = ordersData?.find((order) =>
     ["Work Started", "Completed", "Payment Pending"].includes(order.status)
@@ -44,35 +49,6 @@ function FreelancerWorks() {
   const upcomingWorks = (ordersData || []).filter(
     (order) => order.status === 'Work Started' && order.id !== (ongoingWork?.id || -1)
   );
-
-  const handleDeleteOrder = (orderId) => {
-    api
-      .delete(`/users/user-orderdelete/${orderId}/`)
-      .then(() => {
-        setOrdersData((prevOrdersData) =>
-          prevOrdersData.filter((order) => order.id !== orderId)
-        );
-      })
-      .catch((error) => {
-        console.error('Error deleting order:', error);
-      });
-  };
-
-  const handleStartWork = (orderId) => {
-    api
-      .put(`/freelancers/freelancer-startwork/${orderId}/`)
-      .then(() => {
-        setOrdersData((prevOrdersData) =>
-          prevOrdersData.map((order) =>
-            order.id === orderId ? { ...order, status: 'Work Started' } : order
-          )
-        );
-        toast.success('New Work Started successfully!');
-      })
-      .catch((error) => {
-        console.error('Error accepting order:', error);
-      });
-  };
 
   return (
     <div>
@@ -128,11 +104,11 @@ function FreelancerWorks() {
                       <div className="mt-5">
                         {ongoingWork.status === 'Work Started' ? (
                           <button
-                            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-                            onClick={() => handleStartWork(ongoingWork.id)}
+                          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                          onClick={() => openModal(ongoingWork.id)}
                           >
                             Work Completed
-                          </button>
+                          </button>                        
                         ) : null}
                       </div>
                     </div>
@@ -189,6 +165,7 @@ function FreelancerWorks() {
           </div>
         </div>
       </div>
+      <FreelancerWorkCompleteModal isOpen={isModalOpen} closeModal={closeModal} orderId={modalOrderId}/>
     </div>
   );
 }

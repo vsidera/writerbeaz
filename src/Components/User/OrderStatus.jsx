@@ -68,7 +68,6 @@ function OrderStatus(props) {
       setCurrentStatus(status);
     }
   };
-  console.log(ordersData)
 
   return (
     <div>
@@ -180,11 +179,36 @@ function OrderStatus(props) {
                         <p className="text-gray-500 mt-4">
                             * Changed your mind? Want to Cancel the Order? Do it before Freelancer Accept your work!
                         </p>
+                        
                         <button
                             className="mt-5 mr-2 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mb-14"
                             onClick={openCanelModal}
                         >
                             Cancel Order
+                        </button>
+                        </div>
+                    )}
+                    {currentStatus.label === 'Completed' && (
+                        <div>
+                        <p className="text-gray-500 mt-20 mb-2">
+                            *Freelancer Completed your Work! Check out the Pre-Submit. Accept and Pay the amount to receive the Actual File!
+                        </p>
+                        <img
+                                src={`${baseUrl}${ordersData.order_raw_images}`}
+                                alt='Gig image'
+                                className="h-full w-full object-cover rounded-lg bg-gray-100 mb-4"
+                            />
+                        <button
+                            className="mt-5 mr-2 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mb-14"
+                            onClick={openCanelModal}
+                        >
+                            Decline Order
+                        </button>
+                        <button
+                            className="mt-5 mr-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-14"
+                            onClick={openCanelModal}
+                        >
+                            Accept Order
                         </button>
                         </div>
                     )}

@@ -12,6 +12,7 @@ import SingleView from '../Components/User/SingleView';
 import FreelancerView from '../Components/User/FreelancerView';
 import OrderConfirmation from '../Components/User/OrderConfirmation';
 import OrderStatus from '../Components/User/OrderStatus';
+import OrderProcess from '../Components/User/OrderProcess';
 
 
 function UserRouter() {
@@ -25,6 +26,7 @@ function UserRouter() {
         <Route path="/freelancer-view/:id" element={<FreelancerView />} />
         <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
         <Route path="/orderstatus/:id" element={<OrderStatus />} />
+        <Route path="/orderprocess/" element={<OrderProcess />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
