@@ -6,6 +6,7 @@ import Footer from '../Layout/Footer';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CancelModal from './CancelModal';
+import { loadStripe } from '@stripe/stripe-js';
 
 function OrderStatus(props) {
   const { id } = useParams();
@@ -66,6 +67,34 @@ function OrderStatus(props) {
     const status = orderStatuses.find((status) => status.id === statusId);
     if (status) {
       setCurrentStatus(status);
+    }
+  };
+
+  const handleAcceptOrder = async () => {
+    try {
+      const response = await api.post('/users/checkout/', {
+        order_id: ordersData.id,
+      });
+  
+      // Get the Stripe publishable key from the response
+      const stripePublicKey = response.data.stripe_public_key;
+  
+      // Initialize Stripe with the publishable key
+      const stripe = await loadStripe(stripePublicKey);
+  
+      // Redirect to the Stripe payment page
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: response.data.session_id,
+      });
+  
+      if (error) {
+        // Handle any errors
+        console.error('Error redirecting to Stripe:', error);
+        toast.error('Error redirecting to Stripe payment.');
+      }
+    } catch (error) {
+      console.error('Error creating Stripe Checkout Session:', error);
+      toast.error('Error creating Stripe Checkout Session.');
     }
   };
 
@@ -205,10 +234,10 @@ function OrderStatus(props) {
                             Decline Order
                         </button>
                         <button
-                            className="mt-5 mr-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-14"
-                            onClick={openCanelModal}
+                          className="mt-5 mr-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-14"
+                          onClick={handleAcceptOrder} // Use the new handler function
                         >
-                            Accept Order
+                          Accept Order
                         </button>
                         </div>
                     )}

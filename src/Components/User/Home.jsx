@@ -203,12 +203,12 @@ function Home() {
       </div>
 
       <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
-        <div className="text-center pb-12">
+        <div className="text-center pb-5">
           <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
             Skills
           </h1>
         </div>
-        <section className="bg-whit">
+        <section className="bg-gradient-to-r from-gray-200 to-gray-300 mb-10 rounded-xl">
           <div className="container px-6 py-10 mx-auto">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {skillsData.skills && skillsData.skills.map((skill, index) => (
@@ -231,12 +231,12 @@ function Home() {
       </div>
 
       <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
-        <div className="text-center pb-12">
+        <div className="text-center pb-5">
           <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
             Locations
           </h1>
         </div>
-        <section className="bg-whit">
+        <section className="bg-gradient-to-r from-gray-200 to-gray-300 mb-20 rounded-xl">
           <div className="container px-6 py-10 mx-auto">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {uniqueStates.map((state, index) => (
