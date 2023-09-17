@@ -148,7 +148,7 @@ function UserProfile() {
                                           ? "text-blue-500"
                                           : order.status === "Rejected" ||
                                             order.status === "Payment Pending"
-                                          ? "text-red-500"
+                                          ? "text-green-500"
                                           : order.status === "Accepted" ||
                                             order.status === "Completed" ||
                                             order.status === "Work Started" ||

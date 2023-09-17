@@ -4,11 +4,14 @@ import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FreelancerWorkCompleteModal from './FreelancerWorkCompleteModal';
+import FreelancerDealCloseModal from './FreelancerDealCloseModal';
 
 function FreelancerWorks() {
   const [ordersData, setOrdersData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOrderId, setModalOrderId] = useState('');
+  const [isDealModalOpen, setIsDealModalOpen] = useState(false);
+  const [dealModalOrderId, setDealModalOrderId] = useState('');
 
   const openModal = (orderId) => {
     setIsModalOpen(true);
@@ -17,6 +20,15 @@ function FreelancerWorks() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const openDealModal = (orderId) => {
+    setIsDealModalOpen(true);
+    setDealModalOrderId(orderId);
+  };  
+
+  const closeDealModal = () => {
+    setIsDealModalOpen(false);
   };
 
   useEffect(() => {
@@ -111,6 +123,16 @@ function FreelancerWorks() {
                           </button>                        
                         ) : null}
                       </div>
+                      <div className="mt-5">
+                        {ongoingWork.status === 'Payment Pending' ? (
+                          <button
+                          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                          onClick={() => openDealModal(ongoingWork.id)}
+                          >
+                            Close Work
+                          </button>                        
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                   <div className="md:w-1/2 md:ml-4 mt-4 md:mt-0 md:flex-grow">
@@ -166,6 +188,7 @@ function FreelancerWorks() {
         </div>
       </div>
       <FreelancerWorkCompleteModal isOpen={isModalOpen} closeModal={closeModal} orderId={modalOrderId}/>
+      <FreelancerDealCloseModal isOpen={isDealModalOpen} closeModal={closeDealModal} orderId={dealModalOrderId}/>
     </div>
   );
 }

@@ -63,38 +63,27 @@ function OrderStatus(props) {
     { id: 6, label: 'Deal Closed' },
   ];
 
-  const updateOrderStatus = (statusId) => {
-    const status = orderStatuses.find((status) => status.id === statusId);
-    if (status) {
-      setCurrentStatus(status);
-    }
-  };
-
   const handleAcceptOrder = async () => {
     try {
       const response = await api.post('/users/checkout/', {
         order_id: ordersData.id,
       });
   
-      // Get the Stripe publishable key from the response
       const stripePublicKey = response.data.stripe_public_key;
   
-      // Initialize Stripe with the publishable key
       const stripe = await loadStripe(stripePublicKey);
   
-      // Redirect to the Stripe payment page
       const { error } = await stripe.redirectToCheckout({
         sessionId: response.data.session_id,
       });
   
       if (error) {
-        // Handle any errors
         console.error('Error redirecting to Stripe:', error);
-        toast.error('Error redirecting to Stripe payment.');
+        toast.error('Payment is not Completed');
       }
     } catch (error) {
       console.error('Error creating Stripe Checkout Session:', error);
-      toast.error('Error creating Stripe Checkout Session.');
+      toast.error('Something went wrong.');
     }
   };
 
@@ -105,6 +94,20 @@ function OrderStatus(props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 md:mt-36">
             {ordersData && (
             <>
+                {currentStatus.label === 'Payment Pending' && (
+                <div class="bg-white md:mx-auto mb-10">
+                    <svg viewBox="0 0 24 24" class="text-green-600 w-16 h-16 mx-auto">
+                        <path fill="currentColor"
+                            d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z">
+                        </path>
+                    </svg>
+                    <div class="text-center">
+                        <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">Payment Done!</h3>
+                        <p class="text-gray-600 my-2">Thank you for completing your secure online payment.</p>
+                    </div>
+                </div>
+                )}
+
                 <div className="flex flex-col md:flex-row -mx-4">
                     <div className="md:flex-1 px-4">
                         <h1 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">Order Status Page</h1>
@@ -161,11 +164,13 @@ function OrderStatus(props) {
                     </div>
                 </div>
 
-                <div className="font-semibold text-gray-500 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+                <div className="font-semibold text-gray-500 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-10">
                     <h3 className="text-2xl font-bold mt-4 mb-2">Requirements:</h3>
                     <p className="text-gray-500">{ordersData.requirement}</p>
+                    {currentStatus.label != 'Payment Pending' && (
+                    <>
                     <p className="text-gray-500 mt-4">Expected Delivery in : {ordersData.gig.delivery_time}</p>
-                    <div className="flex flex-wrap items-center sm:space-x-4 sm:space-y-0 my-4 mb-10 mt-4">
+                    <div className="flex flex-wrap items-center sm:space-x-4 sm:space-y-0 my-4 mt-4">
                         <div>
                             <p className="text-gray-400 text-sm sm:text-base">Starting Price:</p>
                             <div className="rounded-lg bg-gray-100 flex py-2 px-3">
@@ -203,6 +208,8 @@ function OrderStatus(props) {
                             </div>
                         </div>
                     </div>
+                    </>
+                    )}
                     {currentStatus.label === 'Pending' && (
                         <div>
                         <p className="text-gray-500 mt-4">
@@ -235,7 +242,7 @@ function OrderStatus(props) {
                         </button>
                         <button
                           className="mt-5 mr-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-14"
-                          onClick={handleAcceptOrder} // Use the new handler function
+                          onClick={handleAcceptOrder}
                         >
                           Accept Order
                         </button>
