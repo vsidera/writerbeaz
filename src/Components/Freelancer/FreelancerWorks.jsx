@@ -53,13 +53,17 @@ function FreelancerWorks() {
     { id: 6, label: 'Deal Closed' },
   ];
   
-  // Filter orders with status "Work Started", "Completed", and "Payment Pending"
+  // Filter orders with status "Work Started", "Completed", and "Payment Pending" and "Deal Closed"
   const ongoingWork = ordersData?.find((order) =>
     ["Work Started", "Completed", "Payment Pending"].includes(order.status)
   );
 
   const upcomingWorks = (ordersData || []).filter(
     (order) => order.status === 'Work Started' && order.id !== (ongoingWork?.id || -1)
+  );
+
+  const completedWorks = (ordersData || []).filter(
+    (order) => order.status === 'Deal Closed'
   );
 
   return (
@@ -151,7 +155,7 @@ function FreelancerWorks() {
             </div>
           )}
 
-            <div className="mb-10">
+            <div className="mb-16">
               <h2 className="text-2xl font-semibold mb-2">Upcoming Works</h2>
               {upcomingWorks.length > 0 ? (
                 upcomingWorks.map((order) => (
@@ -182,6 +186,40 @@ function FreelancerWorks() {
                 ))
               ) : (
                 <p>No upcoming works found.</p>
+              )}
+            </div>
+
+            <div className="pt-16 mb-10 border-t-2">
+              <h2 className="text-2xl font-semibold mb-2">Completed Works</h2>
+              {completedWorks.length > 0 ? (
+                completedWorks.map((order) => (
+                  <div className="flex-1 bg-gray-200 rounded-lg shadow-xl mt-4 p-6" key={order.id}>
+                    <div className="relative px-4 mt-4">
+                      <div className="mb-6">
+                        <div className="flex items-center sm:flex-nowrap flex-wrap">
+                          <div className="rounded-lg overflow-hidden w-56 h-28">
+                            <img
+                              src={process.env.REACT_APP_API_BASE_URL + order.gig.image1}
+                              alt="order-image"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="sm:ml-4 flex-grow">
+                            <div className="flex items-center justify-between">
+                              <div className="mt-5 sm:mt-0">
+                                <span className="text-gray-600 font-bold sm:text-xl">{order.gig.title}</span>
+                                <p className="text-gray-600 font-semibold text-sm">Amount Earned: ₹{order.new_amount}</p>
+                                <p className="text-gray-600 font-semibold sm:text-md">Client: {order.user.username}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No Completed works found yet.</p>
               )}
             </div>
           </div>

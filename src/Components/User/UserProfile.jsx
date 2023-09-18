@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import api from '../../api/axiosConfig'
+import api from '../../api/axiosConfig';
 import UserEditProfileModal from './UserEditProfileModal';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +8,13 @@ function UserProfile() {
   const [profileData, setProfileData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ordersData, setOrdersData] = useState(null);
+  const [totalAmountSpent, setTotalAmountSpent] = useState(0);
+  const [completedOrdersCount, setCompletedOrdersCount] = useState(0);
+  const [pendingOrdersCount, setPendingOrdersCount] = useState(0);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+  const [loadingOrders, setLoadingOrders] = useState(true);
+  const [errorProfile, setErrorProfile] = useState(null);
+  const [errorOrders, setErrorOrders] = useState(null);
 
   const authToken = useSelector((state) => state.accessToken);
   const user = useSelector((state) => state.user);
@@ -18,33 +25,70 @@ function UserProfile() {
       .get('/users/user-profile/')
       .then((response) => {
         setProfileData(response.data);
+        setLoadingProfile(false);
       })
       .catch((error) => {
         console.error('Error fetching profile data:', error);
+        setErrorProfile(error);
       });
 
     // Fetch orders data
     api
-    .get('/users/user-orderslist/')
+      .get('/users/user-orderslist/')
+      .then((response) => {
+        setOrdersData(response.data);
+
+        if (Array.isArray(response.data)) {
+          const completedOrders = response.data.filter(
+            (order) => order.status === 'Deal Closed'
+          );
+          const pendingOrders = response.data.filter(
+            (order) => order.status === 'Pending'
+          );
+
+          setCompletedOrdersCount(completedOrders.length);
+          setPendingOrdersCount(pendingOrders.length);
+        } else {
+          setCompletedOrdersCount(0);
+          setPendingOrdersCount(0);
+        }
+        setLoadingOrders(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching order data:', error);
+        setErrorOrders(error);
+      });
+
+      // Fetch total amount spent
+    api
+    .get('/users/user-totalamount/')
     .then((response) => {
-      setOrdersData(response.data);
+      setTotalAmountSpent(response.data.total_amount_spent);
     })
     .catch((error) => {
-      console.error('Error fetching order data:', error);
+      console.error('Error fetching total amount spent:', error);
     });
-    }, []);
+  }, []);
 
-    const openModal = () => {
-      setIsModalOpen(true);
-    };
-  
-    const closeModal = () => {
-      setIsModalOpen(false);
-    };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-    const updateProfileDataInParent = (newProfileData) => {
-      setProfileData(newProfileData);
-    };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const updateProfileDataInParent = (newProfileData) => {
+    setProfileData(newProfileData);
+  };
+
+  if (loadingProfile || loadingOrders) {
+    return <div>Loading...</div>;
+  }
+
+  if (errorProfile || errorOrders) {
+    return <div>Error: Unable to fetch data.</div>;
+  }
 
   return (
     <div>
@@ -186,8 +230,7 @@ function UserProfile() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
                 <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-indigo-600">Total Revenue</span>
-                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
+                    <span className="font-bold text-sm text-indigo-600">Total Spending</span>
                   </div>
                   <div className="flex items-center justify-between mt-6">
                     <div>
@@ -195,19 +238,14 @@ function UserProfile() {
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-end">
-                        <span className="text-2xl 2xl:text-3xl font-bold">$8,141</span>
-                        <div className="flex items-center ml-2 mb-1">
-                          <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                          <span className="font-bold text-sm text-gray-500 ml-0.5">3%</span>
-                        </div>
+                        <span className="text-2xl 2xl:text-3xl font-bold">₹{totalAmountSpent.toFixed(2)}</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-green-600">New Orders</span>
-                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
+                    <span className="font-bold text-sm text-green-600">Completed Orders</span>
                   </div>
                   <div className="flex items-center justify-between mt-6">
                     <div>
@@ -215,10 +253,10 @@ function UserProfile() {
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-end">
-                        <span className="text-2xl 2xl:text-3xl font-bold">217</span>
+                        <span className="text-2xl 2xl:text-3xl font-bold">{completedOrdersCount}</span>
                         <div className="flex items-center ml-2 mb-1">
                           <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                          <span className="font-bold text-sm text-gray-500 ml-0.5">5%</span>
+                          <span className="font-bold text-sm text-gray-500 ml-0.5">{((completedOrdersCount / ordersData.length) * 100).toFixed(0)}%</span>
                         </div>
                       </div>
                     </div>
@@ -226,8 +264,7 @@ function UserProfile() {
                 </div>
                 <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-blue-600">New Connections</span>
-                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
+                    <span className="font-bold text-sm text-blue-600">Pending Orders</span>
                   </div>
                   <div className="flex items-center justify-between mt-6">
                     <div>
@@ -235,10 +272,10 @@ function UserProfile() {
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-end">
-                        <span className="text-2xl 2xl:text-3xl font-bold">54</span>
+                        <span className="text-2xl 2xl:text-3xl font-bold">{pendingOrdersCount}</span>
                         <div className="flex items-center ml-2 mb-1">
                           <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                          <span className="font-bold text-sm text-gray-500 ml-0.5">7%</span>
+                          <span className="font-bold text-sm text-gray-500 ml-0.5">{((pendingOrdersCount / ordersData.length) * 100).toFixed(0)}%</span>
                         </div>
                       </div>
                     </div>
