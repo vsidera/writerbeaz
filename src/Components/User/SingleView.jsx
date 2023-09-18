@@ -3,17 +3,29 @@ import Navbar from '../Layout/Navbar';
 import api from '../../api/axiosConfig';
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../Layout/Footer';
+import Rating from '@mui/material/Rating';
 
 function SingleView(props) {
   const { id } = useParams();
 
   const [gig, setGig] = useState({});
   const [currentImage, setCurrentImage] = useState(1);
+  const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {
+    // Fetch gig details
     api.get(`/users/user-gigs/${id}/`)
       .then((response) => {
         setGig(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    // Fetch feedbacks for this gig
+    api.get(`/users/feedback/display/${id}/`)
+      .then((response) => {
+        setFeedbacks(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -162,7 +174,40 @@ function SingleView(props) {
             </span>
             ))}
         </div>
-        <h3 className="text-2xl font-semibold mt-8 mb-2">Product Reviews</h3>
+        <h3 className="text-2xl font-semibold mt-8 mb-6">Service Feedbacks</h3>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {feedbacks.length > 0 ? (
+            <div>
+              {feedbacks.map((feedback, index) => (
+                <div key={index} className="mb-8">
+                  <div className="flex items-center space-x-2">
+                    <img
+                      src={`${baseUrl}${feedback.user_profile_photo}`}
+                      alt={`Avatar of ${feedback.user.username}`}
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div>
+                      <p className="text-lg font-semibold">
+                        {feedback.user.username}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center mt-2">
+                    <Rating
+                      value={feedback.rating}
+                      readOnly
+                    />
+                  </div>
+
+                  <p className="text-gray-500 mt-2">{feedback.comment}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className=' mb-10 text-lg'>No feedbacks available for this service yet!</p>
+          )}
+        </div>
         </div>
         <Footer />
     </div>
