@@ -14,6 +14,7 @@ function FreelancerHome() {
   const [totalOrderCount, setTotalOrderCount] = useState(0);
   const [closedOrders, setClosedOrders] = useState(0)
   const [otherOrders, setOtherOrders] = useState(0)
+  const [transactionData, setTransactionData] = useState([]);
 
   useEffect(() => {
       // Fetch total amount earned
@@ -50,6 +51,16 @@ function FreelancerHome() {
       })
       .catch((error) => {
         console.error('Error fetching total amounts:', error);
+      });
+
+      // Fetch TransactionHistory
+      api
+      .get('/freelancers/freelancer-transaction-history/')
+      .then((response) => {
+        setTransactionData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching Transaction history:', error);
       });
   }, []);
 
@@ -309,6 +320,27 @@ function FreelancerHome() {
                     </table>   
                   </div>
                 </div>
+              </div>
+              <div className="h-full py-6 px-6 rounded-xl border border-gray-300 bg-white shadow-lg mt-16">
+                <h2 className="text-2xl text-gray-800 font-bold lg:mt-2">Transaction History</h2>
+                {transactionData && transactionData.length > 0 ? (
+                  <div>
+                    <p className="text-gray-800 mb-4">
+                      Total Transactions: {transactionData.length}
+                    </p>
+                    {transactionData.map((transaction, index) => (
+                      <div key={index} className="lg:flex">
+                        <div className="flex flex-col justify-between py-6 lg:mx-6">
+                          <p className="text-xl font-semibold text-gray-800 dark:text-black">
+                          {index + 1}. Client: {transaction.user.username} paid ${transaction.total_amount.toFixed(2)} for the service: "{transaction.order.gig_title}".
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p>No transactions available.</p>
+                )}
               </div>
             </div>
           </div>
