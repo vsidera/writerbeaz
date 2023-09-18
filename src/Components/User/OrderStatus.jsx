@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CancelModal from './CancelModal';
 import { loadStripe } from '@stripe/stripe-js';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 
 function OrderStatus(props) {
   const { id } = useParams();
@@ -18,7 +20,9 @@ function OrderStatus(props) {
   const [commission, setCommission] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-
+  const [rating, setRating] = useState(2);
+  const [feedback, setFeedback] = useState('');
+  
   const openCanelModal = () => {
     setIsCancelModalOpen(true);
   };
@@ -70,9 +74,7 @@ function OrderStatus(props) {
       });
   
       const stripePublicKey = response.data.stripe_public_key;
-  
       const stripe = await loadStripe(stripePublicKey);
-  
       const { error } = await stripe.redirectToCheckout({
         sessionId: response.data.session_id,
       });
@@ -86,6 +88,30 @@ function OrderStatus(props) {
       toast.error('Something went wrong.');
     }
   };
+
+  const handleRatingChange = (event, newValue) => {
+    setRating(newValue);
+  };
+
+  const handleFeedbackChange = (event) => {
+    setFeedback(event.target.value);
+  };
+
+  const submitRatingAndFeedback = () => {
+    api.post(`/users/feedback/submit/`, {
+      gig_id: ordersData.gig.id,
+      rating: rating,
+      comment: feedback,
+    })
+    .then((response) => {
+      toast.success('Rating and feedback submitted successfully');
+    })
+    .catch((error) => {
+      console.error('Error submitting rating and feedback:', error);
+      toast.error('Failed to submit rating and feedback');
+    });
+  };
+  
 
   return (
     <div>
@@ -167,7 +193,7 @@ function OrderStatus(props) {
                 <div className="font-semibold text-gray-500 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-10">
                     <h3 className="text-2xl font-bold mt-4 mb-2">Requirements:</h3>
                     <p className="text-gray-500">{ordersData.requirement}</p>
-                    {currentStatus.label != 'Payment Pending' && (
+                    {currentStatus.label != 'Payment Pending' || currentStatus.label != 'Deal Closed' && (
                     <>
                     <p className="text-gray-500 mt-4">Expected Delivery in : {ordersData.gig.delivery_time}</p>
                     <div className="flex flex-wrap items-center sm:space-x-4 sm:space-y-0 my-4 mt-4">
@@ -247,6 +273,73 @@ function OrderStatus(props) {
                           Accept Order
                         </button>
                         </div>
+                    )}
+                    {currentStatus.label === 'Deal Closed' && (
+                    <div>
+                        <p className="text-gray-500 mt-20 mb-3">
+                        * Freelancer Uploaded your Work! Click to Download the File!
+                        </p>
+                        <a
+                        href={`${baseUrl}${ordersData.uploaded_file}`}
+                        download
+                        className="mt-5 mr-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-14"
+                        >
+                        <lord-icon
+                            src="https://cdn.lordicon.com/nxooksci.json"
+                            trigger="loop"
+                            colors="primary:#ffffff"
+                            style={{width: "25px", height: "25px", paddingTop: "6px"}}>
+                        </lord-icon>
+                        Download File
+                        </a>
+
+                        <div class="py-3 sm:max-w-xl sm:mx-auto mt-20 mb-20">
+                            <div class="bg-gray-100 min-w-1xl flex flex-col rounded-xl shadow-2xl">
+                                <div class="px-12 py-5">
+                                    <h2 class="text-gray-800 text-3xl text-center font-semibold">Your opinion matters!</h2>
+                                </div>
+                                <div class="bg-gray-200 w-full flex flex-col items-center">
+                                    <div className="flex flex-col items-center py-6 space-y-3">
+                                        <span className="text-lg text-gray-800">How was the quality of the service?</span>
+                                        <div className="flex space-x-3">
+                                            <Box
+                                            sx={{
+                                                '& > legend': { mt: 2 },
+                                            }}
+                                            >
+                                            <Rating
+                                                name="simple-controlled"
+                                                value={rating}
+                                                onChange={handleRatingChange}
+                                                sx={{
+                                                '& .MuiRating-iconFilled': {
+                                                    fontSize: '40px',
+                                                },
+                                                }}
+                                            />
+                                            </Box>
+                                        </div>
+                                    </div>
+
+                                    <div className="w-3/4 flex flex-col">
+                                        <textarea
+                                            rows="3"
+                                            value={feedback}
+                                            onChange={handleFeedbackChange}
+                                            className="p-4 text-gray-500 rounded-xl resize-none placeholder:font-normal"
+                                            placeholder="Leave feedback, if you want!"
+                                        ></textarea>
+                                        <button
+                                            className="py-3 my-8 text-lg bg-gradient-to-r from-blue-400 to-blue-700 rounded-xl text-white"
+                                            onClick={submitRatingAndFeedback}
+                                        >
+                                            Rate now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     )}
                 </div>
             </>

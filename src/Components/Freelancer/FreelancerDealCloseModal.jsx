@@ -25,8 +25,8 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
 
     const [workData, setWorkData] = useState({
         uploaded_file: null,
-        uploading: false, // Add a loading state
-        success: false,   // Add a success state
+        uploading: false,
+        success: false,
     });
 
     const handleFileChange = (e) => {
@@ -38,8 +38,7 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
         const formData = new FormData();
         formData.append('uploaded_file', workData.uploaded_file);
 
-        setWorkData({ ...workData, uploading: true }); // Set loading state
-
+        setWorkData({ ...workData, uploading: true });
         try {
             const response = await api.put(
                 `/freelancers/freelancer-close-deal/${orderId}/`,
@@ -53,11 +52,8 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
             );
 
             if (response.status === 200) {
-                // Set success state and show success message
                 setWorkData({ ...workData, success: true });
                 toast.success('Work Completed successfully');
-
-                // Close the modal after a delay or do other actions
                 setTimeout(() => {
                     closeModal();
                 }, 2000);
@@ -68,7 +64,7 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
             console.error('Work Complete error:', error);
             toast.error('Error completing work');
         } finally {
-            setWorkData({ ...workData, uploading: false }); // Reset loading state
+            setWorkData({ ...workData, uploading: false });
         }
     };
 
@@ -85,13 +81,11 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </button>
-            {/* Content of the modal */}
-            {workData.success ? ( // Show success message
+            {workData.success ? (
                 <div className="p-4">
                     <h2 className="text-xl font-semibold mb-16">Work Completed Successfully</h2>
                 </div>
             ) : (
-                // Show file upload form
                 <div className="p-4">
                     <h2 className="text-xl font-semibold mb-16">Complete Deal</h2>
                     <form onSubmit={handleSubmit}>
@@ -106,7 +100,6 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
                         </div>
                         <div className="flex justify-end">
                             {workData.uploading ? (
-                                // Show loading state while uploading
                                 <button
                                     type="button"
                                     className="bg-blue-500 text-white py-2 px-4 rounded cursor-not-allowed"
@@ -115,7 +108,6 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
                                     Uploading...
                                 </button>
                             ) : (
-                                // Show the upload button
                                 <button
                                     type="submit"
                                     className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
