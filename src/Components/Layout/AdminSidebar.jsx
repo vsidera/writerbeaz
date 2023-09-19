@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Logout from '../Auth/Logout';
 import { useDispatch } from 'react-redux';
@@ -10,17 +10,50 @@ function AdminSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(clearUser());
     toast.success('Admin Logged out');
     navigate('/login') 
     };
-  
 
   return (
     <>
-        <aside className="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
+        <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+            <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
+                <button
+                    className="w-12 h-16 -mr-2 border-r lg:hidden"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 my-auto"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                        />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <aside
+            className={`${
+            menuOpen ? 'ml-0' : '-ml-[100%]'
+            } fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]`}
+        >
+        <button onClick={() => setMenuOpen(false)} className="absolute top-2 right-2 text-blue-800 focus:outline-none hover:text-black lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </button>
         <div>
             <div className="-mx-6 px-6 py-4">
             <Link to="/admin" title="home">
@@ -103,20 +136,6 @@ function AdminSidebar() {
                     <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
                 </svg>
                 <span className={`${location.pathname === '/admin/transactions' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>Transactions</span>
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
-                to="/admin/wallet"
-                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
-                    location.pathname === '/admin/wallet' ? 'bg-black' : 'bg-transparent'
-                }`}
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                    <path className="fill-current text-gray-600 group-hover:text-cyan-600" fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
-                </svg>
-                <span className={`${location.pathname === '/admin/wallet' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>Wallet</span>
                 </NavLink>
             </li>
             </ul>
