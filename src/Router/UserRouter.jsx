@@ -12,6 +12,8 @@ import SingleView from '../Components/User/SingleView';
 import FreelancerView from '../Components/User/FreelancerView';
 import OrderConfirmation from '../Components/User/OrderConfirmation';
 import OrderStatus from '../Components/User/OrderStatus';
+import NotFound404 from '../Components/Layout/NotFound404';
+import ChatComponent from '../Components/Chat/ChatComponent';
 
 
 function UserRouter() {
@@ -26,10 +28,13 @@ function UserRouter() {
         <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
         <Route path="/orderstatus/:id" element={<OrderStatus />} />
 
+        <Route path="/chat" element={<ChatComponent />} />
+
         <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="*" element={<NotFound404 />} />
     </Routes>
   )
 }
