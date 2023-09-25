@@ -1,106 +1,69 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ChatSidebar from './ChatSidebar';
 import { Avatar } from "@material-tailwind/react";
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import api from '../../api/axiosConfig';
-import { useSelector } from 'react-redux';
 import avatar from '../../images/avatar.jpg';
+import { useSelector } from 'react-redux';
 
-
-const ChatComponent = () => {
-  const [author, setAuthor] = useState('');
-  const [rooms, setRooms] = useState([]);
-  const [activeRoomId, setActiveRoomId] = useState(null);
+const ChatPage = () => {
+  const [recipient, setRecipient] = useState(null);
+  const [roomId, setRoomId] = useState('');
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [user,setUser] = useState({})
-  const [isLoading, setIsLoading] = useState(true);
+  const scroll = useRef();
   const userData = useSelector((state) => state.user);
 
-  const scroll = useRef();
   const socketRef = useRef(null);
-  const history = useNavigate()
+
+  const senderId = userData.user_id;
+  const recipientId = recipient ? recipient.id : '';
 
   useEffect(() => {
-    try {
-      setAuthor(userData.id);
+    if (roomId) {
+      // Establish a WebSocket connection
+      socketRef.current = new WebSocket(`ws://localhost:8000/ws/chat/${senderId}/${recipientId}/`);
 
-      if (userData.id) {
-        api
-          .get(`rooms/?renter=${userData.id}`)
-          .then((response) => {
-            setRooms(response.data);
-            console.log(response.data);
-            setActiveRoomId(response.data[0]?.id);
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            setIsLoading(false);
-          });
-      } else {
-        api
-          .get('allrooms/')
-          .then((response) => {
-            setRooms(response.data);
-            console.log(response.data);
-            setActiveRoomId(response.data[0]?.id);
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            setIsLoading(false);
-          });
-      }
-    } catch (e) {
-      history('/login');
-      toast.error('Please Login for community chat', { duration: 5000 });
-    }
-  }, [userData]);
-  
-
-  useEffect(() => {
-    if (activeRoomId) {
-      socketRef.current = new WebSocket(`wss://localhost:8000/ws/chat/${activeRoomId}/`);
-
+      // Handle incoming WebSocket messages
       socketRef.current.onmessage = (event) => {
         const message = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, message]);
       };
 
+      // Fetch existing messages for the chat
       api
-        .get(`rooms/${activeRoomId}/messages/`)
+        .get(`/api/rooms/${senderId}/${recipientId}/messages/list/`)
         .then((response) => {
           setMessages(response.data);
-          setIsLoading(false);
         })
         .catch((error) => {
           console.error('Error:', error);
-          setIsLoading(false);
         });
     }
+
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
       }
     };
-  }, [activeRoomId]);
+  }, [roomId, senderId, recipientId]);
 
   const sendMessage = () => {
+    if (!recipient) {
+      toast.error('Please select a recipient to chat with.', { duration: 5000 });
+      return;
+    }
+
     const message = {
       content: newMessage,
-      author: author,
-      room_id: activeRoomId,
+      sender: senderId,
+      recipient: recipientId,
     };
 
-    
     api
-      .post(`rooms/${activeRoomId}/messages/`, message)
+      .post(`/api/rooms/${senderId}/${recipientId}/messages/send/`, message)
       .then((response) => {
         const newMessage = response.data;
         setMessages((prevMessages) => [...prevMessages, newMessage]);
-        
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -115,38 +78,72 @@ const ChatComponent = () => {
 
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: 'smooth' });
-    async function getUser() {
-      try {
-        const userData = JSON.parse(localStorage.getItem('user'));
-        setUser(userData.user_id);
-        
-       
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getUser()
   }, [messages]);
 
-const userIsRenter = user && user.is_renter;
+  // Fetch user data for the sidebar (you can replace this with your own implementation)
+  const [recipients, setRecipients] = useState([]);
 
-  const filteredMessages = userIsRenter
-    ? messages.filter(message => message.room.renter.id === user.userID)
-    : messages;
-
+  useEffect(() => {
+    // Fetch user data
+    api
+      .get('/api/accounts-list/')
+      .then((response) => {
+        setRecipients(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []);
 
   return (
-    <div className="flex h-screen   rounded-md bg-gray-200">
-      <ChatSidebar
-        rooms={rooms}
-        activeRoomId={activeRoomId}
-        setActiveRoomId={setActiveRoomId}
-      />
-      <div className="flex-grow ">
+    <div className="flex h-screen rounded-md bg-gray-200">
+      {/* Chat sidebar */}
+      <div className="flex flex-col bg-gray-200 h-screen w-1/4 border-r-2 border-gray-300">
+        <h2 className="text-xl font-bold p-4 bg-gray-700 text-white">Chat</h2>
+        <ul className="flex-grow overflow-y-auto">
+          {Array.isArray(recipients) && recipients.length > 0 ? (
+            recipients.map((user) => (
+              <li
+                key={user.id}
+                className={`flex items-center py-3 px-4 cursor-pointer ${
+                  recipient && recipient.id === user.id ? 'bg-gray-300' : 'hover:bg-gray-100'
+                }`}
+                onClick={() => {
+                  setRecipient(user);
+                  const roomId = `${senderId}${user.id}`;
+                  setRoomId(roomId);
+                }}
+              >
+                <div className="flex-shrink-0 mr-3 mt-1">
+                  <Avatar
+                    src={avatar}
+                    alt="User Avatar"
+                    size="md"
+                    className="rounded-full w-12 h-12 object-cover"
+                  />
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-start ms-3 text-lg font-semibold">{user.first_name}</h3>
+                </div>
+                {/* You can add online/offline status indicators here */}
+              </li>
+            ))
+          ) : (
+            <p>No recipients found.</p>
+          )}
+        </ul>
+      </div>
+
+      {/* Chat component */}
+      <div className="flex-grow">
         <div className="flex flex-col h-screen">
+          {/* Chat header */}
           <div className="py-4 px-6 bg-gray-700 text-white">
-            <h2 className="text-xl font-bold">Messages</h2>
+            <h2 className="text-xl font-bold">
+              {recipient ? `Chat with ${recipient.first_name}` : 'Select a recipient'}
+            </h2>
           </div>
+          {/* Chat messages */}
           <div className="flex-grow p-6 overflow-y-auto">
             {messages.length > 0 ? (
               messages.map((message, index) => (
@@ -154,18 +151,18 @@ const userIsRenter = user && user.is_renter;
                   key={index}
                   ref={scroll}
                   className={`flex ${
-                    message.author === author ? 'justify-end' : 'justify-start'
+                    message.sender === senderId ? 'justify-end' : 'justify-start'
                   } mb-4`}
                 >
                   <div
                     className={`${
-                      message.author === author
+                      message.sender === senderId
                         ? 'bg-green-500 text-white self-end'
                         : 'bg-blue-500 text-white self-start'
                     } py-2 px-4 rounded-lg max-w-md`}
                   >
                     <div className="flex items-center">
-                      {message.author === author ? (
+                      {message.sender === senderId ? (
                         <>
                           {message.content && (
                             <div className="mr-3">{message.content}</div>
@@ -180,13 +177,7 @@ const userIsRenter = user && user.is_renter;
                       ) : (
                         <>
                           <Avatar
-                            src={
-                              message.author === user ? (
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-                              ) : (
-                                avatar
-                              )
-                            }
+                            src={avatar}
                             alt="avatar"
                             size="xs"
                             className="mr-3 rounded-full h-6 w-6"
@@ -198,10 +189,11 @@ const userIsRenter = user && user.is_renter;
                       )}
                     </div>
                     <div className="text-xs text-gray-400 mt-1">
-                    {new Date(message.timestamp).toLocaleTimeString([], {
+                      {new Date(message.timestamp).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
-                      })}                  </div>
+                      })}
+                    </div>
                   </div>
                 </div>
               ))
@@ -209,6 +201,7 @@ const userIsRenter = user && user.is_renter;
               <div className="text-center text-gray-500">No messages yet</div>
             )}
           </div>
+          {/* Chat input */}
           <div className="py-4 px-6 bg-gray-300">
             <form
               onSubmit={(e) => {
@@ -238,4 +231,4 @@ const userIsRenter = user && user.is_renter;
   );
 };
 
-export default ChatComponent;
+export default ChatPage;
