@@ -11,7 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const dispatch = store.dispatch;
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  // baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: 'https://workxbackend.onrender.com',
   headers: {
     "Content-Type": "application/json",
   },
