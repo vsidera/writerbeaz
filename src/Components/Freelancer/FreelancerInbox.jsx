@@ -83,7 +83,7 @@ function FreelancerInbox() {
                             <div className="flex items-center sm:flex-nowrap flex-wrap">
                               <div className="rounded-lg overflow-hidden w-56 h-auto">
                                 <img
-                                  src={process.env.REACT_APP_API_BASE_URL + order.gig.image1}
+                                  src={order.gig.image1}
                                   alt='order-image'
                                   className="w-full h-full object-cover"
                                 />
@@ -140,7 +140,7 @@ function FreelancerInbox() {
                             <div className="rounded-lg overflow-hidden w-56 h-auto">
                               <h1 className='text-red-600 font-bold sm:text-xl mb-2'>This Order Canceled</h1>
                               <img
-                                src={process.env.REACT_APP_API_BASE_URL + order.gig.image1}
+                                src={order.gig.image1}
                                 alt='order-image'
                                 className="w-full h-full object-cover"
                               />

@@ -265,7 +265,7 @@ function FreelancerProfile() {
                         <div className="bg-white shadow-xl rounded-lg p-6">
                             <div className="flex flex-col items-center">
                                 <img
-                                    src={process.env.REACT_APP_API_BASE_URL + profileData.profile_photo}
+                                    src={profileData.profile_photo}
                                     className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                                     alt="Profile Photo"
                                 />
@@ -542,7 +542,7 @@ function FreelancerProfile() {
                                     <div className="flex items-center sm:flex-nowrap flex-wrap">
                                       <div className="rounded-lg overflow-hidden w-80 h-40">
                                         <img
-                                          src={process.env.REACT_APP_API_BASE_URL + gig.image1}
+                                          src={gig.image1}
                                           alt={gig.title}
                                           className="w-full h-full object-cover"
                                         />

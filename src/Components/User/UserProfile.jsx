@@ -100,7 +100,7 @@ function UserProfile() {
               <img src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg" className="w-full h-full rounded-tl-lg rounded-tr-lg" />
             </div>
             <div className="flex flex-col items-center -mt-20">
-              <img src={process.env.REACT_APP_API_BASE_URL + profileData.profile_photo} className="w-40 h-40 border-4 border-white rounded-full object-cover" />
+              <img src={profileData.profile_photo} className="w-40 h-40 border-4 border-white rounded-full object-cover" />
               <div className="flex items-center space-x-2 mt-2">
                 <p className="text-2xl">{user.username}</p>
                 <span className="bg-blue-500 rounded-full p-1" title="Verified">
@@ -172,7 +172,7 @@ function UserProfile() {
                             <div className="flex items-center sm:flex-nowrap flex-wrap">
                               <div className="rounded-lg overflow-hidden w-52 h-32">
                                 <img
-                                  src={process.env.REACT_APP_API_BASE_URL + order.gig.image1}
+                                  src={order.gig.image1}
                                   alt="order-image"
                                   className="w-full h-full object-cover"
                                 />

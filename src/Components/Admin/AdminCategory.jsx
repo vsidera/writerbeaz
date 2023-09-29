@@ -135,7 +135,7 @@ function AdminCategory() {
                   >
                     <td className="flex px-3 py-2 md:px-6 md:py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <img
-                          src={process.env.REACT_APP_API_BASE_URL + category.image}
+                          src={category.image}
                           className="w-24 h-24 rounded-full border border-white mr-3"
                           alt={category.name}
                         />

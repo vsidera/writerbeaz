@@ -285,7 +285,7 @@ function FindFreelancer() {
                   <div className="mb-2">
                     <img
                       className="object-center object-cover rounded-xl h-56 w-80"
-                      src={process.env.REACT_APP_API_BASE_URL + gigs.image1}
+                      src={gigs.image1}
                       alt={gigs.title}
                     />
                   </div>
