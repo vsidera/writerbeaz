@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Layout/Navbar';
 import api from '../../api/axiosConfig';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Footer from '../Layout/Footer';
 import { toast } from 'react-toastify';
@@ -9,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function OrderConfirmation(props) {
   const { id } = useParams();
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  const user = useSelector(state => state.user);
   const navigate = useNavigate();
 
   const [gig, setGig] = useState({});
@@ -25,23 +27,28 @@ function OrderConfirmation(props) {
   }, [id]);
 
   const handleSubmit = () => {
-    const order = {
-      requirement: requirements,
-      amount: gig.starting_price,
-      gig: parseInt(id),
-      freelancer: gig.freelancer.id,
-    };
+    if (user) {
+      const order = {
+        requirement: requirements,
+        amount: gig.starting_price,
+        gig: parseInt(id),
+        freelancer: gig.freelancer.id,
+      };
   
-    api.post('/users/user-orders/', order)
-      .then((response) => {
-        toast.success('Order placed successfully!');
-        setRequirements('')
-        navigate('/profile');
-      })
-      .catch((error) => {
-        toast.error('Failed to place the order. Please try again.');
-      });
-  };  
+      api.post('/users/user-orders/', order)
+        .then((response) => {
+          toast.success('Order placed successfully!');
+          setRequirements('');
+          navigate('/profile');
+        })
+        .catch((error) => {
+          toast.error('Failed to place the order. Please try again.');
+        });
+    } else {
+      navigate('/login');
+    }
+  };
+  
 
   return (
     <div>
