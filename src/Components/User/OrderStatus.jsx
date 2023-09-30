@@ -139,7 +139,7 @@ function OrderStatus(props) {
                         <h1 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">Order Status Page</h1>
                         <div className="h-80 sm:h-96 rounded-lg bg-gray-100 mb-4 relative">
                             <img
-                                src={`${baseUrl}${ordersData.gig.image1}`}
+                                src={`${ordersData.gig.image1}`}
                                 alt='Gig image'
                                 className="h-80 sm:h-96 w-full object-cover rounded-lg bg-gray-100 mb-4"
                             />
@@ -256,7 +256,7 @@ function OrderStatus(props) {
                             *Freelancer Completed your Work! Check out the Pre-Submit. Accept and Pay the amount to receive the Actual File!
                         </p>
                         <img
-                                src={`${baseUrl}${ordersData.order_raw_images}`}
+                                src={`${ordersData.order_raw_images}`}
                                 alt='Gig image'
                                 className="h-full w-full object-cover rounded-lg bg-gray-100 mb-4"
                             />
@@ -280,7 +280,7 @@ function OrderStatus(props) {
                         * Freelancer Uploaded your Work! Click to Download the File!
                         </p>
                         <a
-                        href={`${baseUrl}${ordersData.uploaded_file}`}
+                        href={`${ordersData.uploaded_file}`}
                         download
                         className="mt-5 mr-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-14"
                         >

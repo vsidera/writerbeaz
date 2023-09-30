@@ -139,7 +139,7 @@ function Home() {
                 key={category.id}
                 className="w-full bg-black rounded-lg p-12 flex flex-col justify-center items-center black-cover"
                 style={{
-                  backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL + category.image})`,
+                  backgroundImage: `url(${category.image})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",

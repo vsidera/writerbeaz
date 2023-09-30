@@ -53,7 +53,7 @@ function OrderConfirmation(props) {
             <h1 className="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">Order Confirmation</h1>
             <div className="h-80 sm:h-96 rounded-lg bg-gray-100 mb-4 relative">
               <img
-                src={`${baseUrl}${gig.image1}`}
+                src={`${gig.image1}`}
                 alt='Gig image'
                 className="h-80 sm:h-96 w-full object-cover rounded-lg bg-gray-100 mb-4"
               />
@@ -68,7 +68,7 @@ function OrderConfirmation(props) {
                 <span className="flex items-center">
                   {gig.freelancer_profile_photo && (
                     <img
-                      src={`${baseUrl}${gig.freelancer_profile_photo}`}
+                      src={`${gig.freelancer_profile_photo}`}
                       alt={`Profile Photo of ${gig.freelancer.username}`}
                       className="w-10 h-10 rounded-full mr-2"
                     />

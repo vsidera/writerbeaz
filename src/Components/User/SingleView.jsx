@@ -69,7 +69,7 @@ function SingleView(props) {
           <div className="md:flex-1 px-4">
             <div className="h-80 sm:h-96 rounded-lg bg-gray-100 mb-4 relative">
               <img
-                src={`${baseUrl}${gig[`image${currentImage}`]}`}
+                src={`${gig[`image${currentImage}`]}`}
                 alt={`Image ${currentImage}`}
                 className="h-80 sm:h-96 w-full object-cover rounded-lg bg-gray-100 mb-4"
               />
@@ -100,7 +100,7 @@ function SingleView(props) {
                 <span className="flex items-center">
                   {gig.freelancer_profile_photo && (
                     <img
-                      src={`${baseUrl}${gig.freelancer_profile_photo}`}
+                      src={`${gig.freelancer_profile_photo}`}
                       alt={`Profile Photo of ${gig.freelancer.username}`}
                       className="w-10 h-10 rounded-full mr-2"
                     />
@@ -182,7 +182,7 @@ function SingleView(props) {
                 <div key={index} className="mb-8">
                   <div className="flex items-center space-x-2">
                     <img
-                      src={`${baseUrl}${feedback.user_profile_photo}`}
+                      src={`${feedback.user_profile_photo}`}
                       alt={`Avatar of ${feedback.user.username}`}
                       className="w-10 h-10 rounded-full"
                     />
