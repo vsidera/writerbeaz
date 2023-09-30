@@ -27,7 +27,6 @@ function UserRouter() {
         <Route path="/freelancer-view/:id" element={<FreelancerView />} />
         <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
         <Route path="/orderstatus/:id" element={<OrderStatus />} />
-
         <Route path="/chat" element={<ChatPage />} />
 
         <Route path="/signup" element={<Signup />} />
