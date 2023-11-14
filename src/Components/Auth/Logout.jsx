@@ -22,12 +22,12 @@ function Logout() {
         onClick={handleLogout}
         style={{cursor: "pointer"}}
     >
-        <lord-icon
+        {/* <lord-icon
             src="https://cdn.lordicon.com/jfhbogmw.json"
             trigger="loop"
             colors="primary:#c71f16"
             style={{width:"30px", height:"30px", paddingTop: "10px"}}>
-        </lord-icon>
+        </lord-icon> */}
         Logout
     </div>
   )

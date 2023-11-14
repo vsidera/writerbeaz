@@ -1,0 +1,16 @@
+.card-list {
+    width: 85vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    animation: 2s ease-out 0s 1 slideInFromLeft;
+    margin-bottom: 100px;
+}
+
+@media (max-width: 1190px) {
+    .card-list {
+            grid-template-columns: 75%;
+            justify-content: center;
+        }
+}

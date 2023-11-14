@@ -1,0 +1,160 @@
+{
+  "Header": {
+    "title": "Welcome to ",
+    "paragraph": "We offer professsional essay and writers. We offer the best Prices and Guaranteed value for money. Click the Button below to proceed"
+  },
+  "About": {
+    "paragraph": "WriterBeaz is a user-friendly freelancing platform connecting clients with skilled writers for top-tier writing solutions. We prioritize transparency, effective communication, and timely delivery, fostering a professional and secure environment. Join us in redefining the future of freelance writing with endless opportunities and a community built on mutual respect and creativity.",
+    "Why": [
+      "Quality Assurance",
+      "Seamless Communication",
+      "Staff support",
+      "Availability"
+    ],
+    "Why2": [
+      "Top Essays"
+      
+    ]
+  },
+  "Gallery": [
+    {
+      "title": "Cameroon J",
+      "stats": "5****** rating",
+      "rate":"100% completion rate",
+      "largeImage": "img/team/team/1.png",
+      "smallImage": "img/team/team/1.png"
+    },
+    {
+       "title": "Cecilly N",
+       "stats": "5****** rating",
+       "rate":"99% completion rate",
+      "largeImage": "img/team/team/2.png",
+      "smallImage": "img/team/team/2.png"
+    },
+    {
+       "title": "Chang H",
+       "stats": "5****** rating",
+       "rate":"100% completion rate",
+      "largeImage": "img/team/team/3.png",
+      "smallImage": "img/team/team/3.png"
+    },
+    {
+       "title": "Marriane K",
+       "stats": "5****** rating",
+       "rate":"100% completion rate",
+      "largeImage": "img/team/team/4.png",
+      "smallImage": "img/team/team/4.png"
+    },{
+       "title": "Nancy W",
+       "stats": "5****** rating",
+       "rate":"99% completion rate",
+      "largeImage": "img/team/team/5.png",
+      "smallImage": "img/team/team/5.png"
+    },
+    {
+       "title": "Weley R",
+       "stats": "5****** rating",
+       "rate":"100% completion rate",
+      "largeImage": "img/team/team/6.png",
+      "smallImage": "img/team/team/6.png"
+    }
+  ],
+  "Services": [
+    {
+      "icon": "fa fa-search-plus",
+      "name": "Essay Writing",
+      "text": "We write world class essays for clients ."
+    },
+    {
+      "icon": "fa fa-money",
+      "name": "Frelance work",
+      "text": "We have enough work for competent gifted writers."
+    },
+    {
+      "icon": "fa fa-cloud-download",
+      "name": "Upoad and download work",
+      "text": "Clients can upload work they want done and download the final work once completed."
+    },
+    {
+      "icon": "fa fa-language",
+      "name": "Multiple services",
+      "text": "Ranging from Programming, essays, reports, theses and more"
+    },
+    {
+      "icon": "fa fa-plane",
+      "name": "Global Experts",
+      "text": "our team of experts are collected from allover world."
+    },
+    {
+      "icon": "fa fa-pie-chart",
+      "name": "Projects",
+      "text": "We do projects, for all types of clients."
+    }
+  ],
+  "Testimonials": [
+    {
+      "img": "img/testimonials/02.jpg",
+      "text": "\"Best site to find the best writer for  essay.\"",
+      "name": "Johnathan Doe"
+    },
+    {
+      "img": "img/testimonials/01.jpg",
+      "text": "\"My assignment was completed on time and was very well accomplished.\"",
+      "name": "John Doe"
+    },
+    
+    {
+      "img": "img/testimonials/03.jpg",
+      "text": "\"The pricing was very affordable and the work equal to it.\"",
+      "name": "John Doe"
+    }
+  ],
+  "Team": [
+    {
+      "img": "img/team/1.png",
+      "name": "our Content is original",
+      "job": "Director"
+    },
+    {
+      "img": "img/team/2.png",
+      "name": "Get 24/7 support from our staff",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/3.png",
+      "name": "Our writers are Creative and original",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/4.png",
+      "name": "We always deliver on time",
+      "job": "Project Manager"
+    }
+  ],
+  "Contact": {
+    "address": "4321 California St, San Francisco, CA 12345 ",
+    "phone": "+1 123 456 1234",
+    "email": "info@company.com",
+    "facebook": "fb.com",
+    "twitter": "twitter.com",
+    "youtube": "youtube.com"
+  },
+  "Features": [
+    {
+      "icon": "fa fa-graduation-cap",
+      "title": "Student Account",
+      "text": "Our profesional writers provide high quality, plagiarism-free essays for students. sign up within seconds, upload your assignment instructionsand hire your own writer"
+    },
+    {
+      "icon": "fa fa-users",
+      "title": "Client Account",
+      "text": "Are you a writer? sign up for a writer account. Have a series of tests done. We will conduct an interview with your writer manager and receive your writer accountif successful"
+    },
+    {
+      "icon": "fa fa-check-square-o",
+      "title": "Assessment Process",
+      "text": "Our writer assessment process ensures that the best professionals work on your assignment"
+    }
+    
+  ]
+}

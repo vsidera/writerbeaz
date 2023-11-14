@@ -1,18 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Layout/Navbar';
-import Footer from '../Layout/Footer';
+import Footer from '../Layout/Footer/Footer';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
+import TypeWriterText from './Typerwriter';
+import WhatsAppButton from '../WhatsApp';
+import ScrollToTopButton from '../ScrollToTop';
+import EmailButton from '../EmailUs';
+import { FaAccessibleIcon, FaLockOpen } from 'react-icons/fa';
+import JsonData from '../../data/data.json'
+import { useDispatch } from 'react-redux'
+import { useRef } from 'react';
+import HomeSections from './HomeSections';
+import HomeArticles from './HomeArticles';
+import Testimonials from './Testimonials';
+import About, { AboutUs } from './About';
+import MeetOurTeam from './MeetOurTeam';
+import Features from './Features';
+import hellow from '../../assets/icons/home-sections/New entries-cuate.svg';
+import hello from '../../assets/icons/home-sections/Creative writing-cuate.svg' 
+
+
+
+
 
 function Home() {
+   const [landingPageData, setLandingPageData] = useState({});
+  useEffect(() => {
+    setLandingPageData(JsonData);
+  }, []);
   const [categoryData, setCategoryData] = useState([]);
   const [skillsData, setSkillsData] = useState([]);
   const [uniqueStates, setUniqueStates] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const fullName = useRef()
+    const email = useRef()
+    const message = useRef()
 
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -57,207 +86,93 @@ function Home() {
   return (
     <div className="w-full">
       <Navbar />
-      <div className="flex flex-col lg:flex-row bg-gradient-to-r from-cyan-600 to-blue-700 mt-12" style={{ height: "620px" }} >
-        <div className="hidden lg:block lg:w-1/2" style={{ clipPath: "polygon(10% 0, 100% 0%, 100% 100%, 0 100%)" }} >
-          <div className="h-full object-cover" style={{ backgroundImage: "url(/images/main1-removebg.png)" }} ></div>
-        </div>
-        <div className="flex flex-col justify-center items-center lg:items-start lg:w-1/2 px-4 md:px-6" style={{ height: "620px" }} >
-          <div className="text-center lg:text-left">
+      <div className="flex flex-col lg:flex-row bg-white mt-12  " style={{ height: "625px" }} >
+       <div className="flex flex-col justify-center items-center lg:items-start lg:w-1/2 px-4 md:px-16" style={{ height: "625px", background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)', borderRadius:' 0px' }} >
+          <div  className="text-center lg:text-left">
+            <img style={{position:'absolute', height:'200px', width:'200px', marginTop:'-180px' }}
+      
+      src={hello}
+      alt='hello'
+    /> 
             <h2 className="text-3xl font-bold text-white md:text-5xl drop-shadow-md">
-              Find the Perfect Talent.
+              
+              <TypeWriterText />
             </h2>
             <p className="mt-2 text-base text-white md:text-lg font-serif">
-              Forget old rules, get the best people right here, right now!
-            </p>
+We offer professsional essay and writers. We offer the best Prices and Guaranteed value for money. Click the Button below to proceed            </p>
             <div className="mt-6 relative w-full">
-              <input
-                type="text"
-                className="px-4 py-2 border rounded w-full"
-                placeholder="Search for any Service"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button
-                type="submit"
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 px-4 py-2 bg-gray-900 text-gray-200 font-semibold rounded hover:bg-blue-900"
-                onClick={handleSearch}
-              >
-                <lord-icon
-                  src="https://cdn.lordicon.com/xfftupfv.json"
-                  trigger="hover"
-                  colors="primary:#ffffff"
-                  style={{ width: "60px", height: "28px" }}
-                ></lord-icon>
+              <a href='/signup' >
+              <button className="get-started-btn">
+                Get Started <FaLockOpen className='icon'/>
+                
               </button>
+              </a>
             </div>
-          </div>
+   <img  src={hellow} alt='helo' style={{ position: 'absolute', height: '30%', width: '30%', left: '20%', top: '55%' }} />
+    </div>
+        </div> 
+        
+        <div  className="hidden lg:block lg:w-1/2" style={{ clipPath: "polygon(10% 0, 100% 0%, 100% 100%, 0 100%)" }} >
+          
+          <div className="h-full object-cover" style={{ backgroundImage: "url(/images/logo.svg)" }} ></div>
         </div>
+        
       </div>
-      <div className="flex flex-col md:flex-row bg-gradient-to-r from-gray-300 to-gray-400 justify-center items-center">
-        <div className="mb-4 mt-5 sm:mt-4">
-          <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="" >
-            <p className="text-2xl font-bold text-gray-500 group-hover:text-gray-700">
-              8,500
+      <div  style={{boxShadow:'0 0 2px'}} className="flex flex-col md:flex-row bg-gradient-to-t from-gray-200 to-gray-200 justify-center items-center">
+        <div  className="mb-4 mt-5 sm:mt-4">
+          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" >
+            <p className="text-2xl font-bold text-gray-900 ">
+              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span> 10,000
             </p>
-            <p className="text-sm font-semibold text-gray-500 group-hover:text-gray-700 mt-2 leading-6 mx-1">
-              Freelancers worldwide
+            <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-900 mt-2 leading-6 mx-1">
+             <span style={{color:'#AD9551', fontSize:'16px'}}>Writers</span>  
             </p>
           </a>
         </div>
         <div className="mb-4 mx-5 sm:mt-4">
-          <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="" >
-            <p className="text-2xl font-bold text-gray-500 group-hover:text-gray-700">
-              4,500
+          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" >
+            <p className="text-2xl font-bold text-gray-900 group-hover:text-gray-700">
+              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span> 5,000
             </p>
-            <p className="text-sm font-semibold text-gray-500 group-hover:text-gray-700 mt-2 leading-6 mx-1">
-              Users from worldwide
+            <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700 mt-2 leading-6 mx-1">
+             <span style={{color:'#AD9551', fontSize:'16px'}}>Users worldwide</span> 
+            </p>
+          </a>
+        </div>
+        <div className="mb-4 mx-5 sm:mt-4">
+          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" >
+            <p className="text-2xl font-bold text-gray-900 group-hover:text-gray-700">
+              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span> 100
+            </p>
+            <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700 mt-2 leading-6 mx-1">
+              <span style={{color:'#AD9551', fontSize:'16px'}}> Countries</span>
             </p>
           </a>
         </div>
         <div className='mb-4 sm:mt-4'>
-          <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="" >
-            <p className="text-2xl font-bold text-gray-500 group-hover:text-gray-700">
-              $58,000
+          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" > 
+            <p className="text-2xl font-bold text-gray-900 group-hover:text-gray-700">
+              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span>$50,000
             </p>
-            <p className="text-sm font-semibold text-gray-500 group-hover:text-gray-700 mt-2 leading-6 mx-1">
-              Paid for Freelancers.
+            <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700  leading-6 mx-1">
+             <span style={{color:'#AD9551', fontSize:'16px'}}>daily</span>
             </p>
           </a>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-center items-center">
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
-          <div className="text-center pb-12">
-            <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-gray-900">
-              Find <span className="text-blue-600">The BEST</span> for your Works
-            </h1>
-          </div>
+      
+			<HomeSections />
+      <About />
+      <MeetOurTeam />
+			<Testimonials />
+			<HomeArticles />
+      
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categoryData.map((category) => (
-              <div
-                key={category.id}
-                className="w-full bg-black rounded-lg p-12 flex flex-col justify-center items-center black-cover"
-                style={{
-                  backgroundImage: `url(${category.image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-                onClick={() => handleCategoryClick(category.id)}
-              >
-                <div className="mb-8"></div>
-                <div className="text-center relative">
-                  <p className="text-xl text-white font-bold mb-2">{category.name}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-      <div className='text-center'>
-        <Link to='/find-freelancer' className="p-2 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
-          See All Services
-        </Link>
-      </div>
-      <div className="bg-gradient-to-r from-cyan-600 to-blue-700 mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
-        <h1 className="font-bold text-3xl text-white mb-10 mt-10">
-          Why Freelancers and People Choose this platform?
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-4 pb-12 items-center">
-          <div className="text-white sm:col-span-1 mt-10 sm:mt-20 md:w-96">
-            <div class="mb-6">
-              <h2 className="font-bold text-lg mb-2">Credibility:</h2>
-              <p className="mt-2">
-                At WorkX, we take pride in ensuring that every freelancer on our platform is verified and thoroughly vetted. We understand the importance of trust when hiring professionals for your projects.
-              </p>
-            </div>
-            <div className="mb-6 mt-10 md:mt-20">
-              <h2 className="font-bold text-lg mb-2">Support:</h2>
-              <p className="mt-2">
-                We believe in providing unwavering support to our users. Our dedicated support team is available 24/7 to assist you, no matter where you are located.
-              </p>
-            </div>
-          </div>
-          <div className="col-span-1 flex justify-center items-center">
-            <img src="/images/main3-removebg-preview.png" alt="Image" className="w-full h-auto max-w-lg" />
-          </div>
-          <div className="text-white sm:col-span-1 mt-10 sm:mt-20 md:w-96">
-            <div className="mb-6">
-              <h2 className="font-bold text-lg mb-2">Flexibility:</h2>
-              <p className="mt-2">
-                WorkX understands that every project is unique, and every freelancer has specific preferences. That's why we offer multiple payment terms and flexible agreements to cater to your needs.
-              </p>
-            </div>
-            <div className="mb-6 mt-10 md:mt-20">
-              <h2 className="font-bold text-lg mb-2">Security:</h2>
-              <p className="mt-2 mb-8">
-                Your peace of mind matters to us. WorkX offers SafePay payment protection, ensuring that your funds are secure throughout the entire transaction process.
-              </p>
-              <Link to='/about' className="bg-black hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md mt-6">
-                More about WorkX
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
-        <div className="text-center pb-5">
-          <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
-            Skills
-          </h1>
-        </div>
-        <section className="bg-gradient-to-r from-gray-200 to-gray-300 mb-10 rounded-xl">
-          <div className="container px-6 py-10 mx-auto">
-            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {skillsData.skills && skillsData.skills.map((skill, index) => (
-              <div key={index} className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <p className="text-xl font-semibold text-gray-800 hover:underline dark:text-black">
-                    {skill}
-                  </p>
-                </div>
-              </div>
-            ))}
-            </div>
-            <div className='text-center mt-5'>
-              <Link to='/find-freelancer' className="p-2 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
-                See All Skills
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div className="bg-white mt-12 sm:h-auto flex flex-col justify-center items-center text-center">
-        <div className="text-center pb-5">
-          <h1 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-gray-900 border-b-4 border-slate-950">
-            Locations
-          </h1>
-        </div>
-        <section className="bg-gradient-to-r from-gray-200 to-gray-300 mb-20 rounded-xl">
-          <div className="container px-6 py-10 mx-auto">
-            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {uniqueStates.map((state, index) => (
-              <div key={index} className="lg:flex">
-                <div className="flex flex-col justify-between py-6 lg:mx-6">
-                  <p className="text-xl font-semibold text-gray-800 hover:underline dark:text-black">
-                    {state}
-                  </p>
-                </div>
-              </div>
-            ))}
-            </div>
-            <div className='text-center mt-5'>
-              <Link to='/find-freelancer' className="p-2 overflow-hidden rounded-md bg-blue-600 hover:bg-blue-700 text-sm font-bold text-white">
-                See All Locations
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
+ 
       <Footer />
+      <WhatsAppButton />
+      <ScrollToTopButton />
+      <EmailButton />
     </div>
   );
 }

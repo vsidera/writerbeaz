@@ -6,6 +6,9 @@ import { setUser, setEmailAddress, setRefreshToken, setTokenExpiry, setAccessTok
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../Layout/Footer/Footer';
+import logoheader from '../../images/assets/logonobg.png'
+import { FaBook, FaBookOpen, FaLockOpen, FaPen, FaUnlock } from 'react-icons/fa';
 
 function Login() {
 
@@ -23,6 +26,10 @@ function Login() {
 
     console.log('Stored Email in Redux:', emailAddress);
     console.log('User Details in Redux:', user);
+    
+    function handleClick(params) {
+        navigate('/');
+    }
 
     const handleLogin = async () => {
         try {
@@ -62,82 +69,83 @@ function Login() {
     
     
     return (
-        <div className="flex min-h-screen">
-            <div className="flex flex-row w-full">
-                <div className='hidden lg:flex flex-col justify-between bg-gradient-to-r from-cyan-500 to-blue-500 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
-                    <div className="flex items-center justify-start space-x-3">
-                        <lord-icon
-                            src="https://cdn.lordicon.com/dycatgju.json"
-                            trigger="loop"
-                            delay="2000"
-                            colors="primary:#121331"
-                            style={{ width: '50px', height: '50px' }}>
-                        </lord-icon>
-                        <a href="/" className="font-extrabold text-2xl text-[#121331]">workX</a>
-                    </div>
-                    <div className='space-y-5 mb-8 text-center'>
-                        <h1 className="lg:text-3xl xl:text-4xl xl:leading-snug font-extrabold text-start">Enter your account and discover new experiences</h1>
-                        <div className='w-96 h-96' style={{ backgroundImage: `url(/images/log-in-girl.svg)` }}></div>
-                        <p className="text-lg text-center font-semibold">Don't have an Account?</p>
-                        <Link to="/signup" className="inline-block flex-none px-4 py-3 border-2 rounded-lg font-medium border-black bg-black text-white hover:bg-[#1d1d1d]">
-                            Register Account here
-                        </Link>
-                    </div>
+        <>
+         <div  className="flex min-h-screen">
+            <div  className="flex flex-row w-full">
+               <div style={{boxShadow:'0 0 2px',background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)'}}  className='hidden lg:flex flex-r justify-between bg-gradient-to-r from-yellow-700 to-yellow-600 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
+                
+                <div  className='space-y-5 mb-8 text-center'>
+                <h1 class="header-logo" onClick={handleClick} >WriberBeaz<FaBookOpen /> </h1>
+                    <div className='w-96 h-96' style={{backgroundImage: `url(/images/Login-cuate.svg)`}}></div>
+                    <p style={{fontStyle:'italic'}} className="text-lg text-center ">If you already have an account?</p>
+                   <Link
+      to="/signup"
+      
+    >
+      <button class="button-30" role="button">Click to SignUp</button>
+    </Link>
                 </div>
+            </div>
 
                 <div className="flex flex-1 flex-col items-center justify-center px-10 relative">
                     <div className="flex lg:hidden justify-between items-center w-full py-4">
                         <div className="flex items-center justify-start space-x-3">
-                            <lord-icon
-                                src="https://cdn.lordicon.com/dycatgju.json"
-                                trigger="loop"
-                                delay="2000"
-                                colors="primary:#121331"
-                                style={{ width: '35px', height: '35px' }}>
-                            </lord-icon>
-                            <a href="/" className="font-extrabold text-2xl text-[#121331]">workX</a>                    
+                           
+                            <a
+    style={{
+      display: 'flex',
+      textDecoration: 'none',
+      textShadow: '2px 2px 2px rgba(0, 0, 0, 0.2)', // Add text shadow
+    }}
+    href="/"
+    className="font-extrabold text-2xl text-[#121331]"
+    id="write"
+  >
+    WriterBeaz<FaBookOpen style={{ color: "#AD9551" }} />
+  </a>                 
                         </div>
                         <div className="flex items-center space-x-2">
                             <span>Don't have Account? </span>
-                            <Link to="/signup" className="underline font-bold text-[#121331] hover:text-blue-700">
+                            <Link to="/signup" className="underline font-bold text-[goldenrod] hover:text-[#AD9551]">
                                 Register now
                             </Link>
                         </div>
                     </div>
 
                     <div className="flex flex-1 flex-col  justify-center space-y-5 max-w-md">
-                        <div className="flex flex-col space-y-2 text-center">
-                            <h2 className="text-3xl md:text-4xl font-bold">Login Now!</h2>
-                            <p className="text-md md:text-xl">SignUp or Login to <span className='font-medium'>Hire</span> or to become <span className='font-medium'>Freelancer!</span></p>
+                       <div style={{background:'white', boxShadow:'0 0 3px ', padding:'10px 30px 30px 30px', borderRadius:'10px'}}> <div className="flex flex-col space-y-2 text-center">
+                            <h2 style={{color: '#AD9551'}} className="text-3xl md:text-4xl font-bold" id='logn' >Login</h2>
+                            <p className="text-md md:text-xl">Enter your registered {''}<span className='font-medium text-yellow-500'>Email</span> and <span className='font-medium text-yellow-500'>Password</span> <br></br>to proceed</p>
                         </div>
                         <form className="flex flex-col max-w-md space-y-5">
-                            <input
+                            <input style={{border:'1px solid gray'}}
                             type="text"
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
+                            className="flex px-3 py-2 md:px-4 md:py-3  rounded-sm font-medium placeholder:font-normal"
                             />
 
-                            <input
+                            <input style={{border:'1px solid gray'}}
                             type="password"
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
+                            className="flex px-3 py-2 md:px-4 md:py-3  rounded-sm font-medium placeholder:font-normal"
                             />
-                            <button
-                            className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium bg-black text-white"
+                            <button style={{background:'linear-gradient(to right ,#AD9551 , goldenrod)',}}
+                            className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium  text-white"
                             type="button"
                             onClick={handleLogin}
                             >
-                            Login Account
+                            Login <FaLockOpen className='icon'/>
                             </button>
                         </form>
-                    </div>
+                    </div></div>
                 </div>
             </div>
-        </div>
+           
+        </div> </>
     );
 }
 

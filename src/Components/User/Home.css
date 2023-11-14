@@ -1,4 +1,7 @@
 /* Home.css */
+@import url('https://fonts.cdnfonts.com/css/stolen-times-personal-use');
+@import url('https://fonts.cdnfonts.com/css/felixtowe');
+
 
 .black-cover {
     position: relative;
@@ -20,3 +23,126 @@
 .black-cover:hover::before {
     opacity: 0;
   }
+  .get-started-btn{
+background: linear-gradient(to right, black 10%, orange , black 10%);
+    border: none;
+    padding: 10px 30px 10px 30px;
+    margin-left: 20%;
+    font-size: 18px;
+    border-radius: 10px;
+    display:flex
+
+  }
+  .header-logo1{
+     color: yellow;
+  display: inline-flex; /* Use inline-flex for inline display with flex properties */
+  font-size: 36px;
+ font-family: 'felixtowe', sans-serif;
+  transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Add transition for a smooth effect */
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* Add a subtle shadow effect */
+
+  }
+
+  .header-logo1:hover{
+    color: white;
+    cursor: pointer;
+      text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* Add a subtle shadow effect */
+
+  }
+  
+.header-logo {
+  color: yellow;
+  display: inline-flex; /* Use inline-flex for inline display with flex properties */
+  font-size: 48px;
+  font-family: 'felixtowe', sans-serif;
+  transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Add transition for a smooth effect */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); /* Add a subtle shadow effect */
+}
+  .header-logo:hover{
+    color: white;
+    cursor: pointer;
+  }
+
+  #write{
+    font-family: 'felixtowe', sans-serif;
+     background: -webkit-linear-gradient(#AD9551, goldenrod);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
+  #write:hover{
+   background: -webkit-linear-gradient(goldenrod, yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
+  @media (max-width: 500px) {
+    .get-started-btn{
+      background: linear-gradient(to right, black 0%, black);
+    border: none;
+    padding: 5px 15px 5px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    position: relative;
+    }
+
+   
+
+  }
+  #title, #about, #works, #team, #testimony, #blog, #logn{
+    color: red;
+    font-family: 'felixtowe', sans-serif;
+    background: -webkit-linear-gradient(#AD9551, goldenrod);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  }
+
+/* <!-- HTML !-->
+<button class="button-30" role="button">Button 30</button> */
+
+/* CSS */
+.button-30 {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button-30:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-30:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}

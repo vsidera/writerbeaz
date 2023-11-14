@@ -1,0 +1,156 @@
+.section_padding{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.footer{
+  background: linear-gradient(to bottom,#b6922e,#b6922e );
+  box-shadow: 0 0 2px;
+ 
+  
+}
+
+.logofooter{
+      transform: rotate(90deg);
+      border-radius: 10px;
+      box-shadow: 0 0 1px;
+      background-color: white
+      
+
+}
+
+.sb_footer{
+    display: flex;
+    flex-direction: column;
+}
+
+.sb_footer-links{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    text-align:left;
+    margin-bottom: 0rem;
+}
+
+.sb_footer-links_div{
+    width: 150px;
+    margin: 0rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    color: Black;
+}
+.sb_footer-links_div p{
+    display: flex;
+
+}
+a{
+    color: white;
+    margin: 5px;
+    font-size:16px ;
+    text-decoration: none;
+    
+}
+.icons{
+    color:yellow;
+    padding: 2px
+}
+a:hover {
+    color: yellow;
+}
+.socialmedia{
+    display:flex ;
+    flex-direction: row;
+    
+}
+.socialmedia p{
+    box-shadow: 0 0 2px;
+    margin: 5px;
+    padding: 1px;
+    border-radius: 5px;
+    justify-content:center;
+
+}
+
+.socialmedia img{
+    width:100%
+    
+}
+
+.sb_footer-links_div h4{
+   font-size:18px;
+   line-height: 17px;
+   margin-bottom: 0.7rem;
+}
+
+.sb_footer-links_div{
+    font-size: 14px;
+    line-height: 15px;
+    margin:0.5rem 0;
+    cursor: pointer;
+}
+
+
+.sb_footer-below{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+}
+
+.sb_footer-below-links{
+    display: flex;
+    flex-direction: row;
+}
+
+.sb_footer-below-links p{
+    font-size: 13px;
+    line-height: 15px;
+    margin: .5rem;
+    color: yellow;
+    font-weight: 100px;
+}
+
+hr{
+    color: rgb(202, 10, 10) !important ;
+    width: 100%;
+}
+
+.sb_footer-copyright{
+    font-size: 13px;
+    line-height: 15px;
+    color: rgb(255,255,255) ;
+    font-weight: 600;
+}
+
+@media screen and (max-width:550px){
+    .sb_footer-heading h1{
+        font-size: 34px;
+        line-height:42px ;
+    }
+    .sb_footer-links div{
+        margin: 1rem 0;
+    }
+    .sb_footer-btn p{
+        font-size: 14px;
+        line-height:20px;
+    }
+
+    .sb_footer-below{
+        flex-direction:column ;
+        justify-content: left;
+    }
+
+
+
+}
+
+@media screen and (min-width: 400px){
+    .sb_footer-heading     h1{
+        font-size: 27px;
+        line-height: 38px;
+    }
+}

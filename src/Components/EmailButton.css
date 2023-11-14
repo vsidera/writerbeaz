@@ -1,0 +1,43 @@
+.email-button {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    background-color: purple;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+.icon{
+    color:yellow;
+    margin: 4px;
+    /* font-size: 16px; */
+}
+
+.email-button:hover {
+    background-color: goldenrod;
+}
+
+.email-button:active {
+    background-color: goldenrod;
+}
+
+.email-button::after {
+    background-color: goldenrod;
+}
+
+/* Adjustments for mobile screens */
+@media only screen and (max-width: 768px) {
+    .email-button {
+        bottom: 3px;
+        left: 5px;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 3px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+}
