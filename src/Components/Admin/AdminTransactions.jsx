@@ -37,7 +37,7 @@ function AdminTransactions() {
                       <div key={index} className="lg:flex">
                         <div className="flex flex-col justify-between py-6 lg:mx-6">
                           <p className="text-xl font-semibold text-gray-800 dark:text-black">
-                          {index + 1}. Client {transaction.user.first_name} paid ₹{transaction.total_amount.toFixed(2)} for the service "{transaction.order.gig_title}" to Freelancer {transaction.freelancer.first_name}.
+                          {index + 1}. Client {transaction.user.first_name} paid ₹{transaction.total_amount.toFixed(2)} for the service "{transaction.order.gig_title}" to Tutor {transaction.tutor.first_name}.
                           </p>
                         </div>
                       </div>

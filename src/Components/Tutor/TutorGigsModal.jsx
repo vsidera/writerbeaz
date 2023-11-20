@@ -20,7 +20,7 @@ const customStyles = {
   },
 };
 
-function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
+function TutorGigsModal({ isOpen, closeModal, addGigsToParent }) {
   const authToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -93,7 +93,7 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
     formData.append('delivery_time', gigs.delivery_time);
     formData.append('available_requirements', gigs.available_requirements);
     formData.append('tags', gigs.tags);
-    formData.append('freelancer', userId);
+    formData.append('tutor', userId);
     if (gigs.images.image1) {
       formData.append('images1', gigs.images.image1);
     }
@@ -106,7 +106,7 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
   
     try {
       const response = await api.post(
-        `/freelancers/freelancer-addgigs/`,
+        `/tutors/tutor-addgigs/`,
         formData,
         {
           headers: {
@@ -293,4 +293,4 @@ function FreelancerGigsModal({ isOpen, closeModal, addGigsToParent }) {
   );
 }
 
-export default FreelancerGigsModal;
+export default TutorGigsModal;

@@ -20,7 +20,7 @@ const customStyles = {
     },
 };
 
-function FreelancerWorkCompleteModal({ isOpen, closeModal, orderId }) {
+function TutorWorkCompleteModal({ isOpen, closeModal, orderId }) {
     const authToken = useSelector((state) => state.accessToken);
     const userId = useSelector((state) => state.user.user_id);
 
@@ -46,7 +46,7 @@ function FreelancerWorkCompleteModal({ isOpen, closeModal, orderId }) {
 
         try {
             const response = await api.put(
-            `/freelancers/freelancer-complete-work/${orderId}/`,
+            `/tutors/tutor-complete-work/${orderId}/`,
             formData,
             {
                 headers: {
@@ -118,4 +118,4 @@ function FreelancerWorkCompleteModal({ isOpen, closeModal, orderId }) {
   )
 }
 
-export default FreelancerWorkCompleteModal
+export default TutorWorkCompleteModal

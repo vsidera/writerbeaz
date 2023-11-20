@@ -116,7 +116,7 @@ function About() {
           </div>
           <div style={{background:'linear-gradient(to right, #AD9551, #AD9551)'}} class="bg-white shadow-lg rounded-xl p-4 hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-200">
   <h1 class="font-bold text-xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Swift and Secure Transactions </h1>
-  <p style={{color:'white'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience the epitome of speed and security with our payment system. Our SafePay payment protection ensures freelancers receive timely payments for their work, and employers can confidently review the work before settling invoices. We go the extra mile by offering multiple payment and withdrawal options, guaranteeing secure transactions for everyone involved.</p>
+  <p style={{color:'white'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience the epitome of speed and security with our payment system. Our SafePay payment protection ensures tutors receive timely payments for their work, and employers can confidently review the work before settling invoices. We go the extra mile by offering multiple payment and withdrawal options, guaranteeing secure transactions for everyone involved.</p>
 </div>
 
       </div>
@@ -158,7 +158,7 @@ function About() {
           </div>
           <div style={{background:'linear-gradient(to right, #AD9551, #AD9551)'}} class="bg-white shadow-lg rounded-xl p-4 hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-200">
   <h1 class="font-bold text-xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. Seamless Onboarding Experience</h1>
-  <p style={{color:'white'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience a hassle-free onboarding process with us. Our platform ensures a user-friendly signup process, allowing you to quickly join our community of freelancers and employers. Our support team is available to assist you at every step, ensuring that you have a smooth and easy signup experience. Join us today and kickstart your journey with simplicity and ease.</p>
+  <p style={{color:'white'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience a hassle-free onboarding process with us. Our platform ensures a user-friendly signup process, allowing you to quickly join our community of tutors and employers. Our support team is available to assist you at every step, ensuring that you have a smooth and easy signup experience. Join us today and kickstart your journey with simplicity and ease.</p>
 </div>
 
       </div>
@@ -209,7 +209,7 @@ function About() {
                 <div className="text-black">
     <h3 className="font-semibold text-lg">Connect with Top Professionals:</h3>
     <p className="text-base text-black">
-        Explore our carefully curated pool of highly skilled freelancers with a proven track record.
+        Explore our carefully curated pool of highly skilled tutors with a proven track record.
     </p>
 </div>
 <div className="mt-4 text-black">

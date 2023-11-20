@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import FreelancerSidebar from '../Layout/FreelancerSidebar'
+import TutorSidebar from '../Layout/TutorSidebar'
 import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function FreelancerInbox() {
+function TutorInbox() {
   const [ordersData, setOrdersData] = useState(null);
 
   useEffect(() => {
     // Fetch orders data
     api
-      .get('/freelancers/freelancer-orderslist/')
+      .get('/tutors/tutor-orderslist/')
       .then((response) => {
         setOrdersData(response.data);
       })
@@ -34,7 +34,7 @@ function FreelancerInbox() {
 
   const handleAcceptOrder = (orderId) => {
     api
-      .put(`/freelancers/freelancer-acceptorder/${orderId}/`)
+      .put(`/tutors/tutor-acceptorder/${orderId}/`)
       .then(() => {
         setOrdersData((prevOrdersData) =>
           prevOrdersData.map((order) =>
@@ -49,7 +49,7 @@ function FreelancerInbox() {
 
   const handleStartWork = (orderId) => {
     api
-      .put(`/freelancers/freelancer-startwork/${orderId}/`)
+      .put(`/tutors/tutor-startwork/${orderId}/`)
       .then(() => {
         setOrdersData((prevOrdersData) =>
           prevOrdersData.map((order) =>
@@ -65,7 +65,7 @@ function FreelancerInbox() {
 
   return (
     <div>
-      <FreelancerSidebar />
+      <TutorSidebar />
 
       <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
         <div className="px-6 pt-6 2xl:container">
@@ -178,4 +178,4 @@ function FreelancerInbox() {
   )
 }
 
-export default FreelancerInbox;
+export default TutorInbox;

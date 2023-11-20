@@ -73,11 +73,11 @@ function Home() {
   const handleSearch = (e) => {
     e.preventDefault();
     const encodedSearchQuery = encodeURIComponent(searchQuery);
-    navigate(`/find-freelancer?search=${encodedSearchQuery}`);
+    navigate(`/find-tutor?search=${encodedSearchQuery}`);
   };  
 
   const handleCategoryClick = (categoryId) => {
-    navigate(`/find-freelancer?category=${categoryId}`);
+    navigate(`/find-tutor?category=${categoryId}`);
   };  
 
   console.log("categories: ", categoryData)

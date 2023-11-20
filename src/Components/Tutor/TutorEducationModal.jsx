@@ -20,7 +20,7 @@ const customStyles = {
     },
   };
 
-function FreelancerEducationModal({ isOpen, closeModal, addEducationToParent }) {
+function TutorEducationModal({ isOpen, closeModal, addEducationToParent }) {
     const authToken = useSelector((state) => state.accessToken);
     const userId = useSelector((state) => state.user.user_id);
   
@@ -40,12 +40,12 @@ function FreelancerEducationModal({ isOpen, closeModal, addEducationToParent }) 
   
       try {
         const response = await api.post(
-          '/freelancers/freelancer-addeducation/',
+          '/tutors/tutor-addeducation/',
           {
             course: education.course,
             college: education.college,
             year: education.year,
-            freelancer: userId,
+            tutor: userId,
           },
           {
             headers: {
@@ -139,4 +139,4 @@ function FreelancerEducationModal({ isOpen, closeModal, addEducationToParent }) 
     );
   }
 
-export default FreelancerEducationModal
+export default TutorEducationModal

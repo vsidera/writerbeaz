@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 import UserRouter from './Router/UserRouter';
-import FreelancerRouter from './Router/FreelancerRouter';
+import TutorRouter from './Router/TutorRouter';
 import AdminRouter from './Router/AdminRouter';
 import { useSelector } from 'react-redux';
 
@@ -10,7 +10,7 @@ function App() {
 
   const isAdmin = user && user.user_type === 'Admin';
   const isUser = user && user.user_type === 'User';
-  const isFreelancer = user && user.user_type === 'Freelancer';
+  const isTutor = user && user.user_type === 'Tutor';
 
   return (
     <>
@@ -23,10 +23,10 @@ function App() {
 
 
           {/* FREELANCER */}
-          {isFreelancer || isAdmin ? (
-            <Route path="/freelancer/*" element={<FreelancerRouter />} />
+          {isTutor || isAdmin ? (
+            <Route path="/tutor/*" element={<TutorRouter />} />
           ) : (
-            <Route path="/freelancer/*" element={<Navigate to="/login" />} />
+            <Route path="/tutor/*" element={<Navigate to="/login" />} />
           )}
 
 

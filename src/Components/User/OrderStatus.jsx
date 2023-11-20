@@ -149,14 +149,14 @@ function OrderStatus(props) {
                         <h2 className="mb leading-tight tracking-tight font-bold text-gray-500 text-xl md:text-2xl">
                         {ordersData.gig.title}
                         </h2>
-                        {ordersData.freelancer && ordersData.freelancer.username ? (
+                        {ordersData.tutor && ordersData.tutor.username ? (
                         <span className="flex items-center">
                             <p className="text-gray-500 font-semibold">
-                            {ordersData.freelancer.first_name} {ordersData.freelancer.last_name}
+                            {ordersData.tutor.first_name} {ordersData.tutor.last_name}
                             </p>
                         </span>
                         ) : (
-                        'Unknown Freelancer'
+                        'Unknown Tutor'
                         )}
 
                         <div className="max-w-7xl mx-auto mt-6">
@@ -239,7 +239,7 @@ function OrderStatus(props) {
                     {currentStatus.label === 'Pending' && (
                         <div>
                         <p className="text-gray-500 mt-4">
-                            * Changed your mind? Want to Cancel the Order? Do it before Freelancer Accept your work!
+                            * Changed your mind? Want to Cancel the Order? Do it before Tutor Accept your work!
                         </p>
                         
                         <button
@@ -253,7 +253,7 @@ function OrderStatus(props) {
                     {currentStatus.label === 'Completed' && (
                         <div>
                         <p className="text-gray-500 mt-20 mb-2">
-                            *Freelancer Completed your Work! Check out the Pre-Submit. Accept and Pay the amount to receive the Actual File!
+                            *Tutor Completed your Work! Check out the Pre-Submit. Accept and Pay the amount to receive the Actual File!
                         </p>
                         <img
                                 src={`${ordersData.order_raw_images}`}
@@ -277,7 +277,7 @@ function OrderStatus(props) {
                     {currentStatus.label === 'Deal Closed' && (
                     <div>
                         <p className="text-gray-500 mt-20 mb-3">
-                        * Freelancer Uploaded your Work! Click to Download the File!
+                        * Tutor Uploaded your Work! Click to Download the File!
                         </p>
                         <a
                         href={`${ordersData.uploaded_file}`}

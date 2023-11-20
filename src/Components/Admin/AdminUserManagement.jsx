@@ -6,25 +6,25 @@ import api from '../../api/axiosConfig';
 
 function AdminUserManagement() {
   const [userProfiles, setUserProfiles] = useState([]);
-  const [freelancerProfiles, setFreelancerProfiles] = useState([]);
+  const [tutorProfiles, setTutorProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
-  const [isFreelancerModalOpen, setIsFreelancerModalOpen] = useState(false);
+  const [isTutorModalOpen, setIsTutorModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const [selectedFreelancerId, setSelectedFreelancerId] = useState(null);
+  const [selectedTutorId, setSelectedTutorId] = useState(null);
   const [blockAction, setBlockAction] = useState(true);
-  const [acceptedFreelancers, setAcceptedFreelancers] = useState([]);
+  const [acceptedTutors, setAcceptedTutors] = useState([]);
   const [userSearchInput, setUserSearchInput] = useState('');
-  const [freelancerSearchInput, setFreelancerSearchInput] = useState('');
+  const [tutorSearchInput, setTutorSearchInput] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       try {
         const userResponse = await api.get('/users/user-profiles/');
-        const freelancerResponse = await api.get('/freelancers/freelancer-profiles/');
+        const tutorResponse = await api.get('/tutors/tutor-profiles/');
 
         setUserProfiles(userResponse.data);
-        setFreelancerProfiles(freelancerResponse.data);
+        setTutorProfiles(tutorResponse.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching profiles:', error);
@@ -39,7 +39,7 @@ function AdminUserManagement() {
     const newStatus = isUser ? !blockAction : !blockAction;
     const endpoint = isUser
       ? `/admin/block-unblock-user/${userId}/`
-      : `/admin/block-unblock-freelancer/${userId}/`;
+      : `/admin/block-unblock-tutor/${userId}/`;
   
     api
       .post(endpoint, { is_active: newStatus })
@@ -55,17 +55,17 @@ function AdminUserManagement() {
             )
           );
         } else {
-          setFreelancerProfiles((prevState) =>
+          setTutorProfiles((prevState) =>
             prevState.map((profile) =>
-              profile.freelancer.id === userId
-                ? { ...profile, freelancer: { ...profile.freelancer, is_active: newStatus } }
+              profile.tutor.id === userId
+                ? { ...profile, tutor: { ...profile.tutor, is_active: newStatus } }
                 : profile
             )
           );
         }
   
         closeUserModal();
-        closeFreelancerModal();
+        closeTutorModal();
   
         setBlockAction(newStatus);
       })
@@ -81,35 +81,35 @@ function AdminUserManagement() {
     setIsUserModalOpen(true);
   };
 
-  const openFreelancerModal = (freelancerId, blockAction) => {
-    setSelectedFreelancerId(freelancerId);
+  const openTutorModal = (tutorId, blockAction) => {
+    setSelectedTutorId(tutorId);
     setBlockAction(blockAction);
-    setIsFreelancerModalOpen(true);
+    setIsTutorModalOpen(true);
   };
   
   const closeUserModal = () => {
     setIsUserModalOpen(false);
   };
 
-  const closeFreelancerModal = () => {
-    setIsFreelancerModalOpen(false);
+  const closeTutorModal = () => {
+    setIsTutorModalOpen(false);
   };
 
-  const handleAcceptFreelancer = (freelancerId) => {
-    const endpoint = `/admin/register-freelancer/${freelancerId}/`;
+  const handleAcceptTutor = (tutorId) => {
+    const endpoint = `/admin/register-tutor/${tutorId}/`;
 
     api
       .post(endpoint)
       .then((response) => {
-        console.log('Freelancer registration response:', response);
+        console.log('Tutor registration response:', response);
 
-        setAcceptedFreelancers((prevAcceptedFreelancers) => [
-          ...prevAcceptedFreelancers,
-          freelancerId,
+        setAcceptedTutors((prevAcceptedTutors) => [
+          ...prevAcceptedTutors,
+          tutorId,
         ]);
       })
       .catch((error) => {
-        console.error('Error registering freelancer:', error);
+        console.error('Error registering tutor:', error);
       });
   };
 
@@ -118,17 +118,17 @@ function AdminUserManagement() {
     profile.user.email.toLowerCase().includes(userSearchInput.toLowerCase())
   );
 
-  const filteredFreelancerProfiles = freelancerProfiles.filter((profile) =>
-    profile.freelancer.username.toLowerCase().includes(freelancerSearchInput.toLowerCase()) ||
-    profile.freelancer.email.toLowerCase().includes(freelancerSearchInput.toLowerCase())
+  const filteredTutorProfiles = tutorProfiles.filter((profile) =>
+    profile.tutor.username.toLowerCase().includes(tutorSearchInput.toLowerCase()) ||
+    profile.tutor.email.toLowerCase().includes(tutorSearchInput.toLowerCase())
   );
 
   const handleUserSearchChange = (event) => {
     setUserSearchInput(event.target.value);
   };
 
-  const handleFreelancerSearchChange = (event) => {
-    setFreelancerSearchInput(event.target.value);
+  const handleTutorSearchChange = (event) => {
+    setTutorSearchInput(event.target.value);
   };
 
   return (
@@ -235,11 +235,11 @@ function AdminUserManagement() {
         )}
       </div>
 
-      {/* Freelancer Management */}
+      {/* Tutor Management */}
       <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] mt-52">
         <div className="top-0 h-16 border-b-2 border-t-2 bg-white lg:py-2.5">
           <div className="px-6 flex items-center justify-between space-x-4 2xl:container">
-            <h5 className="text-2xl text-black font-medium lg:block">Freelancer Management</h5>
+            <h5 className="text-2xl text-black font-medium lg:block">Tutor Management</h5>
             <div className="flex space-x-4">
               <div className="md:block">
                 <div className="relative flex items-center text-gray-400 focus-within:text-cyan-500">
@@ -250,12 +250,12 @@ function AdminUserManagement() {
                   </span>
                   <input
                     type="search"
-                    name="freelancerSearchInput"
-                    id="freelancerSearchInput"
+                    name="tutorSearchInput"
+                    id="tutorSearchInput"
                     placeholder="Search here"
                     className="w-full pl-14 pr-4 py-2.5 rounded-xl text-sm text-gray-600 outline-none border border-gray-300 focus:border-cyan-300 transition"
-                    value={freelancerSearchInput}
-                    onChange={handleFreelancerSearchChange}
+                    value={tutorSearchInput}
+                    onChange={handleTutorSearchChange}
                   />
                 </div>
               </div>
@@ -272,7 +272,7 @@ function AdminUserManagement() {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-white">
                   <tr>
                     <th scope="col" className="px-6 py-3 md:px-3">
-                      <span className="hidden md:block">Freelancer</span>
+                      <span className="hidden md:block">Tutor</span>
                     </th>
                     <th scope="col" className="px-6 py-3 md:px-3">
                       <span className="hidden md:block">Date of Birth</span>
@@ -298,7 +298,7 @@ function AdminUserManagement() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredFreelancerProfiles.map((profile) => (
+                  {filteredTutorProfiles.map((profile) => (
                     <tr
                       key={profile.id}
                       className="bg-white border-b dark:bg-black dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
@@ -307,12 +307,12 @@ function AdminUserManagement() {
                         <img
                           src={profile.profile_photo}
                           className="w-24 h-24 rounded-full border border-white mr-3"
-                          alt={profile.freelancer.username}
+                          alt={profile.tutor.username}
                         />
                         <div className='mt-5 overflow-hidden'>
-                          <p className="truncate">{profile.freelancer.username}</p>
-                          <p className="truncate">{profile.freelancer.email}</p>
-                          <p className="truncate">{profile.freelancer.phone_number}</p>
+                          <p className="truncate">{profile.tutor.username}</p>
+                          <p className="truncate">{profile.tutor.email}</p>
+                          <p className="truncate">{profile.tutor.phone_number}</p>
                         </div>
                       </td>
                       <td className="px-3 py-2 md:px-6 md:py-4">
@@ -328,14 +328,14 @@ function AdminUserManagement() {
                         {profile.country}
                       </td>
                       <td className="px-3 py-2 md:px-6 md:py-4">
-                        {profile.freelancer.is_verified ? <p>Verified</p> : <p>Not Verified</p>}
+                        {profile.tutor.is_verified ? <p>Verified</p> : <p>Not Verified</p>}
                       </td>
                       <td>
                       <button
-                        onClick={() => openFreelancerModal(profile.freelancer.id, profile.freelancer.is_active)}
+                        onClick={() => openTutorModal(profile.tutor.id, profile.tutor.is_active)}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
                       >
-                        {profile.freelancer.is_active ? <>Block</> : <>Unblock</>}
+                        {profile.tutor.is_active ? <>Block</> : <>Unblock</>}
                       </button>
                       </td>
                       <td className="px-3 py-2 md:px-6 md:py-4">
@@ -343,15 +343,15 @@ function AdminUserManagement() {
                           <p className="text-green-500">Accepted</p>
                         ) : (
                           <button
-                            onClick={() => handleAcceptFreelancer(profile.freelancer.id)}
+                            onClick={() => handleAcceptTutor(profile.tutor.id)}
                             className={`font-medium ${
-                              acceptedFreelancers.includes(profile.freelancer.id)
+                              acceptedTutors.includes(profile.tutor.id)
                                 ? "text-green-500"
                                 : "text-blue-600 dark:text-blue-500 hover:underline"
                             } md:ml-2`}
-                            disabled={acceptedFreelancers.includes(profile.freelancer.id)}
+                            disabled={acceptedTutors.includes(profile.tutor.id)}
                           >
-                            {acceptedFreelancers.includes(profile.freelancer.id)
+                            {acceptedTutors.includes(profile.tutor.id)
                               ? "Accepted"
                               : "Accept"}
                           </button>
@@ -373,11 +373,11 @@ function AdminUserManagement() {
         onConfirm={() => handleBlockUnblock(selectedUserId, true)}
       />
 
-      {/* Freelancer Block/Unblock Modal */}
+      {/* Tutor Block/Unblock Modal */}
       <BlockUnblockModal
-        isOpen={isFreelancerModalOpen}
-        onRequestClose={closeFreelancerModal}
-        onConfirm={() => handleBlockUnblock(selectedFreelancerId, false)}
+        isOpen={isTutorModalOpen}
+        onRequestClose={closeTutorModal}
+        onConfirm={() => handleBlockUnblock(selectedTutorId, false)}
       />
     </div>
   );

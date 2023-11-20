@@ -6,7 +6,7 @@ import iconApi from "../../assets/icons/home-sections/secure-payment.png";
 
 const SECTIONS = [
   [iconOnline, "Essay Writing", "Expert writers in various fields deliver tailored essays."],
-  [iconBudgeting, "Global Freelancers", "Our diverse freelancers worldwide meet global platform demands."],
+  [iconBudgeting, "Global Tutors", "Our diverse tutors worldwide meet global platform demands."],
   [iconOnboarding, "Constant Support", "24/7 support with rapid response times. Reach out anytime."],
   [iconApi, "Easy Payment", "Streamlined, straightforward, and fast payment system."],
 ];

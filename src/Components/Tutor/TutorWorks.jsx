@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import FreelancerSidebar from '../Layout/FreelancerSidebar';
+import TutorSidebar from '../Layout/TutorSidebar';
 import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import FreelancerWorkCompleteModal from './FreelancerWorkCompleteModal';
-import FreelancerDealCloseModal from './FreelancerDealCloseModal';
+import TutorWorkCompleteModal from './TutorWorkCompleteModal';
+import TutorDealCloseModal from './TutorDealCloseModal';
 
-function FreelancerWorks() {
+function TutorWorks() {
   const [ordersData, setOrdersData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOrderId, setModalOrderId] = useState('');
@@ -34,7 +34,7 @@ function FreelancerWorks() {
   useEffect(() => {
     // Fetch orders data
     api
-      .get('/freelancers/freelancer-orderslist/')
+      .get('/tutors/tutor-orderslist/')
       .then((response) => {
         setOrdersData(response.data);
       })
@@ -68,7 +68,7 @@ function FreelancerWorks() {
 
   return (
     <div>
-      <FreelancerSidebar />
+      <TutorSidebar />
 
       <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
         <div className="px-6 pt-6 2xl:container">
@@ -225,10 +225,10 @@ function FreelancerWorks() {
           </div>
         </div>
       </div>
-      <FreelancerWorkCompleteModal isOpen={isModalOpen} closeModal={closeModal} orderId={modalOrderId}/>
-      <FreelancerDealCloseModal isOpen={isDealModalOpen} closeModal={closeDealModal} orderId={dealModalOrderId}/>
+      <TutorWorkCompleteModal isOpen={isModalOpen} closeModal={closeModal} orderId={modalOrderId}/>
+      <TutorDealCloseModal isOpen={isDealModalOpen} closeModal={closeDealModal} orderId={dealModalOrderId}/>
     </div>
   );
 }
 
-export default FreelancerWorks;
+export default TutorWorks;

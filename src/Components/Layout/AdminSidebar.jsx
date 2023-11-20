@@ -65,7 +65,7 @@ function AdminSidebar() {
                     colors="primary:#121331"
                     style={{ width: '50px', height: '50px' }}
                 ></lord-icon>
-                <a className="font-extrabold text-2xl text-[#121331]">workX</a>
+                <a className="font-extrabold text-2xl text-[#121331]">writerbeaz</a>
                 </div>
             </Link>
             </div>
@@ -76,7 +76,7 @@ function AdminSidebar() {
                 alt=""
                 className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
             />
-            <h6 className="hidden mt-3 text-base font-bold text-gray-700 lg:block">workX Super Admin</h6>
+            <h6 className="hidden mt-3 text-base font-bold text-gray-700 lg:block">writerbeaz Super Admin</h6>
             </div>
 
             <ul className="space-y-2 tracking-wide mt-8">

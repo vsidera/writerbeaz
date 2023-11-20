@@ -59,7 +59,7 @@ const OtpVerification = () => {
                         colors="primary:#121331"
                         style={{ width: '50px', height: '50px' }}>
                     </lord-icon>
-                    <a href="/" className="font-extrabold text-2xl text-[#121331]">workX</a>
+                    <a href="/" className="font-extrabold text-2xl text-[#121331]">writerbeaz</a>
                 </div>
                 <div className='space-y-5 mb-8 text-center'>
                 <h1 class="lg:text-3xl xl:text-4xl xl:leading-snug font-extrabold text-start">Enter your account and discover new experiences</h1>

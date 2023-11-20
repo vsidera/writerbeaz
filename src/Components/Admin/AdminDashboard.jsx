@@ -13,7 +13,7 @@ function AdminDashboard() {
   const [paymentOrders, setPaymentOrders] = useState(0)
   const [closedOrders, setClosedOrders] = useState(0)
   const [usersCount, setUsersCount] = useState(0)
-  const [freelancersCount, setFreelancersCount] = useState(0)
+  const [tutorsCount, setTutorsCount] = useState(0)
 
   useEffect(() => {
     // Fetch CategoryData
@@ -56,7 +56,7 @@ function AdminDashboard() {
       .get('/admin/account-count/')
       .then((response) => {
         setUsersCount(response.data.users);
-        setFreelancersCount(response.data.freelancer);
+        setTutorsCount(response.data.tutor);
       })
       .catch((error) => {
         console.error('Error fetching account count:', error);
@@ -134,10 +134,10 @@ function AdminDashboard() {
 
 
   useEffect(() => {
-    if (usersCount > 0 || freelancersCount > 0) {
+    if (usersCount > 0 || tutorsCount > 0) {
       const labelsBarChart = [
         "Users",
-        "Freelancers",
+        "Tutors",
       ];
       const dataBarChart = {
         labels: labelsBarChart,
@@ -146,7 +146,7 @@ function AdminDashboard() {
             label: "Accounts",
             backgroundColor: "rgb(75, 128, 255)",
             borderColor: "rgb(75, 128, 255)",
-            data: [usersCount, freelancersCount],
+            data: [usersCount, tutorsCount],
           },
         ],
       };
@@ -168,7 +168,7 @@ function AdminDashboard() {
         configBarChart
       );
     }
-  }, [usersCount, freelancersCount]);
+  }, [usersCount, tutorsCount]);
 
   return (
     <div>

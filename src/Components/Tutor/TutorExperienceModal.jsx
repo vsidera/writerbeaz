@@ -20,7 +20,7 @@ const customStyles = {
   },
 };
 
-function FreelancerExperienceModal({ isOpen, closeModal, addExperienceToParent }) {
+function TutorExperienceModal({ isOpen, closeModal, addExperienceToParent }) {
   const authToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -41,13 +41,13 @@ function FreelancerExperienceModal({ isOpen, closeModal, addExperienceToParent }
 
     try {
       const response = await api.post(
-        '/freelancers/freelancer-addexperience/',
+        '/tutors/tutor-addexperience/',
         {
           title: experience.title,
           company: experience.company,
           year: experience.year,
           description: experience.description,
-          freelancer: userId,
+          tutor: userId,
         },
         {
           headers: {
@@ -155,4 +155,4 @@ function FreelancerExperienceModal({ isOpen, closeModal, addExperienceToParent }
   );
 }
 
-export default FreelancerExperienceModal;
+export default TutorExperienceModal;

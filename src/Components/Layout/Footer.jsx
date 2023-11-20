@@ -19,7 +19,7 @@ function Footer() {
           </a>
         </div>
         <div className="text-white text-sm">
-          <p>&copy; {new Date().getFullYear()} workX. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} writerbeaz. All rights reserved.</p>
           <p>Privacy Policy</p>
           <p>Terms of Service</p>
         </div>

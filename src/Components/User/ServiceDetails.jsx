@@ -4,10 +4,10 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenExists } from '../Redux/UserSlice';
 import { useEffect, useRef, useState } from 'react';
-import { showService } from '../Redux/FreelancerSlice';
+import { showService } from '../Redux/TutorSlice';
 import { toast } from 'react-toastify';
 import { makeOrder, makeTestimonial, orderInfo, serviceInfo, updateOrderStatus } from '../Redux/ClientSlice';
-import FreelancerMenu from './FreelancerComponents/FreelancerMenu';
+import TutorMenu from './TutorComponents/TutorMenu';
 import Slider from './Slider';
 import noImage from "../../src/assets/Images/no-image.png"
 import ClientMenu from './ClientComponents/ClientMenu';
@@ -17,7 +17,7 @@ export default function ServiceDetails({ type }) {
     const { id, serviceId } = useParams()
     const [loading, setLoading] = useState(true)
     const { token, avatar } = useSelector(state => state.user)
-    const { data } = useSelector(type == 1 ? (state => state.freelancer) : (state => state.client))
+    const { data } = useSelector(type == 1 ? (state => state.tutor) : (state => state.client))
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const testimonial = useRef()
@@ -238,7 +238,7 @@ export default function ServiceDetails({ type }) {
                                                 </div>
                                             }
                                             {type == 1 ?
-                                                <HashLink className="go-back-button" to={`/dashboard/freelancer/${id}/services`}><button>Go Back</button></HashLink>
+                                                <HashLink className="go-back-button" to={`/dashboard/tutor/${id}/services`}><button>Go Back</button></HashLink>
                                                 :
                                                 type == 2 &&
                                                 <>
@@ -323,9 +323,9 @@ export default function ServiceDetails({ type }) {
                         }
                     </div>
                     {type == 1 ?
-                        <FreelancerMenu active="services" />
+                        <TutorMenu active="services" />
                         :
-                        <ClientMenu active="freelancers" />
+                        <ClientMenu active="tutors" />
                     }
                 </div>
             </div>

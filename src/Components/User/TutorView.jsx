@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Footer from '../Layout/Footer';
 
-function FreelancerView(props) {
+function TutorView(props) {
   const { id } = useParams();
   const [profileData, setProfileData] = useState({});
   const [skillData, setSkillData] = useState({});
@@ -14,7 +14,7 @@ function FreelancerView(props) {
   const [gigData, setGigData] = useState({});
 
   useEffect(() => {
-    api.get(`/users/user-freelancer/${id}/`)
+    api.get(`/users/user-tutor/${id}/`)
       .then((response) => {
         setProfileData(response.data);
       })
@@ -22,7 +22,7 @@ function FreelancerView(props) {
         console.error(error);
       });
 
-    api.get(`/users/user-freelancer-skill/${id}/`)
+    api.get(`/users/user-tutor-skill/${id}/`)
       .then((response) => {
         setSkillData(response.data);
       })
@@ -30,7 +30,7 @@ function FreelancerView(props) {
         console.error(error);
       });
 
-    api.get(`/users/user-freelancer-education/${id}/`)
+    api.get(`/users/user-tutor-education/${id}/`)
       .then((response) => {
         setEducationData(response.data);
       })
@@ -38,7 +38,7 @@ function FreelancerView(props) {
         console.error(error);
       });
     
-    api.get(`/users/user-freelancer-experience/${id}/`)
+    api.get(`/users/user-tutor-experience/${id}/`)
       .then((response) => {
         setExperienceData(response.data);
       })
@@ -46,7 +46,7 @@ function FreelancerView(props) {
         console.error(error);
       });
 
-    api.get(`/users/user-freelancer-gig/${id}/`)
+    api.get(`/users/user-tutor-gig/${id}/`)
       .then((response) => {
         setGigData(response.data);
       })
@@ -73,9 +73,9 @@ function FreelancerView(props) {
                             className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                             alt="Profile Photo"
                         />
-                        {profileData.freelancer && (
+                        {profileData.tutor && (
                             <>
-                            <h1 className="text-xl font-bold">{profileData.freelancer.username}</h1>
+                            <h1 className="text-xl font-bold">{profileData.tutor.username}</h1>
                             <p className="text-gray-600">{profileData.title}</p>
                             </>
                         )}
@@ -83,7 +83,7 @@ function FreelancerView(props) {
                     <hr className="my-6 border-t border-gray-300" />
                     <div className="flex flex-col">
                       <span className="text-gray-800 uppercase font-bold tracking-wider mb-2">
-                        Freelancer Details
+                        Tutor Details
                       </span>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="text-gray-700">
@@ -124,7 +124,7 @@ function FreelancerView(props) {
 
                 <div className="col-span-4 sm:col-span-9">
                   <div className="bg-white shadow-xl rounded-lg p-6">
-                    <h2 className="text-xl font-bold mb-4">About Freelancer</h2>
+                    <h2 className="text-xl font-bold mb-4">About Tutor</h2>
                     <p className="text-gray-700">
                       {profileData.about || ''}
                     </p>
@@ -201,4 +201,4 @@ function FreelancerView(props) {
   );
 }
 
-export default FreelancerView;
+export default TutorView;

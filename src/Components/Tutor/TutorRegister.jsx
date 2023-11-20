@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setEmailAddress, setUser } from '../../Redux/store';
 
-function FreelancerRegister() {
+function TutorRegister() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function FreelancerRegister() {
     const [profile_photo, setProfilePhoto] = useState(null);
     console.log(authToken)
     const userId = user.user_id;
-    const route = `/freelancers/freelancer-createprofile/${userId}/`;
+    const route = `/tutors/tutor-createprofile/${userId}/`;
 
 
     const handleRegisterProfile = async () => {
@@ -53,7 +53,7 @@ function FreelancerRegister() {
             });
         
             if (response.status === 200) {
-                navigate('/freelancer');
+                navigate('/tutor');
                 toast.success('Registration Success')
             } else {
                 toast.error('Registration failed. Please try again.');
@@ -79,7 +79,7 @@ function FreelancerRegister() {
                             colors="primary:#121331"
                             style={{ width: '50px', height: '50px' }}>
                         </lord-icon>
-                        <a href="/" className="font-extrabold text-2xl text-[#121331]">workX</a>
+                        <a href="/" className="font-extrabold text-2xl text-[#121331]">writerbeaz</a>
                     </div>
                     <div className='space-y-5 mb-8 text-center'>
                     <h1 class="lg:text-3xl xl:text-4xl xl:leading-snug font-extrabold text-start">Enter your account and discover new experiences</h1>
@@ -101,7 +101,7 @@ function FreelancerRegister() {
                                 colors="primary:#121331"
                                 style={{ width: '35px', height: '35px' }}>
                             </lord-icon>
-                            <a href="/" className="font-extrabold text-2xl text-[#121331]">workX</a>                    
+                            <a href="/" className="font-extrabold text-2xl text-[#121331]">writerbeaz</a>                    
                         </div>
                         <div className="flex items-center space-x-2">
                             <span>Have an Account? </span>
@@ -113,10 +113,10 @@ function FreelancerRegister() {
     
                     <div className="flex flex-1 flex-col justify-center space-y-5 max-w-md">
                         <div className="flex flex-col space-y-2 text-center">
-                            <h2 className="text-3xl md:text-4xl font-bold">Register as Freelancer</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold">Register as Tutor</h2>
                             <p className="text-md md:text-xl">
                                 Fill your <span className="font-medium">Details</span> and then become a{' '}
-                                <span className="font-medium">Freelancer!</span>
+                                <span className="font-medium">Tutor!</span>
                             </p>
                         </div>
                         <div className="flex flex-col max-w-md space-y-5">
@@ -229,4 +229,4 @@ function FreelancerRegister() {
       );
 }
 
-export default FreelancerRegister
+export default TutorRegister

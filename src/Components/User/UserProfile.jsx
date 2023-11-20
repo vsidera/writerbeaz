@@ -184,7 +184,7 @@ function UserProfile() {
                                       {order.gig.title}
                                     </span>
                                     <p className="text-gray-600 font-semibold text-lg">
-                                      Freelancer: {order.freelancer.first_name}
+                                      Tutor: {order.tutor.first_name}
                                     </p>
                                     <p
                                       className={`font-semibold text-lg ${

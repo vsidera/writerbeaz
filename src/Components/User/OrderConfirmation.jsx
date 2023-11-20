@@ -32,7 +32,7 @@ function OrderConfirmation(props) {
         requirement: requirements,
         amount: gig.starting_price,
         gig: parseInt(id),
-        freelancer: gig.freelancer.id,
+        tutor: gig.tutor.id,
       };
   
       api.post('/users/user-orders/', order)
@@ -70,22 +70,22 @@ function OrderConfirmation(props) {
             <h2 className="mb-2 leading-tight tracking-tight font-bold text-gray-500 text-xl md:text-2xl">
               {gig.title}
             </h2>
-            <Link to={`/freelancer-view/${gig.freelancer && gig.freelancer.id}`} className="text-gray-500 text-sm hover:underline">
-              {gig.freelancer && gig.freelancer.username ? (
+            <Link to={`/tutor-view/${gig.tutor && gig.tutor.id}`} className="text-gray-500 text-sm hover:underline">
+              {gig.tutor && gig.tutor.username ? (
                 <span className="flex items-center">
-                  {gig.freelancer_profile_photo && (
+                  {gig.tutor_profile_photo && (
                     <img
-                      src={`${gig.freelancer_profile_photo}`}
-                      alt={`Profile Photo of ${gig.freelancer.username}`}
+                      src={`${gig.tutor_profile_photo}`}
+                      alt={`Profile Photo of ${gig.tutor.username}`}
                       className="w-10 h-10 rounded-full mr-2"
                     />
                   )}
                   <p className="text-gray-500 font-bold">
-                    {gig.freelancer.first_name} {gig.freelancer.last_name}
+                    {gig.tutor.first_name} {gig.tutor.last_name}
                   </p>
                 </span>
               ) : (
-                'Unknown Freelancer'
+                'Unknown Tutor'
               )}
             </Link>
             <div className="font-semibold text-gray-400 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">

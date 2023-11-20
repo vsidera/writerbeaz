@@ -20,7 +20,7 @@ const customStyles = {
     },
 };
 
-function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
+function TutorDealCloseModal({ isOpen, closeModal, orderId }) {
     const authToken = useSelector((state) => state.accessToken);
 
     const [workData, setWorkData] = useState({
@@ -41,7 +41,7 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
         setWorkData({ ...workData, uploading: true });
         try {
             const response = await api.put(
-                `/freelancers/freelancer-close-deal/${orderId}/`,
+                `/tutors/tutor-close-deal/${orderId}/`,
                 formData,
                 {
                     headers: {
@@ -123,4 +123,4 @@ function FreelancerDealCloseModal({ isOpen, closeModal, orderId }) {
     );
 }
 
-export default FreelancerDealCloseModal;
+export default TutorDealCloseModal;

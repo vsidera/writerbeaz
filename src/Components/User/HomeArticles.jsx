@@ -10,13 +10,13 @@ export default function HomeArticles() {
     imgCurrency,
     "By Freelance Expert",
     "Get Paid in Multiple Currencies",
-    "As a freelancer, receiving money in any currency is crucial. With our platform, you can easily manage payments with no extra fees.",
+    "As a tutor, receiving money in any currency is crucial. With our platform, you can easily manage payments with no extra fees.",
   ],
   [
     imgRestaurant,
     "By Financial Freedom",
-    "Budgeting Tips for Freelancers",
-    "Worried about managing finances as a freelancer? Learn effective budgeting strategies to treat yourself without financial stress.",
+    "Budgeting Tips for Tutors",
+    "Worried about managing finances as a tutor? Learn effective budgeting strategies to treat yourself without financial stress.",
   ],
   [
     imgPlane,

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import FreelancerSidebar from '../Layout/FreelancerSidebar';
+import TutorSidebar from '../Layout/TutorSidebar';
 import api from '../../api/axiosConfig';
-import FreelancerEditProfileModal from './FreelancerEditProfileModal';
-import FreelancerSkillModal from './FreelancerSkillModal';
-import FreelancerExperienceModal from './FreelancerExperienceModal';
-import FreelancerEducationModal from './FreelancerEducationModal';
-import FreelancerGigsModal from './FreelancerGigsModal';
+import TutorEditProfileModal from './TutorEditProfileModal';
+import TutorSkillModal from './TutorSkillModal';
+import TutorExperienceModal from './TutorExperienceModal';
+import TutorEducationModal from './TutorEducationModal';
+import TutorGigsModal from './TutorGigsModal';
 
-function FreelancerProfile() {
+function TutorProfile() {
   const [profileData, setProfileData] = useState(null);
   const [skills, setSkills] = useState([]);
   const [experience, setExperience] = useState([]);
@@ -26,7 +26,7 @@ function FreelancerProfile() {
   useEffect(() => {
     // Fetch profile data
     api
-      .get('/freelancers/freelancer-profile/')
+      .get('/tutors/tutor-profile/')
       .then((response) => {
         setProfileData(response.data);
       })
@@ -36,7 +36,7 @@ function FreelancerProfile() {
 
     // Fetch skills
     api
-      .get('/freelancers/freelancer-skills/')
+      .get('/tutors/tutor-skills/')
       .then((response) => {
         setSkills(response.data);
       })
@@ -46,7 +46,7 @@ function FreelancerProfile() {
 
     // Fetch Experience
     api
-      .get('/freelancers/freelancer-experience/')
+      .get('/tutors/tutor-experience/')
       .then((response) => {
         setExperience(response.data);
       })
@@ -56,7 +56,7 @@ function FreelancerProfile() {
 
     // Fetch Education
     api
-      .get('/freelancers/freelancer-education/')
+      .get('/tutors/tutor-education/')
       .then((response) => {
         setEducation(response.data);
       })
@@ -66,7 +66,7 @@ function FreelancerProfile() {
 
     // Fetch Gigs
     api
-      .get('/freelancers/freelancer-gigs/')
+      .get('/tutors/tutor-gigs/')
       .then((response) => {
         setGigs(response.data);
       })
@@ -157,13 +157,13 @@ function FreelancerProfile() {
 
   const handleSaveSkills = async () => {
     try {
-      const currentSkills = await api.get('/freelancers/freelancer-skills/');
+      const currentSkills = await api.get('/tutors/tutor-skills/');
       const currentSkillIds = currentSkills.data.map(skill => skill.id);
   
       const skillsToDelete = currentSkillIds.filter(skillId => !skills.map(skill => skill.id).includes(skillId));
   
       for (const skillId of skillsToDelete) {
-        const response = await api.delete(`/freelancers/freelancer-skills/update/${skillId}/`);
+        const response = await api.delete(`/tutors/tutor-skills/update/${skillId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update skill with ID ${skillId}`);
         }
@@ -177,13 +177,13 @@ function FreelancerProfile() {
 
   const handleSaveExperience = async () => {
     try {
-      const currentExperience = await api.get('/freelancers/freelancer-experience/');
+      const currentExperience = await api.get('/tutors/tutor-experience/');
       const currentExperienceIds = currentExperience.data.map(experience => experience.id);
   
       const experienceToDelete = currentExperienceIds.filter(experienceId => !experience.map(experience => experience.id).includes(experienceId)); // Corrected variable name
   
       for (const experienceId of experienceToDelete) {
-        const response = await api.delete(`/freelancers/freelancer-experience/update/${experienceId}/`);
+        const response = await api.delete(`/tutors/tutor-experience/update/${experienceId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update experience with ID ${experienceId}`);
         }
@@ -197,13 +197,13 @@ function FreelancerProfile() {
 
   const handleSaveEducation = async () => {
     try {
-      const currentEducation = await api.get('/freelancers/freelancer-education/');
+      const currentEducation = await api.get('/tutors/tutor-education/');
       const currentEducationIds = currentEducation.data.map(education => education.id);
   
       const educationToDelete = currentEducationIds.filter(educationId => !education.map(education => education.id).includes(educationId));
   
       for (const educationId of educationToDelete) {
-        const response = await api.delete(`/freelancers/freelancer-education/update/${educationId}/`);
+        const response = await api.delete(`/tutors/tutor-education/update/${educationId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update education with ID ${educationId}`);
         }
@@ -217,13 +217,13 @@ function FreelancerProfile() {
 
   const handleSaveGigs = async () => {
     try {
-      const currentGigs = await api.get('/freelancers/freelancer-gigs/');
+      const currentGigs = await api.get('/tutors/tutor-gigs/');
       const currentGigsIds = currentGigs.data.map(gigs => gigs.id);
   
       const gigsToDelete = currentGigsIds.filter(gigsId => !gigs.map(gigs => gigs.id).includes(gigsId));
   
       for (const gigsId of gigsToDelete) {
-        const response = await api.delete(`/freelancers/freelancer-gigs/update/${gigsId}/`);
+        const response = await api.delete(`/tutors/tutor-gigs/update/${gigsId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update education with ID ${gigsId}`);
         }
@@ -237,7 +237,7 @@ function FreelancerProfile() {
   
   const handleToggleGigStatus = async (gigId, gigIndex, currentStatus) => {
     try {
-      const response = await api.post(`/freelancers/block-unblock-gigs/${gigId}/`);
+      const response = await api.post(`/tutors/block-unblock-gigs/${gigId}/`);
       
       if (response.status === 200) {
         const updatedGigs = [...gigs];
@@ -254,7 +254,7 @@ function FreelancerProfile() {
 
   return (
     <div>
-    <FreelancerSidebar />
+    <TutorSidebar />
 
     <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
         <div className="bg-white">
@@ -269,7 +269,7 @@ function FreelancerProfile() {
                                     className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                                     alt="Profile Photo"
                                 />
-                                <h1 className="text-xl font-bold">{profileData.freelancer.username}</h1>
+                                <h1 className="text-xl font-bold">{profileData.tutor.username}</h1>
                                 <p className="text-gray-600">{profileData.title}</p>
                             </div>
                             <hr className="my-6 border-t border-gray-300" />
@@ -577,13 +577,13 @@ function FreelancerProfile() {
             )}
             </div>
         </div>
-    <FreelancerEditProfileModal isOpen={isModalOpen} closeModal={closeModal} updateProfileData={updateProfileDataInParent}/>
-    <FreelancerSkillModal isOpen={isSkillModalOpen} closeModal={closeSkillModal} addSkillToParent={addSkillToSkillsList} />
-    <FreelancerExperienceModal isOpen={isExperienceModalOpen} closeModal={closeExperienceModal} addExperienceToParent={addExperienceToExperienceList} />
-    <FreelancerEducationModal isOpen={isEducationModalOpen} closeModal={closeEducationModal} addEducationToParent={addEducationToEducationList} />
-    <FreelancerGigsModal isOpen={isGigsModalOpen} closeModal={closeGigsModal} addGigsToParent={addGigsToGigsList} />
+    <TutorEditProfileModal isOpen={isModalOpen} closeModal={closeModal} updateProfileData={updateProfileDataInParent}/>
+    <TutorSkillModal isOpen={isSkillModalOpen} closeModal={closeSkillModal} addSkillToParent={addSkillToSkillsList} />
+    <TutorExperienceModal isOpen={isExperienceModalOpen} closeModal={closeExperienceModal} addExperienceToParent={addExperienceToExperienceList} />
+    <TutorEducationModal isOpen={isEducationModalOpen} closeModal={closeEducationModal} addEducationToParent={addEducationToEducationList} />
+    <TutorGigsModal isOpen={isGigsModalOpen} closeModal={closeGigsModal} addGigsToParent={addGigsToGigsList} />
     </div>
 )
 }
 
-export default FreelancerProfile
+export default TutorProfile

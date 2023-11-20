@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 import { Link } from 'react-router-dom';
-import FreelancerSidebar from '../Layout/FreelancerSidebar'
+import TutorSidebar from '../Layout/TutorSidebar'
 
-function FreelancerHome() {
+function TutorHome() {
   const [totalAmountEarning, setTotalAmountEarning] = useState(0);
   const [totalCommission, setTotalCommission] = useState(0);
   const [totalClientAmount, setTotalClientAmount] = useState(0);
@@ -19,7 +19,7 @@ function FreelancerHome() {
   useEffect(() => {
       // Fetch total amount earned
       api
-      .get('/freelancers/freelancer-totalamount/')
+      .get('/tutors/tutor-totalamount/')
       .then((response) => {
         setTotalAmountEarning(response.data.total_amount_earned);
         setTotalCommission(response.data.total_commission);
@@ -31,7 +31,7 @@ function FreelancerHome() {
 
       // Fetch Count of Gigs
       api
-      .get('/freelancers/freelancer-gigs-count/')
+      .get('/tutors/tutor-gigs-count/')
       .then((response) => {
         setTotalGigsCount(response.data.total_gigs);
         setActiveGigsCount(response.data.active_gigs);
@@ -43,7 +43,7 @@ function FreelancerHome() {
 
       // Fetch Count of Orders
       api
-      .get('/freelancers/freelancer-order-count/')
+      .get('/tutors/tutor-order-count/')
       .then((response) => {
         setTotalOrderCount(response.data.total_orders_received);
         setClosedOrders(response.data.closed_orders);
@@ -55,7 +55,7 @@ function FreelancerHome() {
 
       // Fetch TransactionHistory
       api
-      .get('/freelancers/freelancer-transaction-history/')
+      .get('/tutors/tutor-transaction-history/')
       .then((response) => {
         setTransactionData(response.data);
       })
@@ -66,7 +66,7 @@ function FreelancerHome() {
 
   return (
     <div>
-      <FreelancerSidebar />
+      <TutorSidebar />
 
     <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
       <div class="px-6 pt-6 2xl:container">
@@ -348,4 +348,4 @@ function FreelancerHome() {
   )
 }
 
-export default FreelancerHome
+export default TutorHome

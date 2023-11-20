@@ -50,11 +50,11 @@ function Login() {
                     navigate('/admin');
                 } else if (user.user_type === "User") {
                     navigate('/');
-                } else if (user.user_type === "Freelancer") {
+                } else if (user.user_type === "Tutor") {
                     if (user.is_profile) {
-                        navigate('/freelancer');
+                        navigate('/tutor');
                       } else {
-                        navigate('/freelancer/register');
+                        navigate('/tutor/register');
                       }
                 }
                 

@@ -19,7 +19,7 @@ const customStyles = {
   },
 };
 
-function FreelancerEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
+function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
   const authToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -38,7 +38,7 @@ function FreelancerEditProfileModal({ isOpen, closeModal, updateProfileData  }) 
 
   useEffect(() => {
     api
-      .get(`/freelancers/freelancer-createprofile/${userId}/`)
+      .get(`/tutors/tutor-createprofile/${userId}/`)
       .then((response) => {
         setProfileData(response.data);
       })
@@ -72,7 +72,7 @@ function FreelancerEditProfileModal({ isOpen, closeModal, updateProfileData  }) 
 
     try {
       const response = await api.put(
-        `/freelancers/freelancer-createprofile/${userId}/`,
+        `/tutors/tutor-createprofile/${userId}/`,
         formData,
         {
           headers: {
@@ -269,4 +269,4 @@ function FreelancerEditProfileModal({ isOpen, closeModal, updateProfileData  }) 
   );
 }
 
-export default FreelancerEditProfileModal;
+export default TutorEditProfileModal;

@@ -5,7 +5,7 @@ import api from '../../api/axiosConfig';
 import { useLocation, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
-function FindFreelancer() {
+function FindTutor() {
   const [gigsData, setGigsData] = useState([]);
   const [gigsSearch, setGigsSearch] = useState('');
   const [filteredGigsData, setFilteredGigsData] = useState([]);
@@ -35,7 +35,7 @@ function FindFreelancer() {
           const filteredGigs = gigs.data.filter(
             (gig) =>
               gig.title.toLowerCase().includes(initialSearchQuery.toLowerCase()) ||
-              gig.freelancer.first_name.toLowerCase().includes(initialSearchQuery.toLowerCase())
+              gig.tutor.first_name.toLowerCase().includes(initialSearchQuery.toLowerCase())
           );
           setFilteredGigsData(filteredGigs);
         }
@@ -96,7 +96,7 @@ function FindFreelancer() {
       const filteredGigs = gigsData.filter(
         (gig) =>
           gig.title.toLowerCase().includes(gigsSearch.toLowerCase()) ||
-          gig.freelancer.first_name.toLowerCase().includes(gigsSearch.toLowerCase())
+          gig.tutor.first_name.toLowerCase().includes(gigsSearch.toLowerCase())
       );
       setFilteredGigsData(filteredGigs);
     }
@@ -109,7 +109,7 @@ function FindFreelancer() {
     if (selectedValue === '') {
       setFilteredGigsData(gigsData);
     } else {
-      const filteredGigs = gigsData.filter((gig) => gig.freelancer.state === selectedValue);
+      const filteredGigs = gigsData.filter((gig) => gig.tutor.state === selectedValue);
       setFilteredGigsData(filteredGigs);
     }
   };
@@ -151,10 +151,10 @@ function FindFreelancer() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div className="text-center pb-12">
           <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-gray-900 mt-20">
-            Find and Hire Freelancers
+            Find and Hire Tutors
           </h1>
           <h2 className="text-sm sm:text-base font-bold text-blue-500 mt-3">
-            We found 1500 Freelancers offering 2300 services online.
+            We found 1500 Tutors offering 2300 services online.
           </h2>
         </div>
 
@@ -178,7 +178,7 @@ function FindFreelancer() {
               <input
                 type="text"
                 className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-                placeholder="Search Freelancers"
+                placeholder="Search Tutors"
                 required
                 value={gigsSearch}
                 onChange={handleGigsSearchChange}
@@ -301,7 +301,7 @@ function FindFreelancer() {
                       <p className="w-1/2">from: ₹{gigs.starting_price}</p>
                       <div className="w-1/2 flex bg-gray-500 rounded-xl">
                         <p className="mx-12 font-semibold text-sm text-white">
-                          {gigs.freelancer.first_name}
+                          {gigs.tutor.first_name}
                         </p>
                       </div>
                     </div>
@@ -317,4 +317,4 @@ function FindFreelancer() {
   );
 }
 
-export default FindFreelancer;
+export default FindTutor;

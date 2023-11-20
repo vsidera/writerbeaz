@@ -20,7 +20,7 @@ const customStyles = {
   },
 };
 
-function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
+function TutorSkillModal({ isOpen, closeModal, addSkillToParent }) {
   const authToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.user_id);
 
@@ -38,10 +38,10 @@ function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
 
     try {
       const response = await api.post(
-        '/freelancers/freelancer-addskill/',
+        '/tutors/tutor-addskill/',
         {
           skill: skill.skill,
-          freelancer: userId,
+          tutor: userId,
         },
         {
           headers: {
@@ -107,4 +107,4 @@ function FreelancerSkillModal({ isOpen, closeModal, addSkillToParent }) {
   );
 }
 
-export default FreelancerSkillModal;
+export default TutorSkillModal;
