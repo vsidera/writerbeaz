@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import api from '../../api/axiosConfig';
 import avatar from '../../images/avatar.jpg';
 import { useSelector } from 'react-redux';
+import UserSidebar from '../User/UserBoard/UserSidebar';
 
 const ChatPage = () => {
   const [recipient, setRecipient] = useState(null);
@@ -96,17 +97,17 @@ const ChatPage = () => {
   }, []);
 
   return (
-    <div className="flex h-screen rounded-md bg-gray-200">
+    <div className="flex h-screen overflow-hidden bg-gray-100">
       {/* Chat sidebar */}
-      <div className="flex flex-col bg-gray-200 h-screen w-1/4 border-r-2 border-gray-300">
-        <h2 className="text-xl font-bold p-4 bg-gray-700 text-white">Chat</h2>
+      <div className="flex flex-col bg-white w-1/4 border-r border-gray-200">
+        <h2 className="text-2xl font-bold p-4 bg-indigo-700 text-white">Chat</h2>
         <ul className="flex-grow overflow-y-auto">
           {Array.isArray(recipients) && recipients.length > 0 ? (
             recipients.map((user) => (
               <li
                 key={user.id}
                 className={`flex items-center py-3 px-4 cursor-pointer ${
-                  recipient && recipient.id === user.id ? 'bg-gray-300' : 'hover:bg-gray-100'
+                  recipient && recipient.id === user.id ? 'bg-gray-100' : 'hover:bg-gray-50'
                 }`}
                 onClick={() => {
                   setRecipient(user);
@@ -129,17 +130,17 @@ const ChatPage = () => {
               </li>
             ))
           ) : (
-            <p>No recipients found.</p>
+            <p className="p-4 text-gray-500">No recipients found.</p>
           )}
         </ul>
       </div>
 
       {/* Chat component */}
-      <div className="flex-grow">
+      <div className="flex-grow bg-gray-200">
         <div className="flex flex-col h-screen">
           {/* Chat header */}
-          <div className="py-4 px-6 bg-gray-700 text-white">
-            <h2 className="text-xl font-bold">
+          <div className="py-4 px-6 bg-indigo-700 text-white">
+            <h2 className="text-2xl font-bold">
               {recipient ? `Chat with ${recipient.first_name}` : 'Select a recipient'}
             </h2>
           </div>
@@ -157,8 +158,8 @@ const ChatPage = () => {
                   <div
                     className={`${
                       message.sender === senderId
-                        ? 'bg-green-500 text-white self-end'
-                        : 'bg-blue-500 text-white self-start'
+                        ? 'bg-blue-500 text-white self-end'
+                        : 'bg-gray-300 text-gray-800 self-start'
                     } py-2 px-4 rounded-lg max-w-md`}
                   >
                     <div className="flex items-center">
@@ -202,7 +203,7 @@ const ChatPage = () => {
             )}
           </div>
           {/* Chat input */}
-          <div className="py-4 px-6 bg-gray-300">
+          <div className="py-4 px-6 bg-white">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -214,12 +215,12 @@ const ChatPage = () => {
                 type="text"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className="flex-grow border border-gray-400 rounded-lg px-4 py-2 focus:outline-none"
+                className="flex-grow border border-gray-300 rounded-lg px-4 py-2 focus:outline-none"
                 placeholder="Type a message..."
               />
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                className="bg-indigo-700 text-white px-4 py-2 rounded-lg"
               >
                 Send
               </button>

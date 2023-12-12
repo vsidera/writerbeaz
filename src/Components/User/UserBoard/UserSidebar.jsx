@@ -2,36 +2,35 @@ import React, {useState, useEffect} from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
-import { clearUser } from '../../Redux/store';
-import api from '../../api/axiosConfig'; 
- import { useSelector } from 'react-redux';
-import { FaBookOpen, FaFirstOrder, FaMailBulk, FaSearch, FaUser } from 'react-icons/fa';
+import { clearUser } from '../../../Redux/store';
+import api from '../../../api/axiosConfig';
+import { FaBookOpen, FaFirstOrder, FaFolder, FaMailBulk, FaPlus, FaUser } from 'react-icons/fa';
 
-function TutorSidebar() {
+function UserSidebar() {
 
   const location = useLocation();
-
-    const user = useSelector(state => state.user);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+      const user = useSelector(state => state.user);
+
 
   let heading = 'My Dashboard';
-  if (location.pathname === '/tutor/inbox') {
+  if (location.pathname === '/user/inbox') {
     heading = 'Inbox';
-  } else if (location.pathname === '/tutor/works') {
+  } else if (location.pathname === '/user/orders') {
     heading = 'Orders';
-  } else if (location.pathname === '/tutor/chatx') {
+  } else if (location.pathname === '/user/chatx') {
     heading = 'ChatX';
-  } else if (location.pathname === '/tutor/profile') {
+  } else if (location.pathname === '/user/profile') {
     heading = 'My Profile'
   }
 
   useEffect(() => {
-    api.get('/tutors/tutor-profile/')
+    api.get('/users/user-profile/')
         .then(response => {
             setProfileData(response.data);
         })
@@ -42,14 +41,14 @@ function TutorSidebar() {
 
   const handleLogout = () => {
     dispatch(clearUser());
-    toast.success('Tutor Logged out');
+    toast.success('User Logged out');
     navigate('/login') 
     };
 
   return (
     <>
-        <div class="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
-            <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
+        <div className="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+            <div className="px-6 flex items-center justify-between space-x-4 2xl:container">
                 <h2 className="text-2xl text-black font-bold lg:ml-72 lg:mt-2">{heading}</h2>
                 <button
                     className="w-12 h-16 -mr-2 border-r lg:hidden"
@@ -85,89 +84,87 @@ function TutorSidebar() {
         </button>
         <div>
             <div className="-mx-6 px-6 py-4">
-            <Link to="/tutor" title="home">
+            <Link to="/user" title="home">
                 <div className="flex items-center justify-center">
-                <h1 class="header-logo" >WriterBeaz<FaBookOpen /> </h1>
+                <h1 className="header-logo" >WriterBeaz<FaBookOpen /> </h1>
                 </div>
             </Link>
-            
-
+            <hr style={{width:'100%'}}></hr>
             </div>
             <div style={{background:'red'}}>
             {profileData && (
                 <div  className="mt-8 text-center">
-                    <Link to='/tutor/profile'>
+                    <Link to='/user/profile'>
                         <img
                             src={profileData.profile_photo}
-                            alt="Tutor Profile"
+                            alt="user Profile"
                             className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
                         />
                     </Link>
                     <h6 className="hidden mt-3 text-base font-bold text-gray-700 lg:block">
-                        {profileData.tutor.username} | Tutor
+                        {profileData.user.username} | user
                     </h6>
-                    <Link className='font-bold text-xs text-gray-700 hover:text-gray-600 md:ml-2' to='/tutor/profile'>view profile</Link>
+                    <Link className='font-bold text-xs text-gray-700 hover:text-gray-600 md:ml-2' to='/user/profile'>view profile</Link>
                 </div>
             )}</div>
             <ul className="space-y- tracking-wide mt-8">
-               
+                            <li >
+                <Link style={{boxShadow:'0 0 10px'}}
+                    to="/user/post-job"
+                    className="block py-2 px-4 bg-[yellow] text-black rounded-md font-semibold transition duration-300 ease-in-out hover:text-black hover:bg-[goldenrod] flex"
+                >
+                   <FaPlus style={{margin:'4px'}} />  Post a Job
+                </Link>
+                </li>
+
             <li>
+                
                 <NavLink
-                to="/tutor"
-                aria-label="dashboard"
+                to="/user"
+                aria-label="account"
                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-yellow-100 group ${
-                    location.pathname === '/tutor' ? 'bg-black' : 'bg-transparent'
+                    location.pathname === '/user' ? 'bg-black' : 'bg-transparent'
                 }`}
-                ><FaUser />
-                
-                <span className={`${location.pathname === '/tutor' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}> {user.username}</span>
+                >
+               <FaUser />
+                <span className={`${location.pathname === '/user' ? 'font-bold text-white' : '-mr-1 font-medium  ' }`}>  {user.username}</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink
-                to="/tutor/inbox"
+                to="/user/inbox"
                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
-                    location.pathname === '/tutor/inbox' ? 'bg-black' : 'bg-transparent'
+                    location.pathname === '/user/inbox' ? 'bg-black' : 'bg-transparent'
                 }`}
                 >
-               <FaMailBulk />
-                <span className={`${location.pathname === '/tutor/inbox' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>Inbox</span>
+               <FaMailBulk   />
+                <span className={`${location.pathname === '/user/inbox' ? 'font-bold text-white' : '-mr-1 font-medium flex ' }`}> Inbox</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink
-                to="/tutor/works"
+                to="/user/orders"
                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
-                    location.pathname === '/tutor/works' ? 'bg-black' : 'bg-transparent'
+                    location.pathname === '/user/orders' ? 'bg-black' : 'bg-transparent'
                 }`}
                 >
-                <FaFirstOrder />
-                <span className={`${location.pathname === '/tutor/works' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>Orders</span>
+                <FaFirstOrder  />
+                <span className={`${location.pathname === '/user/orders' ? 'font-bold text-white' : '-mr-1 font-medium flex ' }`}> Orders</span>
                 </NavLink>
             </li>
             <li>
                 <NavLink
-                to="/tutor/chatx"
+                to="/user/chatx"
                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
-                    location.pathname === '/tutor/chatx' ? 'bg-black' : 'bg-transparent'
+                    location.pathname === '/user/chatx' ? 'bg-black' : 'bg-transparent'
                 }`}
                 >
-                
-                <span className={`${location.pathname === '/tutor/chatx' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>ChatX</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path className="fill-current text-gray-600 group-hover:text-cyan-600" d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
+                    <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
+                </svg>
+                <span className={`${location.pathname === '/user/chatx' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>ChatX</span>
                 </NavLink>
-            </li>
-             <li>
-              <NavLink
-                to="/tutor/find-job"  
-                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
-                  location.pathname === '/tutor/find-job' ? 'bg-black' : 'bg-transparent'
-                }`}
-              >
-                <span><FaSearch /></span> {/* You can replace this with your preferred icon */}
-                <span className={`${location.pathname === '/tutor/find-job' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>
-                  Find a Job
-                </span>
-              </NavLink>
             </li>
             </ul>
         </div>
@@ -187,4 +184,4 @@ function TutorSidebar() {
   )
 }
 
-export default TutorSidebar
+export default UserSidebar

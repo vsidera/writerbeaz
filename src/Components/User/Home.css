@@ -8,6 +8,12 @@
     overflow: hidden;
   }
   
+  .post-job{
+    background:red,
+    
+  }
+
+
 .black-cover::before {
     content: '';
     position: absolute;
@@ -39,7 +45,6 @@ background: linear-gradient(to right, black 10%, orange , black 10%);
   font-size: 36px;
  font-family: 'felixtowe', sans-serif;
   transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Add transition for a smooth effect */
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* Add a subtle shadow effect */
 
   }
 

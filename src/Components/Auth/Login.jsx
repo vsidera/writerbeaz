@@ -6,8 +6,6 @@ import { setUser, setEmailAddress, setRefreshToken, setTokenExpiry, setAccessTok
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from '../Layout/Footer/Footer';
-import logoheader from '../../images/assets/logonobg.png'
 import { FaBook, FaBookOpen, FaLockOpen, FaPen, FaUnlock } from 'react-icons/fa';
 
 function Login() {
@@ -23,6 +21,8 @@ function Login() {
     const tokenExpiry = useSelector(state => state.tokenExpiry);
     const refreshToken = useSelector(state => state.refreshToken);
     const accessToken = useSelector(state => state.accessToken);
+      const [loading, setLoading] = useState(false); // New state for loading indicator
+
 
     console.log('Stored Email in Redux:', emailAddress);
     console.log('User Details in Redux:', user);
@@ -33,6 +33,9 @@ function Login() {
 
     const handleLogin = async () => {
         try {
+                  setLoading(true); // Enable loading state
+
+
             const response = await api.post('/accounts/signin/', {
                 email: email,
                 password: password,
@@ -49,7 +52,7 @@ function Login() {
                 if (user.user_type === "Admin") {
                     navigate('/admin');
                 } else if (user.user_type === "User") {
-                    navigate('/');
+                    navigate('/user');
                 } else if (user.user_type === "Tutor") {
                     if (user.is_profile) {
                         navigate('/tutor');
@@ -65,6 +68,9 @@ function Login() {
             console.error('Login Error:', error);
             toast.error('An error occurred during login.');
         }
+        finally {
+      setLoading(false); // Disable loading state, regardless of success or failure
+    }
     };
     
     
@@ -75,7 +81,7 @@ function Login() {
                <div style={{boxShadow:'0 0 2px',background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)'}}  className='hidden lg:flex flex-r justify-between bg-gradient-to-r from-yellow-700 to-yellow-600 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
                 
                 <div  className='space-y-5 mb-8 text-center'>
-                <h1 class="header-logo" onClick={handleClick} >WriberBeaz<FaBookOpen /> </h1>
+                <h1 class="header-logo" onClick={handleClick} >WriterBeaz<FaBookOpen /> </h1>
                     <div className='w-96 h-96' style={{backgroundImage: `url(/images/Login-cuate.svg)`}}></div>
                     <p style={{fontStyle:'italic'}} className="text-lg text-center ">If you already have an account?</p>
                    <Link
@@ -133,13 +139,16 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="flex px-3 py-2 md:px-4 md:py-3  rounded-sm font-medium placeholder:font-normal"
                             />
-                            <button style={{background:'linear-gradient(to right ,#AD9551 , goldenrod)',}}
-                            className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium  text-white"
-                            type="button"
-                            onClick={handleLogin}
-                            >
-                            Login <FaLockOpen className='icon'/>
-                            </button>
+                            <button
+                style={{ background: 'linear-gradient(to right ,#AD9551 , goldenrod)' }}
+                className={`flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium text-white ${loading ? 'cursor-not-allowed opacity-25' : ''}`}
+                type="button"
+                onClick={handleLogin}
+                disabled={loading}
+            >
+                {loading ? "Logging in..." : "Login"}
+                <FaLockOpen className='icon' />
+            </button>
                         </form>
                     </div></div>
                 </div>

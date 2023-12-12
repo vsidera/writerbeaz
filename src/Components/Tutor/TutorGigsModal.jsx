@@ -106,7 +106,12 @@ function TutorGigsModal({ isOpen, closeModal, addGigsToParent }) {
   
     try {
       const response = await api.post(
-        `/tutors/tutor-addgigs/`,
+        `import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import formData from './formData';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';`,
         formData,
         {
           headers: {

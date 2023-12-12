@@ -14,20 +14,26 @@ import OrderConfirmation from '../Components/User/OrderConfirmation';
 import OrderStatus from '../Components/User/OrderStatus';
 import NotFound404 from '../Components/Layout/NotFound404';
 import ChatPage from '../Components/Chat/ChatPage';
+import UserHome from '../Components/User/UserBoard/UserHome';
+import PostJobPage from '../Components/User/UserBoard/PostJobPage';
+import Orders from '../Components/User/UserBoard/Orders';
 
 
 function UserRouter() {
   return (
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/find-tutor" element={<FindTutor />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/single-view/:id" element={<SingleView />} />
-        <Route path="/tutor-view/:id" element={<TutorView />} />
-        <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
-        <Route path="/orderstatus/:id" element={<OrderStatus />} />
-        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/user" element={<UserHome />} />
+        <Route path="/user/post-job" element={<PostJobPage />} />
+        <Route path="/user/find-tutor" element={<FindTutor />} />
+        <Route path="/user/about" element={<About />} />
+        <Route path="/user/profile" element={<UserProfile />} />
+        <Route path="/user/single-view/:id" element={<SingleView />} />
+        <Route path="/user/tutor-view/:id" element={<TutorView />} />
+        <Route path="/user/orders" element={<Orders />} />
+        <Route path="/user/orderconfirmation/:id" element={<OrderConfirmation />} />
+        <Route path="/user/orderstatus/:id" element={<OrderStatus />} />
+        <Route path="/user/chat" element={<ChatPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/login" element={<Login />} />

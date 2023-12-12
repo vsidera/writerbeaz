@@ -33,6 +33,9 @@ const Signup = () => {
   const emailAddress = useSelector(state => state.emailAddress);
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
+    const [loading, setLoading] = useState(false); // New state for loading indicator
+
+  
 
 function handleClick(params) {
   navigate('/');
@@ -120,6 +123,8 @@ function handleClick(params) {
 
   const handleSignup = async () => {
     try {
+            setLoading(true); // Enable loading state
+
       const response = await api.post('/accounts/signup/', {
         
         first_name: firstName,
@@ -160,6 +165,9 @@ function handleClick(params) {
         toast.error('Error occurred! Please check your inputs');
       }
     }
+    finally {
+      setLoading(false); // Disable loading state, regardless of success or failure
+    }
   };
 
   return (
@@ -168,7 +176,7 @@ function handleClick(params) {
             <div style={{boxShadow:'0 0 2px',background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)'}}  className='hidden lg:flex flex-r justify-between bg-gradient-to-r from-yellow-700 to-yellow-600 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
                 
                 <div  className='space-y-5 mb-8 text-center'>
-                <h1 class="header-logo" onClick={handleClick}>WriberBeaz<FaBookOpen /> </h1>
+                <h1 class="header-logo" onClick={handleClick}>WriterBeaz<FaBookOpen /> </h1>
                     <div className='w-96 h-96' style={{backgroundImage: `url(/images/Fingerprint-cuate.svg)`}}></div>
                     <p style={{fontStyle:'italic'}} className="text-lg text-center ">if you already have an account?</p>
                     <Link to="/login" >
@@ -202,7 +210,8 @@ function handleClick(params) {
                 </div>
 
                 <div  className="flex flex-1 flex-col  justify-center space-y-5 max-w-md">
-                   <div style={{background:'white', padding:'0px 30px 0px 30px', borderRadius:'5px', boxShadow:'0 0 3px'  }} > <div  className="flex flex-col space-y-2 text-center">
+                   <div style={{background:'white', padding:'0px 30px 0px 30px', borderRadius:'5px', boxShadow:'0 0 3px'  }} >
+                     <div  className="flex flex-col space-y-2 text-center">
                         <h2 style={{color:'#AD9551'}} className="text-3xl md:text-4xl font-bold" id='logn' >Register</h2>
                         <p className="text-md md:text-xl">Enter the correct <span className='font-medium text-yellow-500'>Details</span> to register as a <span className='font-medium text-yellow-500' >User</span></p>
                     </div>
@@ -232,22 +241,22 @@ function handleClick(params) {
                         <input style={{border:'1px solid gray'}} type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e.target.value)}
                         className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-sm font-medium placeholder:font-normal" />
                         {error === 'confirm password' && <p className="text-xs text-red-500">{confirmPasswordError}</p>}
-
+                        <span style={{marginBottom:'-15px'}}>Select Account Type:</span>
                         <select style={{border:'1px solid gray', color:'black'}} value={userType} onChange={(e) => setUserType(e.target.value)} 
                             className={`flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-sm ${ userType ? 'font-semibold' : 'font-normal'} ${userType === '' ? 'text-[#9ca3af]' : 'text-black'}`} >
-                            <option value="">Select Account Type</option>
-                            <option value="Tutor">Tutor</option>
+                          <option value="Tutor">Tutor</option>
                             <option value="User">User</option>
                         </select>
 
-                        <button style={{background:'linear-gradient(to right ,#AD9551 , goldenrod)', }}
-                            className={`flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium ${allFieldsFilled ? 'bg-yellow-700 text-white' : ' bg-black text-white'}`}
-                            type="submit"
-                            onClick={handleSignup}
-                            disabled={!allFieldsFilled}
-                            >
-                            Create Account <FaUser className='icon'/>
-                        </button>
+                         <button
+      style={{ background: 'linear-gradient(to right ,#AD9551 , goldenrod)' }}
+      className={`flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium ${allFieldsFilled ? 'bg-yellow-700 text-white' : ' bg-black text-white'} ${loading ? 'cursor-not-allowed opacity-25' : ''}`}
+      type="submit"
+      onClick={handleSignup}
+      disabled={!allFieldsFilled || loading}
+    >
+      {loading ? "Loading..." : "Create Account"}
+    </button>
                         <div className="mt-2 text-center">
                             {allFieldsFilled ? "" :<p className="text-s text-red-500">All fields are required</p>}
                         </div>
@@ -262,7 +271,8 @@ function handleClick(params) {
                             <span>Sign in with Google</span>
                         </button> */}
                     </div>
-                </div></div>
+                </div>
+                </div>
             </div>
         </div>
     </div>

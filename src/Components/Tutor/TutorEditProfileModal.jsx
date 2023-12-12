@@ -210,7 +210,7 @@ function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
 
                 {/* Year of Experience */}
                 <div className="w-1/2 ml-2">
-                    <label className="block text-sm text-gray-700 capitalize">Year of Experience:</label>
+                    <label className="block text-sm text-gray-700 capitalize">Years of Experience:</label>
                     <input
                     type="number"
                     name="year_of_experience"

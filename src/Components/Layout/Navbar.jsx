@@ -7,12 +7,15 @@ import { FaBookOpen } from 'react-icons/fa';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const user = useSelector(state => state.user);
+     
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const shouldShowSellerButton = !user || user.user_type === 'User';
+    // const shouldShowSellerButton = !user || user.user_type === 'User';
+    // const user = useSelector(state => state.user);
     const location = useLocation();
 
      const [hovered, setHovered] = useState(false);
+       const [loading, setLoading] = useState(false);
+
 
   const handleHover = () => {
     setHovered(!hovered);
@@ -38,14 +41,14 @@ function Navbar() {
                     <div style={{backgroundColor:'black', borderRadius:'0px'}} className="text-xl md:text-3xl">
                         <a style={{display:'flex'}} href="/" >
                            <img src={logoheader} alt='logo' style={{ height: '115px', width: 'auto', position:'absolute', transform: 'rotate(90deg)', marginLeft:'-48px', marginTop:'-30px' }}/>
-                        <h1  className="header-logo1" style={{fontSize:'36px',padding:'0px', marginLeft:'50px'}} >WriberBeaz<FaBookOpen /> </h1></a>                        
+                        <h1  className="header-logo1" style={{fontSize:'36px',padding:'0px', marginLeft:'50px'}} >WriterBeaz<FaBookOpen /> </h1></a>                        
                     </div>
                 </div>
 
                 <div className={`md:flex md:items-center ${menuOpen ? 'block' : 'hidden'}`}>
                     <div  className="text-gray-800 py-2 md:py-0 md:space-x-2">
                         <NavLink  to='/' className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '/' ? 'bg-gray-100' : ''}`}>Home</NavLink>
-                        {shouldShowSellerButton && (
+                        {  (
                             <>
                             <a href='#services' spy={true}
               smooth={true}
@@ -58,20 +61,14 @@ function Navbar() {
                         <a href="#testimony"  className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '#testimonials' ? 'bg-black' : ''}`}>Testimonials
                         </a>
                         <a href='#blog' style={{marginRight:'100px'}} className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '/signup' ? 'bg-black' : ''}`}>Blog</a>
-                        {user ? (
+                        {  (
                         <>
                             <div className="relative inline-block text-left">
                                 <button
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
                                 >
                                     <div>
-                                        <lord-icon
-                                            src="https://cdn.lordicon.com/hbvyhtse.json"
-                                            trigger="hover"
-                                            colors="primary:#ffffff"
-                                            style={{width:"50px", height:"30px", paddingTop:"7px"}}
-                                        >
-                                        </lord-icon>
+                                        
                                     </div>
                                 </button>
                                 {dropdownOpen && (
@@ -89,7 +86,7 @@ function Navbar() {
                                                     style={{width:"30px", height:"30px", paddingTop: "10px"}}
                                                 >
                                                 </lord-icon>
-                                                {user.username}
+                                                
                                             </NavLink>
                                             <div>
                                                 <Logout />
@@ -98,11 +95,12 @@ function Navbar() {
                                     </div>
                                 )}
                             </div>
-                        </>
-                        ) : (
+                       
+                        
                             <>
-                                <NavLink to="/login" style={{padding:'10px 30px 10px 30px', border: '1px solid gray'}} className={`block md:inline text-black hover:bg-gray-900 hover:text-gray-100 py-2 px-2 md:py-0 rounded-md ${location.pathname === '/login' ? 'bg-black' : ''}`}>Login</NavLink>
+                                <NavLink   to="/login" style={{padding:'10px 30px 10px 30px', border: '1px solid gray'}} className={`block md:inline text-black hover:bg-gray-900 hover:text-gray-100 py-2 px-2 md:py-0 rounded-md ${location.pathname === '/login' ? 'bg-black' : ''} `}>Login </NavLink>
                                 <NavLink to="/signup" style={{padding:'11px 31px 11px 31px', border: 'none', background:'linear-gradient(to right, #AD9551, goldenrod'}} className={`block md:inline text-white hover:bg-gray-900 hover:text-gray-900  py-2 px-2 md:py-0 rounded-md ${location.pathname === '/signup' ? 'bg-black' : ''}`}>Signup</NavLink>
+                            </>
                             </>
                         )}
                     </div>

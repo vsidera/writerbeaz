@@ -18,8 +18,14 @@ function App() {
         <Routes>
 
 
-          {/* USER */}
+          
           <Route path="/*" element={<UserRouter />} />
+            {/* USER */}
+           {/* {isUser || isAdmin ? (
+            <Route path="/user/*" element={<UserRouter />} />
+          ) : (
+            <Route path="/user/*" element={<Navigate to="/login" />} />
+          )} */}
 
 
           {/* FREELANCER */}

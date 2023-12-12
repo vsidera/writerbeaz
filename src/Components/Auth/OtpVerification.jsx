@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../api/axiosConfig';
+import { FaBookOpen, FaUser } from 'react-icons/fa';
 
 
 const OtpVerification = () => {
@@ -50,36 +51,26 @@ const OtpVerification = () => {
   return (
     <div className="flex min-h-screen">
         <div className="flex flex-row w-full">
-            <div className='hidden lg:flex flex-col justify-between bg-gradient-to-r from-cyan-500 to-blue-500 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
-                <div className="flex items-center justify-start space-x-3">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/dycatgju.json"
-                        trigger="loop"
-                        delay="2000"
-                        colors="primary:#121331"
-                        style={{ width: '50px', height: '50px' }}>
-                    </lord-icon>
-                    <a href="/" className="font-extrabold text-2xl text-[#121331]">writerbeaz</a>
-                </div>
-                <div className='space-y-5 mb-8 text-center'>
-                <h1 class="lg:text-3xl xl:text-4xl xl:leading-snug font-extrabold text-start">Enter your account and discover new experiences</h1>
-                    <div className='w-96 h-96' style={{backgroundImage: `url(/images/log-in-girl.svg)`}}></div>
-                    <p className="text-lg text-center font-semibold">Do you already have an account?</p>
-                    <Link to="/login" className="inline-block flex-none px-4 py-3 border-2 rounded-lg font-medium border-black bg-black text-white hover:bg-[#1d1d1d]">
-                        Login now
-                    </Link>
+          <div style={{boxShadow:'0 0 2px',background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)'}}  className='hidden lg:flex flex-r justify-between bg-gradient-to-r from-yellow-700 to-yellow-600 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
+                
+                <div  className='space-y-5 mb-8 text-center'>
+                <h1 class="header-logo" >WriterBeaz<FaBookOpen /> </h1>
+                    <div className='w-96 h-96' style={{backgroundImage: `url(/images/Fingerprint-cuate.svg)`}}></div>
+                    <p style={{fontStyle:'italic'}} className="text-lg text-center ">if you already have an account?</p>
+                    <Link to="/login" >
+<button class="button-30" role="button">Click To Login </button>                    </Link>
                 </div>
             </div>
 
             <div className="flex flex-1 flex-col items-center justify-center px-10 relative">
 
-                    <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
+                    <div style={{boxShadow:'0 0 3px'}} className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-xl">
                         <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
                             <div className="flex flex-col items-center justify-center text-center space-y-2">
                                 <div className="font-bold text-3xl">
-                                    <p>Email Verification</p>
+                                    <h2 style={{color:'#AD9551'}} className="text-3xl md:text-4xl font-bold" id='logn' >Verify E-mail</h2>
                                 </div>
-                                <div className="flex flex-row text-sm font-medium text-gray-400">
+                                <div className="flex flex-row text-sm font-medium text-black">
                                     {emailAddress && <p>We have sent a code to your email {emailAddress}</p>}
                                 </div>
                             </div>
@@ -92,7 +83,7 @@ const OtpVerification = () => {
                                             {Array.from({ length: 4 }).map((_, index) => (
                                             <div key={index} className="w-16 h-16">
                                                 <input
-                                                className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-300 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                                                className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-300 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-yellow-700"
                                                 type="text"
                                                 maxLength="1"
                                                 value={otp[index] || ''}
@@ -105,19 +96,19 @@ const OtpVerification = () => {
 
                                         <div className="flex flex-col space-y-5">
                                             <div>
-                                                <button
-                                                    className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-m shadow-sm font-bold"
+                                                <button style={{background:'linear-gradient(to right ,#AD9551 , goldenrod)', width:'100%', color:'white' }}
+                                                    className={`flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium`}
                                                     type="button"
                                                     onClick={handleVerifyOtp}
                                                 >
-                                                    Verify Account
+                                                    Verify Account<FaUser className='icon'/>
                                                 </button>
                                             </div>
 
-                                            <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
+                                            <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-black">
                                                 <p>Didn't receive the code?</p>{' '}
                                                 <a
-                                                    className="flex flex-row items-center text-blue-600"
+                                                    className="flex flex-row items-center text-[#AD9551]"
                                                     href="http://"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
