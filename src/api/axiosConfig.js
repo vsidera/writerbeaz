@@ -11,8 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const dispatch = store.dispatch;
 const api = axios.create({
-  baseURL: 'https://localhost.com',
-  // baseURL: 'https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/',
+  // baseURL: 'https://localhost.com',
+  baseURL: 'https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/',
   headers: {
     "Content-Type": "application/json",
   },

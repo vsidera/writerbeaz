@@ -43,7 +43,7 @@ const JobForm = () => {
     console.log('Submitting form...', orderDetails);
 
     try {
-            const response = await axios.post('https://localhost.com/jobs', orderDetails);
+            const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/jobs', orderDetails);
 
 
       console.log('API Response:', response.data);
