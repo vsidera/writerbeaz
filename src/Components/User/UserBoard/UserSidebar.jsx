@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 import { clearUser } from '../../../Redux/store';
 import api from '../../../api/axiosConfig';
-import { FaBookOpen, FaFirstOrder, FaFolder, FaMailBulk, FaPlus, FaUser } from 'react-icons/fa';
+import { FaBookOpen, FaFirstOrder, FaFolder, FaMailBulk, FaPlus, FaSpinner, FaUser } from 'react-icons/fa';
 
 function UserSidebar() {
 
@@ -150,6 +150,17 @@ function UserSidebar() {
                 >
                 <FaFirstOrder  />
                 <span className={`${location.pathname === '/user/orders' ? 'font-bold text-white' : '-mr-1 font-medium flex ' }`}> Orders</span>
+                </NavLink>
+            </li>
+             <li>
+                <NavLink
+                to="/user/bids"
+                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
+                    location.pathname === '/user/bids' ? 'bg-black' : 'bg-transparent'
+                }`}
+                >
+               <FaSpinner   />
+                <span className={`${location.pathname === '/user/bids' ? 'font-bold text-white' : '-mr-1 font-medium flex ' }`}> Bids</span>
                 </NavLink>
             </li>
             <li>

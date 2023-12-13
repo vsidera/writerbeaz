@@ -21,15 +21,13 @@ const Orders = () => {
       fetchUserOrders();
     }
   }, [user]);
-  return (
-  <div>
-    <UserSidebar />
-    <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-      <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
 
-      {userOrders.length === 0 ? (
-        <p>No orders to display.</p>
-      ) : (
+  return (
+    <div>
+      <UserSidebar />
+      <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+        <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
+
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -73,27 +71,34 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {userOrders.map((order) => (
-              <tr key={order.id}>
-                <td className="px-6 py-4 whitespace-nowrap">{order.orderTitle}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.subject}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.type}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.service}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.pages}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.citation}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.spacing}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.educationLevel}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.sources}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.language}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.instructions}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{order.dueDate}</td>
-                {/* Add more columns as needed */}
+            {userOrders.length === 0 ? (
+              <tr>
+                <td colSpan="12" className="px-6 py-4 text-center">
+                  No orders to display.
+                </td>
               </tr>
-            ))}
+            ) : (
+              userOrders.map((order) => (
+                <tr key={order.id}>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.orderTitle}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.subject}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.type}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.service}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.pages}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.citation}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.spacing}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.educationLevel}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.sources}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.language}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.instructions}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.dueDate}</td>
+                  {/* Add more columns as needed */}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
-      )}
-    </div>
+      </div>
     </div>
   );
 };

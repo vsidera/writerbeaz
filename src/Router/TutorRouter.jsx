@@ -10,6 +10,7 @@ import TutorEditProfileModal from '../Components/Tutor/TutorEditProfileModal'
 import NotFound404 from '../Components/Layout/NotFound404'
 import JobList from '../Components/Tutor/JobList'
 import JobDetails from '../Components/Tutor/JobDetails'
+import Bids from '../Components/Tutor/Bids'
 
 function TutorRouter() {
   return (
@@ -18,6 +19,7 @@ function TutorRouter() {
         <Route path="/register" element={<TutorRegister />} />
         <Route path="/profile" element={<TutorProfile />} />
         <Route path="/find-job" element={<JobList />} />
+        <Route path="/bids" element={<Bids />} />
         <Route path="/inbox" element={<TutorInbox />} />
         <Route path="/works" element={<TutorWorks />} />
         <Route path="/chatx" element={<TutorChatX />} />

@@ -46,23 +46,17 @@ const JobList = () => {
   }, []);
 
     // Fetch jobs from the API endpoint
-//     const fetchJobs = async () => {
-//       try {
-//         const response = await axios.get('https://localhost.com/jobs'); // Replace with your actual API endpoint
-//         setJobs(response.data);
-//       } catch (error) {
-//         console.error('Error fetching jobs:', error);
-//       }
-//     };
+  //   const fetchJobs = async () => {
+  //     try {
+  //       const response = await axios.get('https://localhost.com/jobs');
+  //       setJobs(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching jobs:', error);
+  //     }
+  //   };
 
-//     fetchJobs();
-//   }, []);
-
-
- const handleApplyButtonClick = (jobId) => {
-    // Add logic for applying to a job
-    console.log(`Applying to job with ID ${jobId}`);
-  };
+  //   fetchJobs();
+  // }, []);
 
   return (
     <div>
@@ -102,9 +96,13 @@ const JobList = () => {
                   <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.service}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                   <Link to={`/job-details/${job.id}`} className="text-blue-500 hover:underline mr-2">
-  View More and Apply
-</Link>
+                    <Link
+                      to={`/tutor/job-details/${job.id}`}
+                      state={{ jobDetails: job }} // This should pass jobDetails to JobDetails
+                      className="text-blue-500 hover:underline mr-2"
+                    >
+                      View More and Apply
+                    </Link>
                   </td>
                 </tr>
               ))}

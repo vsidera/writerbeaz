@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { clearUser } from '../../Redux/store';
 import api from '../../api/axiosConfig'; 
  import { useSelector } from 'react-redux';
-import { FaBookOpen, FaFirstOrder, FaMailBulk, FaSearch, FaUser } from 'react-icons/fa';
+import { FaBookOpen, FaFirstOrder, FaMailBulk, FaSearch, FaSpinner, FaUser } from 'react-icons/fa';
 
 function TutorSidebar() {
 
@@ -166,6 +166,19 @@ function TutorSidebar() {
                 <span><FaSearch /></span> {/* You can replace this with your preferred icon */}
                 <span className={`${location.pathname === '/tutor/find-job' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>
                   Find a Job
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/tutor/bids"  
+                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
+                  location.pathname === '/tutor/bids' ? 'bg-black' : 'bg-transparent'
+                }`}
+              >
+                <span><FaSpinner /></span> {/* You can replace this with your preferred icon */}
+                <span className={`${location.pathname === '/tutor/bids' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>
+                  Bids
                 </span>
               </NavLink>
             </li>

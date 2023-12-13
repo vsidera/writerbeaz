@@ -17,6 +17,9 @@ import ChatPage from '../Components/Chat/ChatPage';
 import UserHome from '../Components/User/UserBoard/UserHome';
 import PostJobPage from '../Components/User/UserBoard/PostJobPage';
 import Orders from '../Components/User/UserBoard/Orders';
+import UserBids from '../Components/User/UserBoard/UserBids';
+import UserInbox from '../Components/User/UserBoard/UserInbox';
+import ProposalDetails from '../Components/User/UserBoard/ProposalDetails';
 
 
 function UserRouter() {
@@ -27,6 +30,9 @@ function UserRouter() {
         <Route path="/user/post-job" element={<PostJobPage />} />
         <Route path="/user/find-tutor" element={<FindTutor />} />
         <Route path="/user/about" element={<About />} />
+        <Route path="/user/inbox" element={<UserInbox />} />
+        <Route path="/user/proposal-details/:id" element={<ProposalDetails />} />
+        <Route path="/user/bids" element={<UserBids />} />
         <Route path="/user/profile" element={<UserProfile />} />
         <Route path="/user/single-view/:id" element={<SingleView />} />
         <Route path="/user/tutor-view/:id" element={<TutorView />} />
