@@ -4,13 +4,17 @@ import UserRouter from './Router/UserRouter';
 import TutorRouter from './Router/TutorRouter';
 import AdminRouter from './Router/AdminRouter';
 import { useSelector } from 'react-redux';
+import Home from './Components/User/Home';
+import Login from './Components/Auth/Login';
+import Signup from './Components/Auth/Signup';
+import OtpVerification from './Components/Auth/OtpVerification';
 
 function App() {
   const user = useSelector(state => state.user);
 
   const isAdmin = user && user.user_type === 'Admin';
-  const isUser = user && user.user_type === 'User';
-  const isTutor = user && user.user_type === 'Tutor';
+  const isUser = true;
+  const isTutor = true;
 
   return (
     <>
@@ -18,8 +22,11 @@ function App() {
         <Routes>
 
 
-          
-          <Route path="/*" element={<UserRouter />} />
+
+          <Route path="/" element={<Home />} />
+          <Route path='/login' element={<Login />}/>
+          <Route path="/signup" element={<Signup />} />
+        <Route path="/otp-verification" element={<OtpVerification />} />
             {/* USER */}
            {isUser || isAdmin ? (
             <Route path="/user/*" element={<UserRouter />} />

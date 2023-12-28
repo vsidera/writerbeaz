@@ -25,23 +25,23 @@ import ProposalDetails from '../Components/User/UserBoard/ProposalDetails';
 function UserRouter() {
   return (
     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/user" element={<UserHome />} />
-        <Route path="/user/post-job" element={<PostJobPage />} />
-        <Route path="/user/find-tutor" element={<FindTutor />} />
-        <Route path="/user/about" element={<About />} />
-        <Route path="/user/inbox" element={<UserInbox />} />
-        <Route path="/user/proposal-details/:id" element={<ProposalDetails />} />
-        <Route path="/user/bids" element={<UserBids />} />
-        <Route path="/user/profile" element={<UserProfile />} />
-        <Route path="/user/single-view/:id" element={<SingleView />} />
-        <Route path="/user/tutor-view/:id" element={<TutorView />} />
-        <Route path="/user/orders" element={<Orders />} />
-        <Route path="/user/orderconfirmation/:id" element={<OrderConfirmation />} />
-        <Route path="/user/orderstatus/:id" element={<OrderStatus />} />
-        <Route path="/user/chat" element={<ChatPage />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/otp-verification" element={<OtpVerification />} />
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<UserHome />} />
+        <Route path="/post-job" element={<PostJobPage />} />
+        <Route path="/find-tutor" element={<FindTutor />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/inbox" element={<UserInbox />} />
+        <Route path="/proposal-details/:id" element={<ProposalDetails />} />
+        <Route path="/bids" element={<UserBids />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/single-view/:id" element={<SingleView />} />
+        <Route path="/tutor-view/:id" element={<TutorView />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
+        <Route path="/orderstatus/:id" element={<OrderStatus />} />
+        <Route path="/chat" element={<ChatPage />} />
+        {/* <Route path="/signup" element={<Signup />} />
+        <Route path="/otp-verification" element={<OtpVerification />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound404 />} />

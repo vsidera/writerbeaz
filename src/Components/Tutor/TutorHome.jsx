@@ -19,7 +19,7 @@ function TutorHome() {
   useEffect(() => {
       // Fetch total amount earned
       api
-      .get('/tutors/tutor-totalamount/')
+      .get('/tutor/tutor-totalamount/')
       .then((response) => {
         setTotalAmountEarning(response.data.total_amount_earned);
         setTotalCommission(response.data.total_commission);
@@ -31,7 +31,7 @@ function TutorHome() {
 
       // Fetch Count of Gigs
       api
-      .get('/tutors/tutor-gigs-count/')
+      .get('/tutor/tutor-gigs-count/')
       .then((response) => {
         setTotalGigsCount(response.data.total_gigs);
         setActiveGigsCount(response.data.active_gigs);
@@ -43,7 +43,7 @@ function TutorHome() {
 
       // Fetch Count of Orders
       api
-      .get('/tutors/tutor-order-count/')
+      .get('/tutor/tutor-order-count/')
       .then((response) => {
         setTotalOrderCount(response.data.total_orders_received);
         setClosedOrders(response.data.closed_orders);
@@ -55,7 +55,7 @@ function TutorHome() {
 
       // Fetch TransactionHistory
       api
-      .get('/tutors/tutor-transaction-history/')
+      .get('/tutor/tutor-transaction-history/')
       .then((response) => {
         setTransactionData(response.data);
       })
@@ -127,7 +127,7 @@ function TutorHome() {
                           </linearGradient>
                         </defs>
                       </svg>
-                    </td>   
+                    </td>
                   </tr>
                   <tr>
                     <td class="py-2">Total Commission</td>
@@ -146,7 +146,7 @@ function TutorHome() {
                           </linearGradient>
                         </defs>
                       </svg>
-                    </td>   
+                    </td>
                   </tr>
                   <tr>
                     <td class="py-2">Total My Profit</td>
@@ -165,10 +165,10 @@ function TutorHome() {
                             </linearGradient>
                           </defs>
                       </svg>
-                    </td>   
+                    </td>
                   </tr>
                 </tbody>
-              </table> 
+              </table>
             </div>
           </div>
 
@@ -211,7 +211,7 @@ function TutorHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                         <tr>
                           <td class="py-2">In-Active Gigs</td>
@@ -230,13 +230,13 @@ function TutorHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                       </tbody>
-                    </table>   
+                    </table>
                   </div>
                 </div>
-                
+
                 <div>
                   <div class="lg:h-full py-8 px-6 text-gray-600 rounded-xl border border-gray-300 bg-white shadow-lg">
                     <svg class="w-40 m-auto" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -276,7 +276,7 @@ function TutorHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                         <tr>
                           <td class="py-2">Completed Works</td>
@@ -295,7 +295,7 @@ function TutorHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                         <tr>
                           <td class="py-2">Others</td>
@@ -314,10 +314,10 @@ function TutorHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                       </tbody>
-                    </table>   
+                    </table>
                   </div>
                 </div>
               </div>

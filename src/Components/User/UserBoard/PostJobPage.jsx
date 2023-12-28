@@ -4,6 +4,7 @@ import JobForm from './JobForm';
 import UserSidebar from './UserSidebar';
 
 const PostJobPage = () => {
+    console.log("here");
   return (
     <div>
         <UserSidebar />

@@ -26,9 +26,10 @@ const JobForm = () => {
     instructions: '',
     dueDate: '',
     // Add user information to the orderDetails object
-    userId: user ? user.id : null,
+    userId: user ? user.user_id : null,
   });
 
+    console.log("user", user);
 
   const handleInputChange = (e) => {
     setOrderDetails({
@@ -43,7 +44,11 @@ const JobForm = () => {
     console.log('Submitting form...', orderDetails);
 
     try {
-            const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/jobs', orderDetails);
+            const response = await axios.post('http://127.0.0.1:8000/users/job-order/', orderDetails, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            },
+        });
 
 
       console.log('API Response:', response.data);
@@ -61,7 +66,7 @@ const JobForm = () => {
   const checkLoggedIn = () => {
 
       handleNextStep();
-    
+
   };
 
   const handleNextStep = () => {
@@ -322,4 +327,4 @@ const JobForm = () => {
   );
 };
 
-export default JobForm;    
+export default JobForm;

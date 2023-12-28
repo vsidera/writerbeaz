@@ -26,7 +26,7 @@ function Login() {
 
     console.log('Stored Email in Redux:', emailAddress);
     console.log('User Details in Redux:', user);
-    
+
     function handleClick(params) {
         navigate('/');
     }
@@ -40,16 +40,18 @@ function Login() {
                 email: email,
                 password: password,
             });
-    
+
             if (response.status === 200) {
                 const { user, access_token, refresh_token, token_expiry } = response.data;
+user.user_type = "User";
+
                 dispatch(setUser(user));
                 dispatch(setEmailAddress(email));
                 dispatch(setAccessToken(access_token));
                 dispatch(setRefreshToken(refresh_token));
                 dispatch(setTokenExpiry(token_expiry));
                 toast.success('Logged in successfully.');
-                if (user.user_type === "Admin") {
+                                if (user.user_type === "Admin") {
                     navigate('/admin');
                 } else if (user.user_type === "User") {
                     navigate('/user');
@@ -60,7 +62,7 @@ function Login() {
                         navigate('/tutor/register');
                       }
                 }
-                
+
             } else {
                 toast.error('Login failed. Please check your credentials.');
             }
@@ -72,21 +74,21 @@ function Login() {
       setLoading(false); // Disable loading state, regardless of success or failure
     }
     };
-    
-    
+
+
     return (
         <>
          <div  className="flex min-h-screen">
             <div  className="flex flex-row w-full">
                <div style={{boxShadow:'0 0 2px',background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)'}}  className='hidden lg:flex flex-r justify-between bg-gradient-to-r from-yellow-700 to-yellow-600 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
-                
+
                 <div  className='space-y-5 mb-8 text-center'>
                 <h1 class="header-logo" onClick={handleClick} >WriterBeaz<FaBookOpen /> </h1>
                     <div className='w-96 h-96' style={{backgroundImage: `url(/images/Login-cuate.svg)`}}></div>
                     <p style={{fontStyle:'italic'}} className="text-lg text-center ">If you already have an account?</p>
                    <Link
       to="/signup"
-      
+
     >
       <button class="button-30" role="button">Click to SignUp</button>
     </Link>
@@ -96,7 +98,7 @@ function Login() {
                 <div className="flex flex-1 flex-col items-center justify-center px-10 relative">
                     <div className="flex lg:hidden justify-between items-center w-full py-4">
                         <div className="flex items-center justify-start space-x-3">
-                           
+
                             <a
     style={{
       display: 'flex',
@@ -108,7 +110,7 @@ function Login() {
     id="write"
   >
     WriterBeaz<FaBookOpen style={{ color: "#AD9551" }} />
-  </a>                 
+  </a>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span>Don't have Account? </span>
@@ -153,7 +155,7 @@ function Login() {
                     </div></div>
                 </div>
             </div>
-           
+
         </div> </>
     );
 }

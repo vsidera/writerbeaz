@@ -43,20 +43,20 @@ const JobList = () => {
     ];
 
     setJobs(hardcodedData);
-  }, []);
+  // }, []);
 
     // Fetch jobs from the API endpoint
-  //   const fetchJobs = async () => {
-  //     try {
-  //       const response = await axios.get('https://localhost.com/jobs');
-  //       setJobs(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching jobs:', error);
-  //     }
-  //   };
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/users/job-order/');
+        setJobs(response.data);
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      }
+    };
 
-  //   fetchJobs();
-  // }, []);
+    fetchJobs();
+  }, []);
 
   return (
     <div>

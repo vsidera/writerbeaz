@@ -72,7 +72,7 @@ const JobDetails = () => {
 
     try {
       // Assuming you have an API endpoint to handle proposal submission
-      const response = await axios.post('/proposals', {
+      const response = await axios.post('/tutor/proposal/', {
         job_id: jobDetails.id,
         username: user.username,
         ...proposal,
