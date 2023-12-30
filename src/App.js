@@ -16,8 +16,6 @@ function App() {
   const isUser = user && user.user_type === "User";
   const isTutor = user && user.user_type === "Tutor";
 
-  console.log("user" + user.user_type);
-
   return (
     <>
       <HashRouter>
