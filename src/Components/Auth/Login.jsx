@@ -70,7 +70,7 @@ function Login() {
             toast.error('An error occurred during login.');
         }
         finally {
-            setLoading(false); // Disable loading state, regardless of success or failure
+            setLoading(false);
         }
     };
 
