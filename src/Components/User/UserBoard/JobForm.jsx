@@ -44,7 +44,7 @@ const JobForm = () => {
     console.log('Submitting form...', orderDetails);
 
     try {
-            const response = await axios.post('http://127.0.0.1:8000/users/job-order/', orderDetails, {
+            const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/', orderDetails, {
         headers: {
             'Content-Type': 'multipart/form-data',
             },

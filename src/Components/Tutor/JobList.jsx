@@ -48,7 +48,7 @@ const JobList = () => {
     // Fetch jobs from the API endpoint
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/users/job-order/');
+        const response = await axios.get('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/');
         setJobs(response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);

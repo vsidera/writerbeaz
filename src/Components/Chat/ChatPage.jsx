@@ -96,6 +96,9 @@ const ChatPage = () => {
       });
   }, []);
 
+  console.log(userData)
+
+
   return (
     <div className="flex h-screen overflow-hidden bg-gray-100">
       {/* Chat sidebar */}
@@ -152,18 +155,18 @@ const ChatPage = () => {
                   key={index}
                   ref={scroll}
                   className={`flex ${
-                    message.sender === senderId ? 'justify-end' : 'justify-start'
+                    message.sender === userData.email ? 'justify-end' : 'justify-start'
                   } mb-4`}
                 >
                   <div
                     className={`${
-                      message.sender === senderId
+                      message.sender === userData.email
                         ? 'bg-blue-500 text-white self-end'
                         : 'bg-gray-300 text-gray-800 self-start'
                     } py-2 px-4 rounded-lg max-w-md`}
                   >
                     <div className="flex items-center">
-                      {message.sender === senderId ? (
+                      {message.sender === userData.email ? (
                         <>
                           {message.content && (
                             <div className="mr-3">{message.content}</div>

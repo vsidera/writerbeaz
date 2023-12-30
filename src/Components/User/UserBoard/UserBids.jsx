@@ -13,7 +13,7 @@ function UserBids() {
     const fetchJobProposals = async () => {
       try {
         // Fetch all proposals associated with jobs posted by the user
-        const jobProposalsResponse = await axios.get(`/proposals?userId=${user.id}`);
+        const jobProposalsResponse = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal?userId=${user.user_id}`);
         const proposals = jobProposalsResponse.data;
 
         // Check for new proposals
@@ -30,7 +30,7 @@ function UserBids() {
     };
 
     // Fetch job proposals on component mount
-    if (user.id) {
+    if (user.user_id) {
       fetchJobProposals();
 
       // Poll for new proposals every 60 seconds (adjust as needed)
@@ -39,7 +39,7 @@ function UserBids() {
       // Cleanup interval on component unmount
       return () => clearInterval(pollInterval);
     }
-  }, [user.id, jobProposals.length]);
+  }, [user.user_id, jobProposals.length]);
 
   return (
     <div>

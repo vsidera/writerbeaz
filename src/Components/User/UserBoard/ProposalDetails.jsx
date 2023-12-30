@@ -3,30 +3,31 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const ProposalDetails = () => {
-  const { proposalId } = useParams();
+  const { id } = useParams();
   const [proposalDetails, setProposalDetails] = useState(null);
+  console.log(id)
 
   useEffect(() => {
     const fetchProposalDetails = async () => {
       try {
-        const response = await axios.get(`/proposals/${proposalId}`);
+        const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/${id}`);
         setProposalDetails(response.data);
       } catch (error) {
         console.error('Error fetching proposal details:', error);
       }
     };
 
-    if (proposalId) {
+    if (id) {
       fetchProposalDetails();
     }
-  }, [proposalId]);
+  }, [id]);
 
   return (
     <div>
       <h1 className="text-3xl font-bold mb-4">Proposal Details</h1>
       {proposalDetails ? (
         <div>
-          <p>Job Title: {proposalDetails.jobTitle}</p>
+          <p>Job Title: {proposalDetails.proposal}</p>
           <p>Proposal Date: {proposalDetails.proposalDate}</p>
           {/* Add more details as needed */}
         </div>

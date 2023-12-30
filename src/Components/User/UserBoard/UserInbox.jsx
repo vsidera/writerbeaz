@@ -11,7 +11,7 @@ function UserInbox() {
     const fetchProposals = async () => {
       try {
         // Fetch all proposals associated with jobs posted by the user
-        const jobProposalsResponse = await axios.get(`/proposals?userId=${user.id}`);
+        const jobProposalsResponse = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/?userId=${user.user_id}`);
         const fetchedProposals = jobProposalsResponse.data;
 
         // Mark fetched proposals as unread
@@ -27,10 +27,11 @@ function UserInbox() {
     };
 
     // Fetch proposals on component mount
-    if (user.id) {
+    if (user.user_id) {
       fetchProposals();
     }
-  }, [user.id]);
+  }, [user.user_id]);
+  console.log(user)
 
   const markProposalAsRead = (proposalId) => {
     // Mark the proposal as read in the local state

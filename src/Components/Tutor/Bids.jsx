@@ -11,7 +11,7 @@ function Bids() {
     const fetchTutorBids = async () => {
       try {
         // Fetch all proposals from the server
-        const response = await axios.get('/proposals'); // Replace with your actual API endpoint
+        const response = await axios.get('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal'); // Replace with your actual API endpoint
 
         // Filter proposals for the tutor based on their username
         const bidsForTutor = response.data.filter(proposal => proposal.username === user.username);
@@ -46,8 +46,8 @@ function Bids() {
               {tutorBids.map((bid, index) => (
                 <tr key={index} className="border-b border-gray-300">
                   {Object.values(bid).map((value, index) => (
-                    <td key={index} className="py-2 px-4 border-r">
-                      {value}
+                    <td key={index} className="py-2 font-bold px-4 border-r">
+                      {value.toString()}
                     </td>
                   ))}
                 </tr>

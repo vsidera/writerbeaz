@@ -16,7 +16,7 @@ function TutorWorks() {
   const openModal = (orderId) => {
     setIsModalOpen(true);
     setModalOrderId(orderId);
-  };  
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -25,7 +25,7 @@ function TutorWorks() {
   const openDealModal = (orderId) => {
     setIsDealModalOpen(true);
     setDealModalOrderId(orderId);
-  };  
+  };
 
   const closeDealModal = () => {
     setIsDealModalOpen(false);
@@ -34,7 +34,7 @@ function TutorWorks() {
   useEffect(() => {
     // Fetch orders data
     api
-      .get('/tutors/tutor-orderslist/')
+      .get('/tutor/tutor-orderslist/')
       .then((response) => {
         setOrdersData(response.data);
       })
@@ -52,7 +52,7 @@ function TutorWorks() {
     { id: 5, label: 'Payment Pending' },
     { id: 6, label: 'Deal Closed' },
   ];
-  
+
   // Filter orders with status "Work Started", "Completed", and "Payment Pending" and "Deal Closed"
   const ongoingWork = ordersData?.find((order) =>
     ["Work Started", "Completed", "Payment Pending"].includes(order.status)
@@ -124,7 +124,7 @@ function TutorWorks() {
                           onClick={() => openModal(ongoingWork.id)}
                           >
                             Work Completed
-                          </button>                        
+                          </button>
                         ) : null}
                       </div>
                       <div className="mt-5">
@@ -134,7 +134,7 @@ function TutorWorks() {
                           onClick={() => openDealModal(ongoingWork.id)}
                           >
                             Close Work
-                          </button>                        
+                          </button>
                         ) : null}
                       </div>
                     </div>

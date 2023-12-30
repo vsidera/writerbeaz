@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { clearUser } from '../../Redux/store';
-import api from '../../api/axiosConfig'; 
+import api from '../../api/axiosConfig';
  import { useSelector } from 'react-redux';
 import { FaBookOpen, FaFirstOrder, FaMailBulk, FaSearch, FaSpinner, FaUser } from 'react-icons/fa';
 
@@ -31,7 +31,7 @@ function TutorSidebar() {
   }
 
   useEffect(() => {
-    api.get('/tutors/tutor-profile/')
+    api.get('/tutor/tutor-profile/')
         .then(response => {
             setProfileData(response.data);
         })
@@ -43,7 +43,7 @@ function TutorSidebar() {
   const handleLogout = () => {
     dispatch(clearUser());
     toast.success('Tutor Logged out');
-    navigate('/login') 
+    navigate('/login')
     };
 
   return (
@@ -90,7 +90,7 @@ function TutorSidebar() {
                 <h1 class="header-logo" >WriterBeaz<FaBookOpen /> </h1>
                 </div>
             </Link>
-            
+
 
             </div>
             <div style={{background:'red'}}>
@@ -110,7 +110,7 @@ function TutorSidebar() {
                 </div>
             )}</div>
             <ul className="space-y- tracking-wide mt-8">
-               
+
             <li>
                 <NavLink
                 to="/tutor"
@@ -119,7 +119,7 @@ function TutorSidebar() {
                     location.pathname === '/tutor' ? 'bg-black' : 'bg-transparent'
                 }`}
                 ><FaUser />
-                
+
                 <span className={`${location.pathname === '/tutor' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}> {user.username}</span>
                 </NavLink>
             </li>
@@ -152,13 +152,13 @@ function TutorSidebar() {
                     location.pathname === '/tutor/chatx' ? 'bg-black' : 'bg-transparent'
                 }`}
                 >
-                
+
                 <span className={`${location.pathname === '/tutor/chatx' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>ChatX</span>
                 </NavLink>
             </li>
              <li>
               <NavLink
-                to="/tutor/find-job"  
+                to="/tutor/find-job"
                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
                   location.pathname === '/tutor/find-job' ? 'bg-black' : 'bg-transparent'
                 }`}
@@ -171,7 +171,7 @@ function TutorSidebar() {
             </li>
             <li>
               <NavLink
-                to="/tutor/bids"  
+                to="/tutor/bids"
                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
                   location.pathname === '/tutor/bids' ? 'bg-black' : 'bg-transparent'
                 }`}
@@ -186,7 +186,7 @@ function TutorSidebar() {
         </div>
 
         <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t">
-            <button 
+            <button
             onClick={handleLogout}
             className="px-4 py-3 flex items-center space-x-2 rounded-md text-black group font-semibold hover:text-white hover:bg-black">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

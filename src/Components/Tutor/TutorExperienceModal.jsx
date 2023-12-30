@@ -41,7 +41,7 @@ function TutorExperienceModal({ isOpen, closeModal, addExperienceToParent }) {
 
     try {
       const response = await api.post(
-        '/tutors/tutor-addexperience/',
+        '/tutor/tutor-addexperience/',
         {
           title: experience.title,
           company: experience.company,

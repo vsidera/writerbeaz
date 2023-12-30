@@ -23,24 +23,24 @@ const customStyles = {
 function TutorEducationModal({ isOpen, closeModal, addEducationToParent }) {
     const authToken = useSelector((state) => state.accessToken);
     const userId = useSelector((state) => state.user.user_id);
-  
+
     const [education, setEducation] = useState({
       course: '',
       college: '',
       year: '',
     });
-  
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setEducation({ ...education, [name]: value });
     };
-  
+
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
+
       try {
         const response = await api.post(
-          '/tutors/tutor-addeducation/',
+          '/tutor/tutor-addeducation/',
           {
             course: education.course,
             college: education.college,
@@ -53,7 +53,7 @@ function TutorEducationModal({ isOpen, closeModal, addEducationToParent }) {
             },
           }
         );
-  
+
         if (response.status === 201) {
           addEducationToParent(response.data);
           toast.success('Education added successfully');
@@ -66,7 +66,7 @@ function TutorEducationModal({ isOpen, closeModal, addEducationToParent }) {
         toast.error('Failed to add education');
       }
     };
-  
+
     return (
       <Modal
         isOpen={isOpen}

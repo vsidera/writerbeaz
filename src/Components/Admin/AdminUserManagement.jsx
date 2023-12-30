@@ -21,7 +21,7 @@ function AdminUserManagement() {
     async function fetchData() {
       try {
         const userResponse = await api.get('/users/user-profiles/');
-        const tutorResponse = await api.get('/tutors/tutor-profiles/');
+        const tutorResponse = await api.get('/tutor/tutor-profiles/');
 
         setUserProfiles(userResponse.data);
         setTutorProfiles(tutorResponse.data);
@@ -40,12 +40,12 @@ function AdminUserManagement() {
     const endpoint = isUser
       ? `/admin/block-unblock-user/${userId}/`
       : `/admin/block-unblock-tutor/${userId}/`;
-  
+
     api
       .post(endpoint, { is_active: newStatus })
       .then((response) => {
         console.log('Block/Unblock response:', response);
-  
+
         if (isUser) {
           setUserProfiles((prevState) =>
             prevState.map((profile) =>
@@ -63,17 +63,17 @@ function AdminUserManagement() {
             )
           );
         }
-  
+
         closeUserModal();
         closeTutorModal();
-  
+
         setBlockAction(newStatus);
       })
       .catch((error) => {
         console.error('Error blocking/unblocking:', error);
       });
   };
-  
+
 
   const openUserModal = (userId, blockAction) => {
     setSelectedUserId(userId);
@@ -86,7 +86,7 @@ function AdminUserManagement() {
     setBlockAction(blockAction);
     setIsTutorModalOpen(true);
   };
-  
+
   const closeUserModal = () => {
     setIsUserModalOpen(false);
   };

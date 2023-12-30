@@ -13,8 +13,10 @@ function App() {
   const user = useSelector(state => state.user);
 
   const isAdmin = user && user.user_type === 'Admin';
-  const isUser = true;
-  const isTutor = true;
+  const isUser = user && user.user_type === 'User';
+  const isTutor = user && user.user_type === 'Tutor';
+
+  console.log("user" + user.user_type)
 
   return (
     <>

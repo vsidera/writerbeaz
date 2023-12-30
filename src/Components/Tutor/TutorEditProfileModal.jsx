@@ -38,7 +38,7 @@ function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
 
   useEffect(() => {
     api
-      .get(`/tutors/tutor-createprofile/${userId}/`)
+      .get(`/tutor/tutor-createprofile/${userId}/`)
       .then((response) => {
         setProfileData(response.data);
       })
@@ -72,7 +72,7 @@ function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
 
     try {
       const response = await api.put(
-        `/tutors/tutor-createprofile/${userId}/`,
+        `/tutor/tutor-createprofile/${userId}/`,
         formData,
         {
           headers: {

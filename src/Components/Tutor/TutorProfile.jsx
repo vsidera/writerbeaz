@@ -26,7 +26,7 @@ function TutorProfile() {
   useEffect(() => {
     // Fetch profile data
     api
-      .get('/tutors/tutor-profile/')
+      .get('/tutor/tutor-profile/')
       .then((response) => {
         setProfileData(response.data);
       })
@@ -36,7 +36,7 @@ function TutorProfile() {
 
     // Fetch skills
     api
-      .get('/tutors/tutor-skills/')
+      .get('/tutor/tutor-skills/')
       .then((response) => {
         setSkills(response.data);
       })
@@ -46,7 +46,7 @@ function TutorProfile() {
 
     // Fetch Experience
     api
-      .get('/tutors/tutor-experience/')
+      .get('/tutor/tutor-experience/')
       .then((response) => {
         setExperience(response.data);
       })
@@ -56,7 +56,7 @@ function TutorProfile() {
 
     // Fetch Education
     api
-      .get('/tutors/tutor-education/')
+      .get('/tutor/tutor-education/')
       .then((response) => {
         setEducation(response.data);
       })
@@ -66,7 +66,7 @@ function TutorProfile() {
 
     // Fetch Gigs
     api
-      .get('/tutors/tutor-gigs/')
+      .get('/tutor/tutor-gigs/')
       .then((response) => {
         setGigs(response.data);
       })
@@ -157,18 +157,18 @@ function TutorProfile() {
 
   const handleSaveSkills = async () => {
     try {
-      const currentSkills = await api.get('/tutors/tutor-skills/');
+      const currentSkills = await api.get('/tutor/tutor-skills/');
       const currentSkillIds = currentSkills.data.map(skill => skill.id);
-  
+
       const skillsToDelete = currentSkillIds.filter(skillId => !skills.map(skill => skill.id).includes(skillId));
-  
+
       for (const skillId of skillsToDelete) {
-        const response = await api.delete(`/tutors/tutor-skills/update/${skillId}/`);
+        const response = await api.delete(`/tutor/tutor-skills/update/${skillId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update skill with ID ${skillId}`);
         }
       }
-  
+
       setIsEditingSkills(false);
     } catch (error) {
       console.error('Error updating skills:', error);
@@ -177,18 +177,18 @@ function TutorProfile() {
 
   const handleSaveExperience = async () => {
     try {
-      const currentExperience = await api.get('/tutors/tutor-experience/');
+      const currentExperience = await api.get('/tutor/tutor-experience/');
       const currentExperienceIds = currentExperience.data.map(experience => experience.id);
-  
+
       const experienceToDelete = currentExperienceIds.filter(experienceId => !experience.map(experience => experience.id).includes(experienceId)); // Corrected variable name
-  
+
       for (const experienceId of experienceToDelete) {
-        const response = await api.delete(`/tutors/tutor-experience/update/${experienceId}/`);
+        const response = await api.delete(`/tutor/tutor-experience/update/${experienceId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update experience with ID ${experienceId}`);
         }
       }
-  
+
       setIsEditingExperience(false);
     } catch (error) {
       console.error('Error updating experience:', error);
@@ -197,18 +197,18 @@ function TutorProfile() {
 
   const handleSaveEducation = async () => {
     try {
-      const currentEducation = await api.get('/tutors/tutor-education/');
+      const currentEducation = await api.get('/tutor/tutor-education/');
       const currentEducationIds = currentEducation.data.map(education => education.id);
-  
+
       const educationToDelete = currentEducationIds.filter(educationId => !education.map(education => education.id).includes(educationId));
-  
+
       for (const educationId of educationToDelete) {
-        const response = await api.delete(`/tutors/tutor-education/update/${educationId}/`);
+        const response = await api.delete(`/tutor/tutor-education/update/${educationId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update education with ID ${educationId}`);
         }
       }
-  
+
       setIsEditingEducation(false);
     } catch (error) {
       console.error('Error updating education:', error);
@@ -217,28 +217,28 @@ function TutorProfile() {
 
   const handleSaveGigs = async () => {
     try {
-      const currentGigs = await api.get('/tutors/tutor-gigs/');
+      const currentGigs = await api.get('/tutor/tutor-gigs/');
       const currentGigsIds = currentGigs.data.map(gigs => gigs.id);
-  
+
       const gigsToDelete = currentGigsIds.filter(gigsId => !gigs.map(gigs => gigs.id).includes(gigsId));
-  
+
       for (const gigsId of gigsToDelete) {
-        const response = await api.delete(`/tutors/tutor-gigs/update/${gigsId}/`);
+        const response = await api.delete(`/tutor/tutor-gigs/update/${gigsId}/`);
         if (response.status !== 200) {
           console.error(`Failed to update education with ID ${gigsId}`);
         }
       }
-  
+
       setIsEditingGigs(false);
     } catch (error) {
       console.error('Error updating gigs:', error);
     }
   };
-  
+
   const handleToggleGigStatus = async (gigId, gigIndex, currentStatus) => {
     try {
-      const response = await api.post(`/tutors/block-unblock-gigs/${gigId}/`);
-      
+      const response = await api.post(`/tutor/block-unblock-gigs/${gigId}/`);
+
       if (response.status === 200) {
         const updatedGigs = [...gigs];
         updatedGigs[gigIndex].is_active = !currentStatus;
@@ -250,7 +250,7 @@ function TutorProfile() {
       console.error('Error toggling gig status:', error);
     }
   };
-  
+
 
   return (
     <div>

@@ -38,7 +38,7 @@ function TutorSkillModal({ isOpen, closeModal, addSkillToParent }) {
 
     try {
       const response = await api.post(
-        '/tutors/tutor-addskill/',
+        '/tutor/tutor-addskill/',
         {
           skill: skill.skill,
           tutor: userId,

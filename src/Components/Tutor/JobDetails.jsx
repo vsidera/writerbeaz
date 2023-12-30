@@ -72,7 +72,7 @@ const JobDetails = () => {
 
     try {
       // Assuming you have an API endpoint to handle proposal submission
-      const response = await axios.post('/tutor/proposal/', {
+      const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/', {
         job_id: jobDetails.id,
         username: user.username,
         ...proposal,

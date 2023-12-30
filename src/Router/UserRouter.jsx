@@ -39,7 +39,7 @@ function UserRouter() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
         <Route path="/orderstatus/:id" element={<OrderStatus />} />
-        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/chatx" element={<ChatPage />} />
         {/* <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} /> */}
         <Route path="/login" element={<Login />} />

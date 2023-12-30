@@ -41,7 +41,7 @@ function TutorDealCloseModal({ isOpen, closeModal, orderId }) {
         setWorkData({ ...workData, uploading: true });
         try {
             const response = await api.put(
-                `/tutors/tutor-close-deal/${orderId}/`,
+                `/tutor/tutor-close-deal/${orderId}/`,
                 formData,
                 {
                     headers: {

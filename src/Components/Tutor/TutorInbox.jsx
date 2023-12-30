@@ -10,7 +10,7 @@ function TutorInbox() {
   useEffect(() => {
     // Fetch orders data
     api
-      .get('/tutors/tutor-orderslist/')
+      .get('/tutor/tutor-orderslist/')
       .then((response) => {
         setOrdersData(response.data);
       })
@@ -34,7 +34,7 @@ function TutorInbox() {
 
   const handleAcceptOrder = (orderId) => {
     api
-      .put(`/tutors/tutor-acceptorder/${orderId}/`)
+      .put(`/tutor/tutor-acceptorder/${orderId}/`)
       .then(() => {
         setOrdersData((prevOrdersData) =>
           prevOrdersData.map((order) =>
@@ -49,7 +49,7 @@ function TutorInbox() {
 
   const handleStartWork = (orderId) => {
     api
-      .put(`/tutors/tutor-startwork/${orderId}/`)
+      .put(`/tutor/tutor-startwork/${orderId}/`)
       .then(() => {
         setOrdersData((prevOrdersData) =>
           prevOrdersData.map((order) =>

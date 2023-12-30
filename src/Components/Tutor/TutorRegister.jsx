@@ -30,7 +30,7 @@ function TutorRegister() {
     const [profile_photo, setProfilePhoto] = useState(null);
     console.log(authToken)
     const userId = user.user_id;
-    const route = `/tutors/tutor-createprofile/${userId}/`;
+    const route = `/tutor/tutor-createprofile/${userId}/`;
 
 
     const handleRegisterProfile = async () => {
@@ -54,7 +54,7 @@ function TutorRegister() {
                     'Authorization': `Bearer ${authToken}`,
                 },
             });
-        
+
             if (response.status === 200) {
                 navigate('/tutor');
                 toast.success('Registration Success')
@@ -81,13 +81,13 @@ function TutorRegister() {
                     <Link to="/login" >
 <button class="button-30" role="button">Click To Login </button>                    </Link>
                 </div>
-                    
+
                 </div>
-    
+
                 <div className="flex flex-1 flex-col items-center justify-center px-10 relative">
                     <div className="flex lg:hidden justify-between items-center w-full py-4">
                         <div className="flex items-center justify-start space-x-3">
-                            
+
                             <a
     style={{
       display: 'flex',
@@ -99,7 +99,7 @@ function TutorRegister() {
     id="write"
   >
     WriterBeaz<FaBookOpen style={{ color: '#AD9551' }} />
-  </a>                    
+  </a>
                         </div>
                         <div className="flex items-center space-x-2">
                             <span>Have an Account? </span>
@@ -108,7 +108,7 @@ function TutorRegister() {
                             </Link>
                         </div>
                     </div>
-    
+
                     <div className="flex flex-1 flex-col justify-center space-y-5 max-w-md">
                         <div style={{background:'white', padding:'0px 30px 0px 30px', borderRadius:'5px', boxShadow:'0 0 3px'  }} >
                         <div className="flex flex-col space-y-2 text-center">
@@ -221,7 +221,7 @@ function TutorRegister() {
                             {allFieldsFilled ? "" :<p className="text-s text-red-500">All fields are required</p>}
                         </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>

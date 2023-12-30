@@ -28,7 +28,7 @@ function TutorWorkCompleteModal({ isOpen, closeModal, orderId }) {
         new_amount: '',
         order_raw_images: null,
       });
-    
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setWorkData({ ...workData, [name]: value });
@@ -38,7 +38,7 @@ function TutorWorkCompleteModal({ isOpen, closeModal, orderId }) {
         const file = e.target.files[0];
         setWorkData({ ...workData, order_raw_images: file });
     };
-    
+
     const handleSubmit = async () => {
         const formData = new FormData();
         formData.append('new_amount', workData.new_amount);
@@ -46,7 +46,7 @@ function TutorWorkCompleteModal({ isOpen, closeModal, orderId }) {
 
         try {
             const response = await api.put(
-            `/tutors/tutor-complete-work/${orderId}/`,
+            `/tutor/tutor-complete-work/${orderId}/`,
             formData,
             {
                 headers: {
@@ -65,7 +65,7 @@ function TutorWorkCompleteModal({ isOpen, closeModal, orderId }) {
         } catch (error) {
             console.error('Work Complete error:', error);
         }
-    };    
+    };
 
   return (
     <Modal
