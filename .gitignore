@@ -9,6 +9,7 @@
 /coverage
 
 # production
+/build
 
 # misc
 .DS_Store
@@ -29,7 +30,7 @@ yarn-error.log*
 .env
 
 # Build
-# build/
+build/
 dist/
 
 # IDEs and editors
