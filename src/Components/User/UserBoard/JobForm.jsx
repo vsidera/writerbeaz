@@ -8,8 +8,9 @@ import axios from 'axios';
 const JobForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [measure, setMeasure] = useState("pages");
 
- const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
 
   const [orderDetails, setOrderDetails] = useState({
     uploadOrder: '',
@@ -29,7 +30,7 @@ const JobForm = () => {
     userId: user ? user.user_id : null,
   });
 
-    console.log("user", user);
+  console.log("user", user);
 
   const handleInputChange = (e) => {
     setOrderDetails({
@@ -45,11 +46,12 @@ const JobForm = () => {
     console.log('Submitting form...', orderDetails);
 
     try {
-            const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/', orderDetails, {
+      orderDetails.uploadOrder = e.target.uploadOrder.files[0];
+      const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/', orderDetails, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            },
-        });
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
 
       console.log('API Response:', response.data);
@@ -66,13 +68,13 @@ const JobForm = () => {
 
   const checkLoggedIn = () => {
 
-      handleNextStep();
+    handleNextStep();
 
   };
 
   const handleNextStep = () => {
     const form = document.querySelector('form');
-    if(!form.checkValidity()) {
+    if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
@@ -81,7 +83,7 @@ const JobForm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
-      <form style={{boxShadow:'0 0 2px'}} onSubmit={handleSubmit} className="max-w-md w-full p-6 bg-[#f6f6f6] rounded-sm ">
+      <form style={{ boxShadow: '0 0 2px' }} onSubmit={handleSubmit} className="max-w-md w-full p-6 bg-[#f6f6f6] rounded-sm ">
         {currentStep === 1 && (
           <>
             <div className="mb-4">
@@ -159,19 +161,34 @@ const JobForm = () => {
         {currentStep === 2 && (
           <>
             <div className="mb-4">
-              <label htmlFor="pages" className="block text-gray-700 text-sm font-bold mb-2">1. Pages</label>
+              <label htmlFor="pages" className="block text-gray-700 text-sm font-bold mb-2">1. Pages or words</label>
+              <select
+                id="measure"
+                name="measure"
+                value={measure}
+                onChange={(e) => setMeasure(e.target.value)}
+                className="w-1/2 px-3 py-2 border "
+                required
+              >
+                <option value="">Select Pages or word count</option>
+                <option value="pages">Pages</option>
+                <option value="words">Words</option>
+              </select>
               <input
                 type="number"
                 id="pages"
                 name="pages"
                 value={orderDetails.pages}
                 onChange={handleInputChange}
-                min="1"
-                max="500"
-                className="w-full px-3 py-2 border "
+                min="0"
+                max="1000"
+                className="w-1/2 px-3 py-2 border "
                 required
               />
             </div>
+
+
+
 
             <div className="mb-4">
               <label htmlFor="citation" className="block text-gray-700 text-sm font-bold mb-2">2. Citation</label>
@@ -305,28 +322,29 @@ const JobForm = () => {
                 name="uploadOrder"
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border "
+                required
               />
             </div>
           </>
         )}
 
         <div className="flex justify-between">
-         {currentStep > 1 && (
-  <button
-    type="button"
-    className="bg-[black] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue"
-    onClick={() => setCurrentStep(currentStep - 1)}
-  >
-    Previous
-  </button>
-)}
+          {currentStep > 1 && (
+            <button
+              type="button"
+              className="bg-[black] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue"
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              Previous
+            </button>
+          )}
 
           {currentStep < 4 ? (
-             <input type="button" className="bg-[goldenrod] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-green" onClick={checkLoggedIn} value={"Next step"}/>
+            <input type="button" className="bg-[goldenrod] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-green" onClick={checkLoggedIn} value={"Next step"} />
           ) : (
-            <button  style={{boxShadow:"0 0 5px"}} type="submit" className="bg-[yellow] text-black px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-indigo">
-  Submit
-</button>
+            <button style={{ boxShadow: "0 0 5px" }} type="submit" className="bg-[yellow] text-black px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-indigo">
+              Submit
+            </button>
           )}
         </div>
       </form>

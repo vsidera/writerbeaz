@@ -11,14 +11,24 @@ const Orders = () => {
     const fetchUserOrders = async () => {
       try {
         const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/?id=${user.user_id}`);
-        setUserOrders(response.data);
+        return response.data;
       } catch (error) {
         console.error('Error fetching user orders:', error);
       }
     };
 
     if (user && user.user_id) {
-      fetchUserOrders();
+      fetchUserOrders().then((data) => {
+        let orders = data.map((order) => {
+          let instructions = order.instructions;
+          if (order.instructions.length > 30) {
+            instructions = order.instructions.slice(0, 30) + '...';
+          }
+
+          return {...order, instructions: instructions};
+        });
+        setUserOrders(orders);
+      });
     }
   }, [user]);
 
