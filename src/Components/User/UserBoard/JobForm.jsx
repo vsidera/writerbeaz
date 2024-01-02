@@ -39,6 +39,7 @@ const JobForm = () => {
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     console.log('Submitting form...', orderDetails);
@@ -321,9 +322,7 @@ const JobForm = () => {
 )}
 
           {currentStep < 4 ? (
-             <button type="button" className="bg-[goldenrod] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-green" onClick={checkLoggedIn}>
-              Next Step
-            </button>
+             <input type="button" className="bg-[goldenrod] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-green" onClick={checkLoggedIn} value={"Next step"}/>
           ) : (
             <button  style={{boxShadow:"0 0 5px"}} type="submit" className="bg-[yellow] text-black px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-indigo">
   Submit
