@@ -70,6 +70,11 @@ const JobForm = () => {
   };
 
   const handleNextStep = () => {
+    const form = document.querySelector('form');
+    if(!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     setCurrentStep(currentStep + 1);
   };
 
