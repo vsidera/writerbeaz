@@ -183,7 +183,10 @@ const JobForm = () => {
                 required
               >
                 <option value="">Select Citation</option>
-                {/* Add citation options as needed */}
+                <option value="APA">APA</option>
+                <option value="MLA">MLA</option>
+                <option value="Chicago">Chicago</option>
+                <option value="Harvard">Harvard</option>
               </select>
             </div>
 
