@@ -11,15 +11,28 @@ import { FaBookOpen, FaUser } from 'react-icons/fa';
 const OtpVerification = () => {
     const [otp, setOtp] = useState('');
     const [verificationStatus, setVerificationStatus] = useState('');
-  
+
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
     const emailAddress = useSelector(state => state.emailAddress);
-  
+
     const handleOtpChange = (index, value) => {
-      const newOtp = otp.split('');
-      newOtp[index] = value;
-      setOtp(newOtp.join(''));
+        if (value == ''){
+            setOtp(otp.slice(0, -1));
+            if (index > 0) {
+                let allInputs = document.querySelectorAll('input');
+                allInputs[index-1].focus();
+            }
+        }
+        if (isNaN(value)) return;
+       let allInputs = document.querySelectorAll('input');
+       if (index >= 0 && index < allInputs.length - 1) {
+         allInputs[index+1].focus();
+       }
+         const otpArray = otp.split('');
+            otpArray[index] = value;
+            setOtp(otpArray.join(''));
+
     };
 
     useEffect(() => {
@@ -34,7 +47,7 @@ const OtpVerification = () => {
             otp: otp,
             email: emailAddress,
           });
-    
+
           if (response.status === 200) {
             setVerificationStatus('User is verified');
             toast.success('Account verified. You can now log in.');
@@ -52,7 +65,7 @@ const OtpVerification = () => {
     <div className="flex min-h-screen">
         <div className="flex flex-row w-full">
           <div style={{boxShadow:'0 0 2px',background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)'}}  className='hidden lg:flex flex-r justify-between bg-gradient-to-r from-yellow-700 to-yellow-600 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
-                
+
                 <div  className='space-y-5 mb-8 text-center'>
                 <h1 class="header-logo" >WriterBeaz<FaBookOpen /> </h1>
                     <div className='w-96 h-96' style={{backgroundImage: `url(/images/Fingerprint-cuate.svg)`}}></div>
