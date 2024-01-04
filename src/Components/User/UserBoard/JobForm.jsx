@@ -50,6 +50,7 @@ const JobForm = () => {
       const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/', orderDetails, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer '+ localStorage.getItem('accessToken'),
         },
       });
 

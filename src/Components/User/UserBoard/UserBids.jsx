@@ -13,7 +13,11 @@ function UserBids() {
     const fetchJobProposals = async () => {
       try {
         // Fetch all proposals associated with jobs posted by the user
-        const jobProposalsResponse = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal?userId=${user.user_id}`);
+        const jobProposalsResponse = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/user_proposals/`, {
+          headers: {
+            Authorization: 'Bearer '+ localStorage.getItem('accessToken'),
+          },
+        });
         const proposals = jobProposalsResponse.data;
 
         // Check for new proposals

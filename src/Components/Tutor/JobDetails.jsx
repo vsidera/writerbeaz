@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TutorSidebar from '../Layout/TutorSidebar';
 import axios from 'axios';
@@ -44,6 +44,7 @@ const JobDetails = () => {
   const { state } = useLocation();
   const jobDetails = state ? state.jobDetails : null;
   const navigate = useNavigate();
+
 
   const [proposal, setProposal] = useState({
     skills: '',
@@ -137,7 +138,7 @@ const JobDetails = () => {
         )}
       </div>
     </div>
-  );
+  )
 };
 
 export default JobDetails;

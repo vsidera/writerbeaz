@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
 const ProposalDetails = () => {
   const { id } = useParams();
+
   const [proposalDetails, setProposalDetails] = useState(null);
-  console.log(id)
 
   useEffect(() => {
     const fetchProposalDetails = async () => {
       try {
-        const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/${id}`);
+        const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposals/${id}`);
         setProposalDetails(response.data);
       } catch (error) {
         console.error('Error fetching proposal details:', error);
