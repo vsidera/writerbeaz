@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate, HashRouter } from "react-router-dom";
-// import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import UserRouter from "./Router/UserRouter";
 import TutorRouter from "./Router/TutorRouter";
 import AdminRouter from "./Router/AdminRouter";
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -45,7 +45,7 @@ function App() {
             <Route path="/admin/*" element={<Navigate to="/login" />} />
           )}
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </>
   );
 }
