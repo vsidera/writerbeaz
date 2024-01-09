@@ -20,15 +20,6 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (roomId) {
-      // Establish a WebSocket connection
-      socketRef.current = new WebSocket(`ws://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/ws/chat/${senderId}/${recipientId}/`);
-
-      // Handle incoming WebSocket messages
-      socketRef.current.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        setMessages((prevMessages) => [...prevMessages, message]);
-      };
-
       // Fetch existing messages for the chat
       api
         .get(`/api/rooms/${senderId}/${recipientId}/messages/list/`)
@@ -39,12 +30,6 @@ const ChatPage = () => {
           console.error('Error:', error);
         });
     }
-
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-    };
   }, [roomId, senderId, recipientId]);
 
   const sendMessage = () => {
