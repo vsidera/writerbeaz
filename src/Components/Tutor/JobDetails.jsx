@@ -92,6 +92,18 @@ const JobDetails = () => {
     }
   };
 
+  const downloadFile = async (url) => {
+    url = `https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com${url}`;
+    try {
+      const response = await axios.get(url, { responseType: 'blob' });
+      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+      const downloadUrl = URL.createObjectURL(blob);
+      window.open(downloadUrl);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  }
+
   return (
     <div>
       <TutorSidebar />
@@ -102,7 +114,19 @@ const JobDetails = () => {
           <div className={`job-details ${isProposalSubmitted ? 'opacity-50' : ''}`}>
             {Object.entries(jobDetails).map(([key, value]) => (
               <p key={key} className="mb-2">
-                <span className="font-bold">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}:</span> {value}
+                <span className="font-bold">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}:</span>
+                {key === 'uploadOrder' ? (
+                  <button
+                    className="text-blue-500 hover:underline"
+                    onClick={() => downloadFile(value)}
+                  >{" "}
+                    Download Order
+                  </button>
+                ) : (
+                  <span>{" "}
+                 {value.toString()}
+                 </span>
+                )}
               </p>
             ))}
           </div>

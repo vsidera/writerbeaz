@@ -60,24 +60,30 @@ function UserBids() {
             <table className="w-full border border-gray-300">
               <thead>
                 <tr className="bg-gray-200">
-                  <th className="py-2 px-4 border-r">Job Title</th>
-                  <th className="py-2 px-4 border-r">Proposal Date</th>
+                  <th className="py-2 px-4 border-r">Order Title</th>
+                  <th className="py-2 px-4 border-r">Tutor</th>
+                  <th className="py-2 px-4 border-r">Proposal</th>
                   <th className="py-2 px-4 border-r">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {jobProposals.map((proposal, index) => (
-                  <tr key={index} className="border-b border-gray-300">
-                    <td className="py-2 px-4 border-r">{proposal.jobTitle}</td>
-                    <td className="py-2 px-4 border-r">{proposal.proposalDate}</td>
+                {jobProposals.map((proposal) => (
+                  <tr key={proposal.id}>
+                    <td className="py-2 px-4 border-r">{proposal.orderTitle}</td>
+                    <td className="py-2 px-4 border-r">{proposal.tutor}</td>
+                    <td className="py-2 px-4 border-r">{proposal.proposal}</td>
                     <td className="py-2 px-4 border-r">
-                      <Link to={`/proposal-details/${proposal.id}`} className="text-blue-500">
-                        View Details
+                      <Link
+                        to={`/user/proposal-details/${proposal.id}`}
+                        className="text-blue-500 hover:underline"
+                      >
+                        View Proposal
                       </Link>
                     </td>
                   </tr>
                 ))}
               </tbody>
+
             </table>
           </div>
         ) : (

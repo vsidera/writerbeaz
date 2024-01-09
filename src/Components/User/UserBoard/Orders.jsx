@@ -10,7 +10,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
-        const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/?id=${user.user_id}`);
+        const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/${user.user_id}/`);
         return response.data;
       } catch (error) {
         console.error('Error fetching user orders:', error);

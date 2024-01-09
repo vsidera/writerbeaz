@@ -4,7 +4,6 @@ import { toast } from 'react-hot-toast';
 import api from '../../api/axiosConfig';
 import avatar from '../../images/avatar.jpg';
 import { useSelector } from 'react-redux';
-import UserSidebar from '../User/UserBoard/UserSidebar';
 
 const ChatPage = () => {
   const [recipient, setRecipient] = useState(null);
@@ -22,7 +21,7 @@ const ChatPage = () => {
   useEffect(() => {
     if (roomId) {
       // Establish a WebSocket connection
-      socketRef.current = new WebSocket(`ws://localhost:8000/ws/chat/${senderId}/${recipientId}/`);
+      socketRef.current = new WebSocket(`ws://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/ws/chat/${senderId}/${recipientId}/`);
 
       // Handle incoming WebSocket messages
       socketRef.current.onmessage = (event) => {

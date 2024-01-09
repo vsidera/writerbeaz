@@ -20,6 +20,7 @@ import Orders from '../Components/User/UserBoard/Orders';
 import UserBids from '../Components/User/UserBoard/UserBids';
 import UserInbox from '../Components/User/UserBoard/UserInbox';
 import ProposalDetails from '../Components/User/UserBoard/ProposalDetails';
+import UserChatX from '../Components/User/UserChat';
 
 
 function UserRouter() {
@@ -39,7 +40,7 @@ function UserRouter() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
         <Route path="/orderstatus/:id" element={<OrderStatus />} />
-        <Route path="/chatx" element={<ChatPage />} />
+        <Route path="/chatx" element={<UserChatX />} />
         {/* <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} /> */}
         <Route path="/login" element={<Login />} />

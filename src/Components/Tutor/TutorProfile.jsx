@@ -28,6 +28,7 @@ function TutorProfile() {
     api
       .get('/tutor/tutor-profile/')
       .then((response) => {
+        console.log('Profile data:', response.data);
         setProfileData(response.data);
       })
       .catch((error) => {
@@ -152,7 +153,8 @@ function TutorProfile() {
   };
 
   const updateProfileDataInParent = (newProfileData) => {
-    setProfileData(newProfileData);
+    // window.location.reload();
+    
   };
 
   const handleSaveSkills = async () => {
@@ -267,7 +269,7 @@ function TutorProfile() {
                                 <img
                                     src={profileData.profile_photo}
                                     className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
-                                    alt="Profile Photo"
+                                    alt="Profile"
                                 />
                                 <h1 className="text-xl font-bold">{profileData.tutor.username}</h1>
                                 <p className="text-gray-600">{profileData.title}</p>

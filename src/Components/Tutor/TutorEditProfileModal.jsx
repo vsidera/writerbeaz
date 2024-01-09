@@ -32,7 +32,6 @@ function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
     state: '',
     country: '',
     year_of_experience: '',
-    age: '',
     profile_photo: null,
   });
 
@@ -67,7 +66,6 @@ function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
     formData.append('state', profileData.state);
     formData.append('country', profileData.country);
     formData.append('year_of_experience', profileData.year_of_experience);
-    formData.append('age', profileData.age);
     formData.append('profile_photo', profileData.profile_photo);
 
     try {
@@ -222,17 +220,6 @@ function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
             </div>
 
             <div className="mb-4 flex">
-                {/* Age */}
-                <div className="w-1/2 mr-2">
-                    <label className="block text-sm text-gray-700 capitalize">Age:</label>
-                    <input
-                    type="number"
-                    name="age"
-                    value={profileData.age}
-                    onChange={handleInputChange}
-                    className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                    />
-                </div>
 
                 {/* Profile Photo */}
                 <div className="w-1/2 ml-2">

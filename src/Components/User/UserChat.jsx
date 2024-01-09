@@ -1,11 +1,11 @@
 import React from 'react'
-import TutorSidebar from '../Layout/TutorSidebar'
+import UserSidebar from './UserBoard/UserSidebar';
 import ChatPage from '../Chat/ChatPage'
 
-function TutorChatX() {
+function UserChatX() {
   return (
     <div>
-        <TutorSidebar />
+        <UserSidebar />
         <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
           <ChatPage />
         </div>
@@ -13,4 +13,4 @@ function TutorChatX() {
   )
 }
 
-export default TutorChatX
+export default UserChatX;
