@@ -1,8 +1,8 @@
 // JobList.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import TutorSidebar from '../Layout/TutorSidebar';
 import { Link } from 'react-router-dom';
+import api from '../../api/axiosConfig';
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -48,7 +48,7 @@ const JobList = () => {
     // Fetch jobs from the API endpoint
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/');
+        const response = await api.get('users/job-order/');
         setJobs(response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);

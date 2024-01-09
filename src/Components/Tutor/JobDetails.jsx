@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TutorSidebar from '../Layout/TutorSidebar';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 
@@ -111,9 +110,8 @@ const JobDetails = () => {
   };
 
   const downloadFile = async (url) => {
-    url = `https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com${url}`;
     try {
-      const response = await axios.get(url, { responseType: 'blob' });
+      const response = await api.get(url, { responseType: 'blob' });
       const blob = new Blob([response.data], { type: response.headers['content-type'] });
       const downloadUrl = URL.createObjectURL(blob);
       window.open(downloadUrl);
