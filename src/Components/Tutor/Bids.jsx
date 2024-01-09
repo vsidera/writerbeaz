@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TutorSidebar from '../Layout/TutorSidebar';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
+import api from '../../api/axiosConfig';
 
 function Bids() {
   const [tutorBids, setTutorBids] = useState([]);
@@ -11,7 +11,7 @@ function Bids() {
     const fetchTutorBids = async () => {
       try {
         // Fetch all proposals from the server
-        const response = await axios.get('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal'); // Replace with your actual API endpoint
+        const response = await api.get('tutor/proposal/');
 
         // Filter proposals for the tutor based on their username
         const bidsForTutor = response.data.filter(proposal => proposal.username === user.username);

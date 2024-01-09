@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { toast } from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
 import UserSidebar from './UserSidebar';
+import api from '../../../api/axiosConfig';
 const ProposalDetails = () => {
   const { id } = useParams();
 
@@ -11,7 +12,7 @@ const ProposalDetails = () => {
   useEffect(() => {
     const fetchProposalDetails = async () => {
       try {
-        const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/${id}/`);
+        const response = await api.get(`tutor/proposal/${id}/`)
         setProposalDetails(response.data);
         setPrice(response.data.proposal.price)
       } catch (error) {
@@ -26,7 +27,7 @@ const ProposalDetails = () => {
 
   const handleAccept = async () => {
     try {
-      await axios.put(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/${id}/`, {
+      await api.put(`tutor/proposal/${id}/`, {
         price: price,
         isAccepted: true
       });
@@ -38,7 +39,7 @@ const ProposalDetails = () => {
           isAccepted: true
         }
       });
-      alert('Proposal accepted!');
+      toast.success('Proposal accepted!');
     } catch (error) {
       console.error('Error accepting proposal:', error);
     }
@@ -105,7 +106,7 @@ const ProposalDetails = () => {
                 className="bg-[goldenrod] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-green"
                 onClick={handleAccept}
                 >
-                  Update & Accept
+                  Hire this writer
                 </button>
               ) : (
                 <button

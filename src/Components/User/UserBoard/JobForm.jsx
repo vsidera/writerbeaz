@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import formData from './formData';
 import { useSelector } from 'react-redux'; // Import the useSelector hook
 
-import axios from 'axios';
+import api from '../../../api/axiosConfig';
 
 const JobForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [measure, setMeasure] = useState("pages");
+
+  const [submitting, setSubmitting] = useState(false);
 
   const user = useSelector(state => state.user);
 
@@ -42,12 +44,14 @@ const JobForm = () => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+    setSubmitting(true);
 
     console.log('Submitting form...', orderDetails);
 
     try {
       orderDetails.uploadOrder = e.target.uploadOrder.files[0];
-      const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/', orderDetails, {
+
+      const response = await api.post('users/job-order/', orderDetails, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': 'Bearer '+ localStorage.getItem('accessToken'),
@@ -343,7 +347,7 @@ const JobForm = () => {
           {currentStep < 4 ? (
             <input type="button" className="bg-[goldenrod] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-green" onClick={checkLoggedIn} value={"Next step"} />
           ) : (
-            <button style={{ boxShadow: "0 0 5px" }} type="submit" className="bg-[yellow] text-black px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-indigo">
+            <button disabled={submitting} style={{ boxShadow: "0 0 5px" }} type="submit" className="bg-[yellow] text-black px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-indigo">
               Submit
             </button>
           )}

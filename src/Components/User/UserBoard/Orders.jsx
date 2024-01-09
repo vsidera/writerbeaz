@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import UserSidebar from './UserSidebar';
-import axios from 'axios';
+
 import { useSelector } from 'react-redux';
+import api from '../../../api/axiosConfig';
 
 const Orders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -10,9 +11,11 @@ const Orders = () => {
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
-        const response = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/users/job-order/${user.user_id}/`);
-        return response.data;
-      } catch (error) {
+        const response = await api.get(`users/job-order/`)
+        const orders = response.data;
+        return orders;
+      }
+      catch (error) {
         console.error('Error fetching user orders:', error);
       }
     };

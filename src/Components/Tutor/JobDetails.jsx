@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TutorSidebar from '../Layout/TutorSidebar';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import api from '../../api/axiosConfig';
 
 // Separate ProposalForm component
 const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal }) => (
@@ -41,10 +43,26 @@ const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposa
 );
 
 const JobDetails = () => {
+  const { jobId } = useParams();
   const { state } = useLocation();
-  const jobDetails = state ? state.jobDetails : null;
+  const [jobDetails, setJobDetails] = useState(state?.jobDetails);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // If the job details are not passed in the location state, fetch them
+    if (!jobDetails) {
+      const fetchJobDetails = async () => {
+        try {
+          const response = await api.get(`/users/job-order/${jobId}/`)
+          setJobDetails(response.data);
+        } catch (error) {
+          console.error('Error fetching job details:', error);
+        }
+      };
+
+      fetchJobDetails();
+    }
+  }, [jobId, jobDetails]);
 
   const [proposal, setProposal] = useState({
     skills: '',
@@ -73,7 +91,7 @@ const JobDetails = () => {
 
     try {
       // Assuming you have an API endpoint to handle proposal submission
-      const response = await axios.post('https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/', {
+      const response = await api.post('/tutor/proposal/', {
         job_id: jobDetails.id,
         username: user.username,
         ...proposal,
@@ -124,7 +142,8 @@ const JobDetails = () => {
                   </button>
                 ) : (
                   <span>{" "}
-                 {value.toString()}
+
+                 {value == null ? "null" : value.toString()}
                  </span>
                 )}
               </p>
