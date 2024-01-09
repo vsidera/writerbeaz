@@ -7,7 +7,7 @@ import { FaBookOpen } from 'react-icons/fa';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
-     
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
     // const shouldShowSellerButton = !user || user.user_type === 'User';
     // const user = useSelector(state => state.user);
@@ -15,6 +15,8 @@ function Navbar() {
 
      const [hovered, setHovered] = useState(false);
        const [loading, setLoading] = useState(false);
+
+    const user = useSelector(state => state.user);
 
 
   const handleHover = () => {
@@ -41,7 +43,7 @@ function Navbar() {
                     <div style={{backgroundColor:'black', borderRadius:'0px'}} className="text-xl md:text-3xl">
                         <a style={{display:'flex'}} href="/" >
                            <img src={logoheader} alt='logo' style={{ height: '115px', width: 'auto', position:'absolute', transform: 'rotate(90deg)', marginLeft:'-48px', marginTop:'-30px' }}/>
-                        <h1  className="header-logo1" style={{fontSize:'36px',padding:'0px', marginLeft:'50px'}} >WriterBeaz<FaBookOpen /> </h1></a>                        
+                        <h1  className="header-logo1" style={{fontSize:'36px',padding:'0px', marginLeft:'50px'}} >WriterBeaz<FaBookOpen /> </h1></a>
                     </div>
                 </div>
 
@@ -54,7 +56,7 @@ function Navbar() {
               smooth={true}
               duration={500} className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '#services' ? 'bg-black' : ''}`}>Our Services</a>
                             <a href='#about'  className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '/signup' ? 'bg-black' : ''}`}>About Us</a>
-                            
+
                             <a href="#team" className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '/signup' ? 'bg-black' : ''}`}>Our Team</a>
                             </>
                         )}
@@ -68,7 +70,7 @@ function Navbar() {
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
                                 >
                                     <div>
-                                        
+
                                     </div>
                                 </button>
                                 {dropdownOpen && (
@@ -86,7 +88,7 @@ function Navbar() {
                                                     style={{width:"30px", height:"30px", paddingTop: "10px"}}
                                                 >
                                                 </lord-icon>
-                                                
+
                                             </NavLink>
                                             <div>
                                                 <Logout />
@@ -95,12 +97,13 @@ function Navbar() {
                                     </div>
                                 )}
                             </div>
-                       
-                        
+
+                            {!user && (
+
                             <>
                                 <NavLink   to="/login" style={{padding:'10px 30px 10px 30px', border: '1px solid gray'}} className={`block md:inline text-black hover:bg-gray-900 hover:text-gray-100 py-2 px-2 md:py-0 rounded-md ${location.pathname === '/login' ? 'bg-black' : ''} `}>Login </NavLink>
                                 <NavLink to="/signup" style={{padding:'11px 31px 11px 31px', border: 'none', background:'linear-gradient(to right, #AD9551, goldenrod'}} className={`block md:inline text-white hover:bg-gray-900 hover:text-gray-900  py-2 px-2 md:py-0 rounded-md ${location.pathname === '/signup' ? 'bg-black' : ''}`}>Signup</NavLink>
-                            </>
+                            </>)}
                             </>
                         )}
                     </div>

@@ -37,7 +37,7 @@ function TutorView(props) {
       .catch((error) => {
         console.error(error);
       });
-    
+
     api.get(`/users/user-tutor-experience/${id}/`)
       .then((response) => {
         setExperienceData(response.data);
