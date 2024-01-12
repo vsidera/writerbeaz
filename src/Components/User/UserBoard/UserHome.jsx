@@ -330,7 +330,7 @@ function UserHome() {
                       <div key={index} className="lg:flex">
                         <div className="flex flex-col justify-between py-6 lg:mx-6">
                           <p className="text-xl font-semibold text-gray-800 dark:text-black">
-                          {index + 1}. Client: {transaction.user.username} paid ₹{transaction.total_amount.toFixed(2)} for the service: "{transaction.order.gig_title}".
+                          {index + 1}. Client: {transaction.user.username} paid ₹{transaction.total_amount.toFixed(2)} for the service: "{transaction.order.orderTitle}".
                           </p>
                         </div>
                       </div>
