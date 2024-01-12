@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserSidebar from './UserSidebar';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import api from '../../../api/axiosConfig';
 
 function UserInbox() {
   const [proposals, setProposals] = useState([]);
@@ -11,7 +12,7 @@ function UserInbox() {
     const fetchProposals = async () => {
       try {
         // Fetch all proposals associated with jobs posted by the user
-        const jobProposalsResponse = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/proposal/?userId=${user.user_id}`);
+        const jobProposalsResponse = await api.get(`/tutor/proposal/?userId=${user.user_id}`);
         const fetchedProposals = jobProposalsResponse.data;
 
         // Mark fetched proposals as unread

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import api from '../../../api/axiosConfig';
-import { Link } from 'react-router-dom';
 import UserSidebar from './UserSidebar'
 
 function UserHome() {
@@ -17,7 +15,6 @@ function UserHome() {
   const [transactionData, setTransactionData] = useState([]);
 
   useEffect(() => {
-      // Fetch total amount earned
       api
       .get('/users/user-totalamount/')
       .then((response) => {
@@ -67,7 +64,7 @@ function UserHome() {
   return (
     <div>
       <UserSidebar />
-      
+
     <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
 
       <div class="px-6 pt-6 2xl:container">
@@ -128,7 +125,7 @@ function UserHome() {
                           </linearGradient>
                         </defs>
                       </svg>
-                    </td>   
+                    </td>
                   </tr>
                   <tr>
                     <td class="py-2">Total Commission</td>
@@ -147,7 +144,7 @@ function UserHome() {
                           </linearGradient>
                         </defs>
                       </svg>
-                    </td>   
+                    </td>
                   </tr>
                   <tr>
                     <td class="py-2">Total My Profit</td>
@@ -166,10 +163,10 @@ function UserHome() {
                             </linearGradient>
                           </defs>
                       </svg>
-                    </td>   
+                    </td>
                   </tr>
                 </tbody>
-              </table> 
+              </table>
             </div>
           </div>
 
@@ -212,7 +209,7 @@ function UserHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                         <tr>
                           <td class="py-2">In-Active Gigs</td>
@@ -231,13 +228,13 @@ function UserHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                       </tbody>
-                    </table>   
+                    </table>
                   </div>
                 </div>
-                
+
                 <div>
                   <div class="lg:h-full py-8 px-6 text-gray-600 rounded-xl border border-gray-300 bg-white shadow-lg">
                     <svg class="w-40 m-auto" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -277,7 +274,7 @@ function UserHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                         <tr>
                           <td class="py-2">Completed Works</td>
@@ -296,7 +293,7 @@ function UserHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                         <tr>
                           <td class="py-2">Others</td>
@@ -315,10 +312,10 @@ function UserHome() {
                                 </linearGradient>
                               </defs>
                             </svg>
-                          </td>   
+                          </td>
                         </tr>
                       </tbody>
-                    </table>   
+                    </table>
                   </div>
                 </div>
               </div>

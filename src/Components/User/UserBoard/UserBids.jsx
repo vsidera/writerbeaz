@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import UserSidebar from './UserSidebar';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import api from '../../../api/axiosConfig';
 
 function UserBids() {
   const [jobProposals, setJobProposals] = useState([]);
@@ -13,7 +14,7 @@ function UserBids() {
     const fetchJobProposals = async () => {
       try {
         // Fetch all proposals associated with jobs posted by the user
-        const jobProposalsResponse = await axios.get(`https://backend-writerbeaz-production-bc082bae8f0e.herokuapp.com/tutor/user_proposals/`, {
+        const jobProposalsResponse = await api.get(`/tutor/user_proposals/`, {
           headers: {
             Authorization: 'Bearer '+ localStorage.getItem('accessToken'),
           },

@@ -11,7 +11,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
-        const response = await api.get(`users/job-order/`)
+        const response = await api.get(`/users/job-order/`)
         const orders = response.data;
         return orders;
       }

@@ -58,7 +58,7 @@ function TutorGigsModal({ isOpen, closeModal, addGigsToParent }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === 'category') {
       setGigs({ ...gigs, category: { id: value } });
     } else {
@@ -70,12 +70,12 @@ function TutorGigsModal({ isOpen, closeModal, addGigsToParent }) {
     const file = e.target.files[0];
     setGigs({ ...gigs, images: { ...gigs.images, image1: file } });
   };
-  
+
   const handleFileChange2 = (e) => {
     const file = e.target.files[0];
     setGigs({ ...gigs, images: { ...gigs.images, image2: file } });
   };
-  
+
   const handleFileChange3 = (e) => {
     const file = e.target.files[0];
     setGigs({ ...gigs, images: { ...gigs.images, image3: file } });
@@ -84,7 +84,7 @@ function TutorGigsModal({ isOpen, closeModal, addGigsToParent }) {
   const handleSubmit = async () => {
     // Add this line to log the form data before creating FormData
     console.log(gigs);
-  
+
     const formData = new FormData();
     formData.append('title', gigs.title);
     formData.append('category', parseInt(gigs.category.id));
@@ -103,15 +103,9 @@ function TutorGigsModal({ isOpen, closeModal, addGigsToParent }) {
     if (gigs.images.image3) {
       formData.append('images3', gigs.images.image3);
     }
-  
+
     try {
-      const response = await api.post(
-        `import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import formData from './formData';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';`,
+      const response = await api.post(``,
         formData,
         {
           headers: {
@@ -120,7 +114,7 @@ import 'react-toastify/dist/ReactToastify.css';`,
           },
         }
       );
-  
+
       if (response.status === 201) {
         addGigsToParent(response.data);
         toast.success('Gig Created successfully');
@@ -133,7 +127,7 @@ import 'react-toastify/dist/ReactToastify.css';`,
       toast.error('Failed to Create Gig');
     }
   };
-  
+
 
   return (
     <Modal

@@ -11,7 +11,7 @@ function Bids() {
     const fetchTutorBids = async () => {
       try {
         // Fetch all proposals from the server
-        const response = await api.get('tutor/proposal/');
+        const response = await api.get('/tutor/proposal/');
 
         // Filter proposals for the tutor based on their username
         const bidsForTutor = response.data.filter(proposal => proposal.username === user.username);

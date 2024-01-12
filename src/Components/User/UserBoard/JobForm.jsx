@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import formData from './formData';
 import { useSelector } from 'react-redux'; // Import the useSelector hook
+import { toast } from 'react-toastify';
 
 import api from '../../../api/axiosConfig';
 
@@ -9,13 +10,13 @@ const JobForm = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [measure, setMeasure] = useState("pages");
+  const [uploadedFiles, setUploadedFiles] = useState([]); // New state for uploaded files
 
   const [submitting, setSubmitting] = useState(false);
 
   const user = useSelector(state => state.user);
 
   const [orderDetails, setOrderDetails] = useState({
-    uploadOrder: '',
     orderTitle: '',
     subject: '',
     type: '',
@@ -32,8 +33,6 @@ const JobForm = () => {
     userId: user ? user.user_id : null,
   });
 
-  console.log("user", user);
-
   const handleInputChange = (e) => {
     setOrderDetails({
       ...orderDetails,
@@ -46,28 +45,34 @@ const JobForm = () => {
     e.preventDefault();
     setSubmitting(true);
 
-    console.log('Submitting form...', orderDetails);
+    // console.log('Submitting form...', orderDetails);
 
     try {
-      orderDetails.uploadOrder = e.target.uploadOrder.files[0];
+      // orderDetails.files = uploadedFiles;
+      // console.log('Submitting form...', orderDetails);
+      const form = new FormData();
+      for (const key in orderDetails) {
+        form.append(key, orderDetails[key]);
+      }
 
-      const response = await api.post('users/job-order/', orderDetails, {
+      for (const file of uploadedFiles) {
+        form.append('file', file);
+      }
+
+      await api.post('/users/job-order/', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': 'Bearer '+ localStorage.getItem('accessToken'),
         },
       });
 
-
-      console.log('API Response:', response.data);
-
-      alert('Order successfully submitted!');
-
+      toast.success('Order successfully submitted!');
       navigate('/user/orders');
     } catch (error) {
       console.error('Submission Error:', error);
 
-      alert('Error submitting order. Please try again.');
+      toast.error('Error submitting order. Please try again.');
+      setSubmitting(false);
     }
   };
 
@@ -84,6 +89,12 @@ const JobForm = () => {
       return;
     }
     setCurrentStep(currentStep + 1);
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0]
+    e.target.value = null; // Clear the input
+    setUploadedFiles([...uploadedFiles, file]); // Add files to the uploadedFiles array state
   };
 
   return (
@@ -320,14 +331,28 @@ const JobForm = () => {
         {currentStep === 4 && (
           <>
             <div className="mb-4">
+              <div>
+                {uploadedFiles.map((file, ind) => (
+                  <div key={ind} className="flex items-center justify-between mb-4 border-2 p-4 rounded">
+                    <span>{file.name}</span>
+                    <span
+                      type="button"
+                      onClick={() => setUploadedFiles(uploadedFiles.filter((f) => f.name !== file.name))}
+                      className="bg-red-500 text-white px-2 rounded-full cursor-pointer"
+                    >
+                      x
+                    </span>
+                  </div>
+                ))
+                }
+              </div>
               <label htmlFor="uploadOrder" className="block text-gray-700 text-sm font-bold mb-2">Upload Order</label>
               <input
                 type="file"
                 id="uploadOrder"
                 name="uploadOrder"
-                onChange={handleInputChange}
+                onChange={handleFileUpload}
                 className="w-full px-3 py-2 border "
-                required
               />
             </div>
           </>

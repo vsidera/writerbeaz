@@ -48,7 +48,7 @@ const JobList = () => {
     // Fetch jobs from the API endpoint
     const fetchJobs = async () => {
       try {
-        const response = await api.get('users/job-order/');
+        const response = await api.get('/users/job-order/');
         setJobs(response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);
