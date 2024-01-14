@@ -65,6 +65,7 @@ const PaymentComponent = ({
         data-first_name={first_name}
         data-last_name={last_name}
         data-country={country}
+        data-method="CARD-PAYMENT"
         style={buttonStyles}
         onMouseOver={(e) => e.currentTarget.style = { ...buttonStyles, ...buttonHoverStyles }}
         onMouseOut={(e) => e.currentTarget.style = buttonStyles}

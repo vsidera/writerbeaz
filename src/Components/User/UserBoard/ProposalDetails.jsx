@@ -127,11 +127,11 @@ const ProposalDetails = () => {
                     <PaymentComponent
                     amount={price}
                     country={"KE"}
-                    currency={"KES"}
+                    currency={"USD"}
                     email={user.email}
                     first_name={user.first_name}
                     last_name={user.last_name}
-                    redirect_url={"https://writerbeaz.com/"}
+                    redirect_url={window.location.href}
                     publishable={process.env.REACT_APP_PUBLIC}
                     />
                   </div>
