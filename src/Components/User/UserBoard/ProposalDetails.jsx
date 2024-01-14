@@ -131,7 +131,7 @@ const ProposalDetails = () => {
                     email={user.email}
                     first_name={user.first_name}
                     last_name={user.last_name}
-                    redirect_url={window.location.href}
+                    redirect_url={"https://writerbeaz.com/"}
                     publishable={process.env.REACT_APP_PUBLIC}
                     />
                   </div>
