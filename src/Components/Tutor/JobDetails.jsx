@@ -123,7 +123,7 @@ const JobDetails = () => {
   return (
     <div>
       <TutorSidebar />
-      <div className={`ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] ${isProposalSubmitted ? 'opacity-70' : ''}`}>
+      <div className={`ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] px-8 ${isProposalSubmitted ? 'opacity-70' : ''}`}>
         <h1 className="text-3xl font-bold mb-4">Job Details</h1>
 
         {jobDetails ? (
@@ -131,13 +131,24 @@ const JobDetails = () => {
             {Object.entries(jobDetails).map(([key, value]) => (
               <p key={key} className="mb-2">
                 <span className="font-bold">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}:</span>
-                {key === 'uploadOrder' ? (
-                  <button
-                    className="text-blue-500 hover:underline"
-                    onClick={() => downloadFile(value)}
-                  >{" "}
-                    Download Order
-                  </button>
+                {key === 'files' ? (
+                  // display a list of filenames color blue text, underlined, and clickable
+                  <span>
+
+                    {value == null ? "No files" : (
+                      value.map((file) => (
+                        <span key={file}>
+                          <span
+                            className="text-blue-500 hover:underline cursor-pointer"
+                            onClick={() => downloadFile(file)}
+                          >
+                            {file.split('/').pop()}
+                          </span>
+                          <br />
+                        </span>
+                      ))
+                      )}
+                  </span>
                 ) : (
                   <span>{" "}
 
