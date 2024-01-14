@@ -125,7 +125,7 @@ const ProposalDetails = () => {
                 {proposalDetails.proposal.isAccepted == false ? (
                   <div>
                     <PaymentComponent
-                    amount={10}
+                    amount={price}
                     country={"KE"}
                     currency={"KES"}
                     email={user.email}
