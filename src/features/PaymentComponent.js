@@ -9,6 +9,8 @@ const PaymentComponent = ({
   last_name,
   currency,
   country,
+  onCompleted,
+  onFailed,
 }) => {
   useEffect(() => {
     const intaSendScript = document.createElement("script");
@@ -27,10 +29,12 @@ const PaymentComponent = ({
 
       intaSendInstance
         .on("COMPLETE", (results) =>
-          console.log("Do something on success", results)
+          // console.log("Do something on success", results)
+          onCompleted()
         )
         .on("FAILED", (results) =>
-          console.log("Do something on failure", results)
+          // console.log("Do something on failure", results)
+          onFailed()
         )
         .on("IN-PROGRESS", (results) =>
           console.log("Payment in progress status", results)

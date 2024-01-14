@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.5201745f.css",
-    "main.js": "/static/js/main.99439712.js",
+    "main.js": "/static/js/main.ac5319c8.js",
     "static/media/avatar.jpg": "/static/media/avatar.8c6cc66d5821565caf21.jpg",
     "static/media/logonobg.png": "/static/media/logonobg.075593748ca10659cd99.png",
     "static/media/Job hunt-cuate.svg": "/static/media/Job hunt-cuate.9b83e0ef0399e2b926c7d89f0b970309.svg",
@@ -26,10 +26,10 @@
     "static/media/icons8-youtube.svg": "/static/media/icons8-youtube.6806408aa1bf55b7f1aaba51978e649e.svg",
     "static/media/icons8-facebook.svg": "/static/media/icons8-facebook.5e1cb4b86ac3f872dadcbde3ed31cd4b.svg",
     "main.5201745f.css.map": "/static/css/main.5201745f.css.map",
-    "main.99439712.js.map": "/static/js/main.99439712.js.map"
+    "main.ac5319c8.js.map": "/static/js/main.ac5319c8.js.map"
   },
   "entrypoints": [
     "static/css/main.5201745f.css",
-    "static/js/main.99439712.js"
+    "static/js/main.ac5319c8.js"
   ]
 }

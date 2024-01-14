@@ -133,6 +133,8 @@ const ProposalDetails = () => {
                     last_name={user.last_name}
                     redirect_url={window.location.href}
                     publishable={process.env.REACT_APP_PUBLIC}
+                    onCompleted={() => handleAccept()}
+                    onFailed={() => toast.error('Payment failed!')}
                     />
                   </div>
                 ) : (
