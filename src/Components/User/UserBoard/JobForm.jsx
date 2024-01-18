@@ -62,7 +62,7 @@ const JobForm = () => {
       await api.post('/users/job-order/', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer '+ localStorage.getItem('accessToken'),
+          'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
         },
       });
 
@@ -372,8 +372,8 @@ const JobForm = () => {
           {currentStep < 4 ? (
             <input type="button" className="bg-[goldenrod] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-green" onClick={checkLoggedIn} value={"Next step"} />
           ) : (
-            <button disabled={submitting} style={{ boxShadow: "0 0 5px" }} type="submit" className="bg-[yellow] text-black px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-indigo">
-              Submit
+            <button disabled={submitting} style={submitting == true ? { opacity: 0.2 } : { boxShadow: "0 0 5px" }} type="submit" className="bg-[yellow] text-black px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-indigo">
+              {submitting ? 'Submitting...' : 'Submit'}
             </button>
           )}
         </div>

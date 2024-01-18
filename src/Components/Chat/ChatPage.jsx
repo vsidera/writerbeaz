@@ -4,61 +4,91 @@ import { toast } from 'react-hot-toast';
 import api from '../../api/axiosConfig';
 import avatar from '../../images/avatar.jpg';
 import { useSelector } from 'react-redux';
+import Loader from '../Loader';
 
-const ChatPage = () => {
+const ChatPage = ({ order_message = null }) => {
   const [recipient, setRecipient] = useState(null);
   const [roomId, setRoomId] = useState('');
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
   const scroll = useRef();
   const userData = useSelector((state) => state.user);
-
-  const socketRef = useRef(null);
+  const [new_chat, setNewChat] = useState(order_message);
+  const [fetchingMessages, setFetchingMessages] = useState(false);
+  const [selected, setSelected] = useState("");
 
   const senderId = userData.user_id;
-  const recipientId = recipient ? recipient.id : '';
 
   useEffect(() => {
+    if (messages.length > 0) {
+      setFetchingMessages(false);
+    }
+    if (new_chat) {
+      setRecipient(new_chat);
+      setRoomId(new_chat.order_number);
+      setMessages([]);
+      return;
+    }
     if (roomId) {
+      //remove first character from order number
+      const room = roomId.slice(1);
       // Fetch existing messages for the chat
       api
-        .get(`/api/rooms/${senderId}/${recipientId}/messages/list/`)
+        .get(`/api/${room}/`)
         .then((response) => {
           setMessages(response.data);
+          setFetchingMessages(false);
         })
         .catch((error) => {
           console.error('Error:', error);
         });
     }
-  }, [roomId, senderId, recipientId]);
+  }, [roomId]);
 
-  const sendMessage = () => {
+  const sendMessage = (e) => {
     if (!recipient) {
       toast.error('Please select a recipient to chat with.', { duration: 5000 });
       return;
     }
 
+    const to_send_text = e.target.message.value;
+    if (!to_send_text || to_send_text.length == 0) {
+      toast.error('Please type a message.', { duration: 5000 });
+      return;
+    }
+
+    const toDisplayMessage = {
+      content: to_send_text,
+      sender: userData.email,
+      recipient: recipient.email,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prevMessages) => [
+      ...prevMessages, toDisplayMessage
+    ]);
+
+    e.target.message.value = '';
+
     const message = {
-      content: newMessage,
+      content: to_send_text,
       sender: senderId,
-      recipient: recipientId,
+      recipient: recipient.email,
     };
 
     api
-      .post(`/api/rooms/${senderId}/${recipientId}/messages/send/`, message)
+      .post(`/api/${roomId.slice(1)}/send/`, message)
       .then((response) => {
-        const newMessage = response.data;
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        //const newMessage = response.data;
+        //setMessages((prevMessages) => [...prevMessages, newMessage]);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-
-    if (socketRef.current) {
-      socketRef.current.send(JSON.stringify(message));
-    }
-
-    setNewMessage('');
+    /*
+        if (socketRef.current) {
+          socketRef.current.send(JSON.stringify(message));
+        }
+    */
   };
 
   useEffect(() => {
@@ -66,21 +96,30 @@ const ChatPage = () => {
   }, [messages]);
 
   // Fetch user data for the sidebar (you can replace this with your own implementation)
-  const [recipients, setRecipients] = useState([]);
+  const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
     // Fetch user data
+    if (new_chat) {
+      setMessageList([new_chat]);
+    }
+
+    console.log("fetching message list");
     api
       .get('/api/accounts-list/')
       .then((response) => {
-        setRecipients(response.data);
+        if (new_chat) {
+          setMessageList([...response.data, new_chat]);
+          setNewChat(null);
+        }
+        else {
+          setMessageList(response.data);
+        }
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
       });
   }, []);
-
-  console.log(userData)
 
 
   return (
@@ -89,17 +128,17 @@ const ChatPage = () => {
       <div className="flex flex-col bg-white w-1/4 border-r border-gray-200">
         <h2 className="text-2xl font-bold p-4 bg-indigo-700 text-white">Chat</h2>
         <ul className="flex-grow overflow-y-auto">
-          {Array.isArray(recipients) && recipients.length > 0 ? (
-            recipients.map((user) => (
+          {Array.isArray(messageList) && messageList.length > 0 ? (
+            messageList.map((message) => (
               <li
-                key={user.id}
-                className={`flex items-center py-3 px-4 cursor-pointer ${
-                  recipient && recipient.id === user.id ? 'bg-gray-100' : 'hover:bg-gray-50'
-                }`}
+                key={message.id}
+                className={`flex items-center py-3 px-4 cursor-pointer` + (selected === message.order_number ? ' bg-blue-200' : '')}
                 onClick={() => {
-                  setRecipient(user);
-                  const roomId = `${senderId}${user.id}`;
-                  setRoomId(roomId);
+                  setSelected((prev) => message.order_number);
+                  setRecipient((prev) => message);
+                  setRoomId((prev) => message.order_number);
+                  setMessages([]);
+                  setFetchingMessages(true);
                 }}
               >
                 <div className="flex-shrink-0 mr-3 mt-1">
@@ -111,7 +150,7 @@ const ChatPage = () => {
                   />
                 </div>
                 <div className="flex-grow">
-                  <h3 className="text-start ms-3 text-lg font-semibold">{user.first_name}</h3>
+                  <h3 className="text-start ms-3 text-lg font-semibold">Order {message.order_number}</h3>
                 </div>
                 {/* You can add online/offline status indicators here */}
               </li>
@@ -128,7 +167,7 @@ const ChatPage = () => {
           {/* Chat header */}
           <div className="py-4 px-6 bg-indigo-700 text-white">
             <h2 className="text-2xl font-bold">
-              {recipient ? `Chat with ${recipient.first_name}` : 'Select a recipient'}
+              {recipient ? `Messages for order ${roomId}` : 'Select a recipient'}
             </h2>
           </div>
           {/* Chat messages */}
@@ -138,16 +177,14 @@ const ChatPage = () => {
                 <div
                   key={index}
                   ref={scroll}
-                  className={`flex ${
-                    message.sender === userData.email ? 'justify-end' : 'justify-start'
-                  } mb-4`}
+                  className={`flex ${message.sender === userData.email ? 'justify-end' : 'justify-start'
+                    } mb-4`}
                 >
                   <div
-                    className={`${
-                      message.sender === userData.email
-                        ? 'bg-blue-500 text-white self-end'
-                        : 'bg-gray-300 text-gray-800 self-start'
-                    } py-2 px-4 rounded-lg max-w-md`}
+                    className={`${message.sender === userData.email
+                      ? 'bg-blue-500 text-white self-end'
+                      : 'bg-gray-300 text-gray-800 self-start'
+                      } py-2 px-4 rounded-lg max-w-md`}
                   >
                     <div className="flex items-center">
                       {message.sender === userData.email ? (
@@ -185,8 +222,13 @@ const ChatPage = () => {
                   </div>
                 </div>
               ))
-            ) : (
-              <div className="text-center text-gray-500">No messages yet</div>
+            ) : (<>
+              {fetchingMessages ? (
+                <Loader />
+              ) : (
+                <p className="p-4 text-gray-500">No messages found.</p>
+              )}
+            </>
             )}
           </div>
           {/* Chat input */}
@@ -194,14 +236,15 @@ const ChatPage = () => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                sendMessage();
+                sendMessage(e);
               }}
               className="flex space-x-2"
             >
               <input
                 type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
+                //value={newMessage}
+                //onChange={}
+                name="message"
                 className="flex-grow border border-gray-300 rounded-lg px-4 py-2 focus:outline-none"
                 placeholder="Type a message..."
               />

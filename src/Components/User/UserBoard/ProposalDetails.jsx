@@ -5,12 +5,14 @@ import { useSelector } from 'react-redux';
 import UserSidebar from './UserSidebar';
 import api from '../../../api/axiosConfig';
 import PaymentComponent from '../../../features/PaymentComponent';
+import Loader from '../../Loader';
 const ProposalDetails = () => {
   const { id } = useParams();
 
   const [proposalDetails, setProposalDetails] = useState(null);
   const [price, setPrice] = useState(0);
   const user = useSelector(state => state.user);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -24,27 +26,12 @@ const ProposalDetails = () => {
       }
     };
     if (id) {
-      fetchProposalDetails();
+      fetchProposalDetails().then(() => setLoading(false));
     }
   }, [id]);
 
 
-
-  console.log(user)
-
   const handleAccept = async () => {
-    let input = document.getElementById('price');
-    if (price < proposalDetails.proposal.price) {
-      //update min value of input
-      input.min = proposalDetails.proposal.price;
-      //show validation message
-      input.setCustomValidity('Price must be greater than or equal to ' + proposalDetails.proposal.price);
-      input.reportValidity();
-      return;
-    } else {
-      //reset input validation
-      input.setCustomValidity('');
-    }
     try {
       await api.put(`/tutor/proposal/${id}/`, {
         price: price,
@@ -64,66 +51,68 @@ const ProposalDetails = () => {
     }
   }
 
-  console.log(window.location.href)
-
-
   return (
     <div>
       <UserSidebar />
-      {proposalDetails ? (
-        <div class="ml-auto lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-          <h2 className="text-2xl font-bold mb-4">View proposal</h2>
-          <div className="flex flex-col items-center justify-center min-h-screen ">
-            <div style={{ boxShadow: '0 0 2px' }} className="max-w-md w-full p-6 bg-[#f6f6f6] rounded-sm ">
-              <>
-                <div className="mb-4 border-2 p-4 rounded">
-                  <label htmlFor="orderTitle" className="block text-gray-700 text-md font-bold mb-2">Proposal</label>
-                  <p>{proposalDetails.proposal.proposal}</p>
-                  <div className='flex justify-end'>
-                    {new Date(proposalDetails.proposal.proposalDate).toDateString()}
-                  </div>
-                </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {proposalDetails ? (
+            <div className="ml-auto lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+              <h2 className="text-2xl font-bold mb-4">View proposal</h2>
+              <div className="flex flex-col items-center justify-center min-h-screen ">
+                <div style={{ boxShadow: '0 0 2px' }} className="max-w-md w-full p-6 bg-[#f6f6f6] rounded-sm ">
+                  <>
+                    <div className="mb-4 border-2 p-4 rounded">
+                      <label htmlFor="orderTitle" className="block text-gray-700 text-md font-bold mb-2">Proposal</label>
+                      <p>{proposalDetails.proposal.proposal}</p>
+                      <div className='flex justify-end'>
+                        {new Date(proposalDetails.proposal.proposalDate).toDateString()}
+                      </div>
+                    </div>
 
-                <div className="mb-4 border-2 p-4 rounded">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">Tutor</label>
-                  <div className="flex items-center">
-                    <p>{proposalDetails.proposal.username}</p>
-                    <Link className='text-blue-500 underline' to={`/user/tutor-view/${proposalDetails.user_id}/`}>
-                      View Tutor
-                    </Link>
-                  </div>
-                </div>
+                    <div className="mb-4 border-2 p-4 rounded">
+                      <label className="block text-gray-700 text-sm font-bold mb-2">Tutor</label>
+                      <div className="flex items-center">
+                        <p>{proposalDetails.proposal.username}</p>
+                        <Link className='text-blue-500 underline' to={`/user/tutor-view/${proposalDetails.user_id}/`}>
+                          View Tutor
+                        </Link>
+                      </div>
+                    </div>
 
-                <div className="mb-4 border-2 p-4 rounded">
-                  <label htmlFor="type" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
-                  {proposalDetails.proposal.isAccepted == false ? (
-                    <input
-                      id="price"
-                      name="price"
-                      type="number"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      className="w-full px-3 py-2 border "
-                      required
-                    />
-                  ) : (
-                    <p>{proposalDetails.proposal.price}</p>
-                  )}
-                </div>
+                    <div className="mb-4 border-2 p-4 rounded">
+                      <label htmlFor="type" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
+                      {proposalDetails.proposal.isAccepted == false ? (
+                        <input
+                          id="price"
+                          name="price"
+                          type="number"
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          className="w-full px-3 py-2 border "
+                          required
+                        />
+                      ) : (
+                        <p>{proposalDetails.proposal.price}</p>
+                      )}
+                    </div>
 
-                <div className="mb-4 border-2 p-4 rounded">
-                  <label htmlFor="orderTitle" className="block text-gray-700 text-md font-bold mb-2">Status</label>
-                  {proposalDetails.proposal.isAccepted == false ? (
-                    <span className='bg-blue-500 text-white px-2 py-1 rounded'>Pending</span>
-                  ) : (
-                    <span className='bg-green-500 text-white px-2 py-1 rounded'>Accepted</span>
-                  )}
-                </div>
-              </>
+                    <div className="mb-4 border-2 p-4 rounded">
+                      <label htmlFor="orderTitle" className="block text-gray-700 text-md font-bold mb-2">Status</label>
+                      {proposalDetails.proposal.isAccepted == false ? (
+                        <span className='bg-blue-500 text-white px-2 py-1 rounded'>Pending</span>
+                      ) : (
+                        <span className='bg-green-500 text-white px-2 py-1 rounded'>Accepted</span>
+                      )}
+                    </div>
+                  </>
 
-              <div className="mb-4 border-2 p-4 rounded flex justify-center">
-                {proposalDetails.proposal.isAccepted == false ? (
-                  <div>
+                  <div className="mb-4 border-2 p-4 rounded flex justify-center">
+                    {proposalDetails.proposal.isAccepted == false ? (
+                      <div>
+                        {/*
                     <PaymentComponent
                     amount={price}
                     country={"KE"}
@@ -136,21 +125,38 @@ const ProposalDetails = () => {
                     onCompleted={() => handleAccept()}
                     onFailed={() => toast.error('Payment failed!')}
                     />
+                    */}
+                        <button
+                          type="button"
+                          onClick={() => handleAccept()}
+                          className="px-4 py-2 bg-blue-500 text-white rounded"
+                        >
+                          Accept
+                        </button>
+                      </div>
+                    ) : (
+                      <Link
+                        to={"/user/chatx"}
+                        state={{
+                          order_message: {
+                            order_number: proposalDetails.order_number,
+                            email: proposalDetails.email,
+                          }
+                        }}
+                        className="text-blue-500 underline"
+                      >
+                        Message Tutor
+                      </Link>
+                    )}
                   </div>
-                ) : (
-                  <button
-                    type="button"
-                  >
-                    Accepted
-                  </button>
-                )}
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+          ) : (
+            <p>Loading...</p>
+          )}
+        </>)}
+
     </div>
   );
 };
