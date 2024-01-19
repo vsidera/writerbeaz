@@ -16,7 +16,7 @@ function UserBids() {
         // Fetch all proposals associated with jobs posted by the user
         const jobProposalsResponse = await api.get(`/tutor/user_proposals/`, {
           headers: {
-            Authorization: 'Bearer '+ localStorage.getItem('accessToken'),
+            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
           },
         });
         const proposals = jobProposalsResponse.data;
@@ -53,11 +53,6 @@ function UserBids() {
         <h1 className="text-3xl font-bold mb-4">Proposals for Your Jobs</h1>
         {jobProposals.length > 0 ? (
           <div>
-            {newProposals > 0 && (
-              <p className="text-green-500">
-                {newProposals} new {newProposals === 1 ? 'proposal' : 'proposals'} received!
-              </p>
-            )}
             <table className="w-full border border-gray-300">
               <thead>
                 <tr className="bg-gray-200">

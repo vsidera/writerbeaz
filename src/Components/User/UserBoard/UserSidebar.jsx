@@ -17,6 +17,7 @@ function UserSidebar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const user = useSelector(state => state.user);
     const profile = useSelector(state => state.profile);
+    const [bidCount, setBidCount] = useState(-1);
 
 
     let heading = 'My Dashboard';
@@ -45,6 +46,19 @@ function UserSidebar() {
                 });
         }
     }, []);
+
+    useEffect(() => {
+        if (user && user.user_id) {
+            api.get(`/tutor/user_proposals/count/`)
+                .then(response => {
+                    const bids = response.data;
+                    setBidCount(bids.count);
+                })
+                .catch(error => {
+                    console.error('Error fetching bids:', error);
+                });
+        }
+    }, [user]);
 
     const handleLogout = () => {
         dispatch(clearUser());
@@ -102,7 +116,7 @@ function UserSidebar() {
                             <div className="mt-8 text-center">
                                 <Link to='/user/profile'>
                                     <img
-                                        src={profileData.profile_photo}
+                                        src={process.env.REACT_APP_BASE_URL + profileData.profile_photo}
                                         alt="user Profile"
                                         className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
                                     />
@@ -162,7 +176,12 @@ function UserSidebar() {
                                     }`}
                             >
                                 <FaSpinner />
-                                <span className={`${location.pathname === '/user/bids' ? 'font-bold text-white' : '-mr-1 font-medium flex '}`}> Bids</span>
+                                <span className={`${location.pathname === '/user/bids' ? 'font-bold text-white' : '-mr-1 font-medium flex '}`}>
+                                    Bids
+                                    {bidCount > 0 && (
+                                        <span className="ml-2 text-white bg-red-500 rounded-full px-2 py-1">{bidCount}</span>
+                                    )}
+                                </span>
                             </NavLink>
                         </li>
                         <li>

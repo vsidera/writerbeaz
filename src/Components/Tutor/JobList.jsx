@@ -3,48 +3,13 @@ import React, { useState, useEffect } from 'react';
 import TutorSidebar from '../Layout/TutorSidebar';
 import { Link } from 'react-router-dom';
 import api from '../../api/axiosConfig';
+import Loader from '../Loader.jsx';
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const hardcodedData = [
-      {
-        id: 1,
-        orderTitle: 'Hardcoded Job 1',
-        subject: 'Computer Science',
-        type: 'Essay',
-        service: 'Writing',
-        pages: 5,
-        citation: 'APA',
-        spacing: 'Double',
-        educationLevel: 'Undergraduate',
-        sources: 3,
-        language: 'English',
-        instructions: 'Write an essay on React development.',
-        dueDate: '2023-12-31T23:59',
-      },
-      {
-        id: 2,
-        orderTitle: 'Hardcoded Job 2',
-        subject: 'History',
-        type: 'Research Paper',
-        service: 'Editing',
-        pages: 10,
-        citation: 'MLA',
-        spacing: 'Single',
-        educationLevel: 'Graduate',
-        sources: 5,
-        language: 'English',
-        instructions: 'Edit a research paper on World War II.',
-        dueDate: '2023-12-25T18:00',
-      },
-      // Add more hardcoded data as needed
-    ];
-
-    setJobs(hardcodedData);
-  // }, []);
-
     // Fetch jobs from the API endpoint
     const fetchJobs = async () => {
       try {
@@ -55,8 +20,20 @@ const JobList = () => {
       }
     };
 
-    fetchJobs();
+    fetchJobs()
+      .then(() => {
+        setLoading(false);
+      })
   }, []);
+
+    if (loading) {
+        return (
+            <div>
+                <TutorSidebar />
+                <Loader />
+            </div>
+        );
+    }
 
   return (
     <div>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setProfile } from '../../Redux/store';
 
 const customStyles = {
   overlay: {
@@ -22,6 +23,7 @@ const customStyles = {
 function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
   const authToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.user_id);
+  const dispatch = useDispatch();
 
   const [profileData, setProfileData] = useState({
     level: '',
@@ -39,6 +41,7 @@ function TutorEditProfileModal({ isOpen, closeModal, updateProfileData  }) {
     api
       .get(`/tutor/tutor-createprofile/${userId}/`)
       .then((response) => {
+        dispatch(setProfile(null));
         setProfileData(response.data);
       })
       .catch((error) => {

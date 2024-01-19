@@ -104,7 +104,7 @@ function TutorSidebar() {
               <div className="mt-8 text-center">
                 <Link to='/tutor/profile'>
                   <img
-                    src={profileData.profile_photo}
+                    src={process.env.REACT_APP_BASE_URL + profileData.profile_photo}
                     alt="Tutor Profile"
                     className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
                   />

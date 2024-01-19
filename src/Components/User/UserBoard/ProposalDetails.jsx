@@ -31,9 +31,12 @@ const ProposalDetails = () => {
   }, [id]);
 
 
-  const handleAccept = async () => {
+  const handleAccept = async (user_id, order_number) => {
     try {
       await api.put(`/tutor/proposal/${id}/`, {
+        user_id: user_id,
+        order_number: order_number,
+        tutor_id: proposalDetails.user_id,
         price: price,
         isAccepted: true
       });
@@ -112,20 +115,18 @@ const ProposalDetails = () => {
                   <div className="mb-4 border-2 p-4 rounded flex justify-center">
                     {proposalDetails.proposal.isAccepted == false ? (
                       <div>
-                        {/*
-                    <PaymentComponent
-                    amount={price}
-                    country={"KE"}
-                    currency={"USD"}
-                    email={user.email}
-                    first_name={user.first_name}
-                    last_name={user.last_name}
-                    redirect_url={window.location.href}
-                    publishable={process.env.REACT_APP_PUBLIC}
-                    onCompleted={() => handleAccept()}
-                    onFailed={() => toast.error('Payment failed!')}
-                    />
-                    */}
+                        <PaymentComponent
+                          amount={price}
+                          country={"KE"}
+                          currency={"KES"}
+                          email={user.email}
+                          first_name={user.first_name}
+                          last_name={user.last_name}
+                          redirect_url={window.location.href}
+                          publishable={process.env.REACT_APP_PUBLIC}
+                          onCompleted={() => handleAccept(user.user_id, proposalDetails.order_number)}
+                          onFailed={() => toast.error('Payment failed!')}
+                        />
                         <button
                           type="button"
                           onClick={() => handleAccept()}

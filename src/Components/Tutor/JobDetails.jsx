@@ -12,20 +12,26 @@ const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposa
     className="absolute mt-6 bg-[#f6f6f6] p-4 border border-gray-300 rounded-md"
     style={{ top: '-550%', left: '16%', transform: 'translateX(-50%)', boxShadow: '0 0 10px ' }}
   >
-    {Object.entries(proposal).map(([key, value]) => (
-      <div key={key} className="mb-4">
+      <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700">
-          {key.replace(/([a-z])([A-Z])/g, '$1 $2')}
+            Message to client
         </label>
         <input
-          type={key === 'description' ? 'textarea' : 'text'}
-          value={value}
-          onChange={(e) => setProposal({ ...proposal, [key]: e.target.value })}
+          type='textarea'
+            name='proposal'
           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
           required
         />
+        <label className="block text-sm font-medium text-gray-700">
+            Price
+        </label>
+        <input
+            type='number'
+            name='price'
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            required
+        />
       </div>
-    ))}
 
     <div className="text-red-500 mb-2">{priceError}</div>
 
@@ -49,7 +55,6 @@ const JobDetails = () => {
 
   useEffect(() => {
     // If the job details are not passed in the location state, fetch them
-    if (!jobDetails) {
       const fetchJobDetails = async () => {
         try {
           const response = await api.get(`/users/job-order/${jobId}/`)
@@ -60,11 +65,9 @@ const JobDetails = () => {
       };
 
       fetchJobDetails();
-    }
   }, [jobId, jobDetails]);
 
   const [proposal, setProposal] = useState({
-    skills: '',
     price: '',
     proposal: '',
   });
@@ -80,7 +83,7 @@ const JobDetails = () => {
     event.preventDefault();
 
     // Validate the price input to allow only positive integers starting from 1
-    if (!isValidPrice(proposal.price)) {
+    if (!isValidPrice(event.target.price.value)) {
       setPriceError('Price must be a positive number.');
       return;
     }
@@ -93,7 +96,8 @@ const JobDetails = () => {
       const response = await api.post('/tutor/proposal/', {
         job_id: jobDetails.id,
         username: user.username,
-        ...proposal,
+        price: event.target.price.value,
+        proposal: event.target.proposal.value,
         isAccepted: false,
       });
 
