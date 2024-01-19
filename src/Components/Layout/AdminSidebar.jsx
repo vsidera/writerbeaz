@@ -15,7 +15,7 @@ function AdminSidebar() {
   const handleLogout = () => {
     dispatch(clearUser());
     toast.success('Admin Logged out');
-    navigate('/login') 
+    navigate('/login')
     };
 
   return (
@@ -138,11 +138,26 @@ function AdminSidebar() {
                 <span className={`${location.pathname === '/admin/transactions' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>Transactions</span>
                 </NavLink>
             </li>
+            <li>
+                <NavLink
+                to="/admin/chatx"
+                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${
+                    location.pathname === '/admin/chatx' ? 'bg-black' : 'bg-transparent'
+                }`}
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path className="fill-current text-gray-600 group-hover:text-cyan-600" d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
+                    <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
+                </svg>
+                <span className={`${location.pathname === '/admin/chatx' ? 'font-bold text-white' : '-mr-1 font-medium ' }`}>Chatx</span>
+                </NavLink>
+            </li>
+
             </ul>
         </div>
 
         <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t">
-            <button 
+            <button
             onClick={handleLogout}
             className="px-4 py-3 flex items-center space-x-2 rounded-md text-black group font-semibold hover:text-white hover:bg-black">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

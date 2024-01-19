@@ -127,14 +127,7 @@ const ProposalDetails = () => {
                           onCompleted={() => handleAccept(user.user_id, proposalDetails.order_number)}
                           onFailed={() => toast.error('Payment failed!')}
                         />
-                        <button
-                          type="button"
-                          onClick={() => handleAccept()}
-                          className="px-4 py-2 bg-blue-500 text-white rounded"
-                        >
-                          Accept
-                        </button>
-                      </div>
+                    </div>
                     ) : (
                       <Link
                         to={"/user/chatx"}
