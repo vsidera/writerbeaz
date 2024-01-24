@@ -9,15 +9,24 @@ import {
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const get_timezone = () => {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return timezone;
+}
+
+
+document.cookie = `timezone=${get_timezone()}; path=/`;
+
 const dispatch = store.dispatch;
 const api = axios.create({
   // baseURL: 'https://localhost.com',
     baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "Content-Type": "application/json",
+      "timezone": get_timezone(),
   },
 });
-
+axios.defaults.withCredentials = true;
 // Axios interceptor for request
 api.interceptors.request.use(
   (config) => {

@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import formData from './formData';
 import { useSelector } from 'react-redux'; // Import the useSelector hook
 import { toast } from 'react-toastify';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import api from '../../../api/axiosConfig';
 
-const JobForm = () => {
+const JobForm = ({jobDetails = null, edit}) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [measure, setMeasure] = useState("pages");
@@ -33,6 +35,33 @@ const JobForm = () => {
     userId: user ? user.user_id : null,
   });
 
+    useEffect(() => {
+        if (jobDetails) {
+            setOrderDetails({
+                ...orderDetails,
+                orderTitle: jobDetails.orderTitle,
+                subject: jobDetails.subject,
+                type: jobDetails.type,
+                service: jobDetails.service,
+                pages: jobDetails.pages,
+                citation: jobDetails.citation,
+                spacing: jobDetails.spacing,
+                educationLevel: jobDetails.educationLevel,
+                sources: jobDetails.sources,
+                language: jobDetails.language,
+                instructions: jobDetails.instructions,
+                dueDate: new Date(jobDetails.dueDate).toISOString().slice(0, 16),
+            })
+            setUploadedFiles(jobDetails.files.map((file) => {
+                return {
+                    name: file.split('/').pop(),
+                }
+            }))
+        }
+        console.log(uploadedFiles);
+    }, [jobDetails])
+
+
   const handleInputChange = (e) => {
     setOrderDetails({
       ...orderDetails,
@@ -43,6 +72,10 @@ const JobForm = () => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+      if(edit) {
+          handleEdit();
+          return;
+      }
     setSubmitting(true);
 
     // console.log('Submitting form...', orderDetails);
@@ -96,6 +129,51 @@ const JobForm = () => {
     e.target.value = null; // Clear the input
     setUploadedFiles([...uploadedFiles, file]); // Add files to the uploadedFiles array state
   };
+
+  const removeUploadedFile = (file) => {
+      if(file.lastModified) {
+          return;
+      }
+      console.log("Removing file", file);
+      api.delete(`/users/job-order/remove/?file=${file.name}`);
+  }
+
+    const handleEdit = () => {
+        setSubmitting(true);
+        const form = new FormData();
+        for (const key in orderDetails) {
+            form.append(key, orderDetails[key]);
+        }
+
+
+        for (const file of uploadedFiles) {
+            if (!file.lastModified) {
+                continue;
+            }
+            form.append('file', file);
+        }
+        //log form data
+        for (var pair of form.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+
+        api.put(`/users/job-order/${jobDetails.id}/`, form, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+            },
+        })
+            .then((resp) => {
+                toast.success('Order successfully updated!');
+                navigate('/user/orders');
+            })
+            .catch((err) => {
+                console.error('Error updating order:', err);
+                toast.error('Error updating order. Please try again.');
+                setSubmitting(false);
+            });
+    }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
@@ -337,7 +415,12 @@ const JobForm = () => {
                     <span>{file.name}</span>
                     <span
                       type="button"
-                      onClick={() => setUploadedFiles(uploadedFiles.filter((f) => f.name !== file.name))}
+                      onClick={() => {
+                          if (edit) {
+                              removeUploadedFile(file);
+                          }
+                          setUploadedFiles(uploadedFiles.filter((f) => f.name !== file.name))
+                      }}
                       className="bg-red-500 text-white px-2 rounded-full cursor-pointer"
                     >
                       x
@@ -364,6 +447,7 @@ const JobForm = () => {
               type="button"
               className="bg-[black] text-white px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue"
               onClick={() => setCurrentStep(currentStep - 1)}
+              disabled={submitting}
             >
               Previous
             </button>

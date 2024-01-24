@@ -15,6 +15,7 @@ const ChatPage = ({ order_message = null }) => {
   const [new_chat, setNewChat] = useState(order_message);
   const [fetchingMessages, setFetchingMessages] = useState(false);
   const [selected, setSelected] = useState("");
+  const [support, setSupport] = useState([]);
 
   const senderId = userData.user_id;
 
@@ -29,11 +30,9 @@ const ChatPage = ({ order_message = null }) => {
       return;
     }
     if (roomId) {
-      //remove first character from order number
-      const room = roomId.slice(1);
       // Fetch existing messages for the chat
       api
-        .get(`/api/${room}/`)
+        .get(`/api/${roomId}/`)
         .then((response) => {
           setMessages(response.data);
           setFetchingMessages(false);
@@ -72,11 +71,11 @@ const ChatPage = ({ order_message = null }) => {
     const message = {
       content: to_send_text,
       sender: senderId,
-      recipient: recipient.email,
+      recipient: roomId == "SUPPORT" ? "writerbeaz@gmail.com" : recipient.email,
     };
-
+        console.log("sending message", roomId, message);
     api
-      .post(`/api/${roomId.slice(1)}/send/`, message)
+      .post(`/api/${roomId}/send/`, message)
       .then((response) => {
         //const newMessage = response.data;
         //setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -100,17 +99,31 @@ const ChatPage = ({ order_message = null }) => {
 
   useEffect(() => {
     // Fetch user data
-    if (new_chat) {
-      setMessageList([new_chat]);
-    }
-
     console.log("fetching message list");
+      if(new_chat) {
+          setMessageList([new_chat]);
+      }
     api
       .get('/api/accounts-list/')
       .then((response) => {
         if (new_chat) {
-          setMessageList([...response.data, new_chat]);
-          setNewChat(null);
+            //if response.data contains new_chat, then don't add it
+            //else add it
+            var found = false;
+            for (var i = 0; i < response.data.length; i++) {
+              if (response.data[i].order_number == new_chat.order_number) {
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+                setMessageList([...response.data, new_chat]);
+                setNewChat(null);
+            }
+            else {
+                setMessageList(response.data);
+                setNewChat(null);
+            }
         }
         else {
           setMessageList(response.data);
@@ -121,6 +134,17 @@ const ChatPage = ({ order_message = null }) => {
       });
   }, []);
 
+    if (fetchingMessages) {
+        api
+            .get(`/api/${roomId}/`)
+            .then((response) => {
+                setMessages(response.data);
+                setFetchingMessages(false);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-100">
@@ -150,7 +174,7 @@ const ChatPage = ({ order_message = null }) => {
                   />
                 </div>
                 <div className="flex-grow">
-                  <h3 className="text-start ms-3 text-lg font-semibold">Order {message.order_number}</h3>
+                  <h3 className="text-start ms-3 text-lg font-semibold">{ message.order_number == "SUPPORT" ? "SUPPORT" : "Order " + message.order_number }</h3>
                 </div>
                 {/* You can add online/offline status indicators here */}
               </li>
@@ -163,11 +187,11 @@ const ChatPage = ({ order_message = null }) => {
 
       {/* Chat component */}
       <div className="flex-grow bg-gray-200">
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-5/6">
           {/* Chat header */}
           <div className="py-4 px-6 bg-indigo-700 text-white">
             <h2 className="text-2xl font-bold">
-              {recipient ? `Messages for order ${roomId}` : 'Select a recipient'}
+              {recipient ? `Messages for ${roomId}` : 'Select a recipient'}
             </h2>
           </div>
           {/* Chat messages */}
@@ -224,7 +248,7 @@ const ChatPage = ({ order_message = null }) => {
               ))
             ) : (<>
               {fetchingMessages ? (
-                <Loader />
+                <></>
               ) : (
                 <p className="p-4 text-gray-500">No messages found.</p>
               )}

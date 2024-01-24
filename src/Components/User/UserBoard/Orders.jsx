@@ -4,6 +4,7 @@ import UserSidebar from './UserSidebar';
 import { useSelector } from 'react-redux';
 import api from '../../../api/axiosConfig';
 import Loader from '../../Loader';
+import { Link } from 'react-router-dom';
 
 const Orders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -62,10 +63,31 @@ const Orders = () => {
     }
   }
 
+  const LinkComponent = ({id}) => {
+      let userActions = [];
+      if (selected === 'pending') {
+          userActions = ["edit", "cancel"];
+        }
+      if (selected === 'progress') {
+          userActions = ["accept", "cancel"];
+        }
+
+      return (
+          <Link
+            to={`/user/job-details/${id}`}
+            state={{userActions: userActions}}
+            className="text-indigo-600 hover:text-indigo-900"
+          >
+            {"view, " + userActions.join(', ')}
+          </Link>
+        );
+    }
+
   return (
     <div>
       <UserSidebar />
-      <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] px-8">
+    <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+
         <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
         <div className="flex flex-row justify-around items-center py-2 mb-4 w-1/2 mx-auto border rounded-lg border-2">
           <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'pending' ? 'bg-blue-500' : ''}`} onClick={() => setSelected('pending')}>
@@ -128,6 +150,10 @@ const Orders = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Due Date
               </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                 Actions
+                </th>
+
               {/* Add more headers as needed */}
             </tr>
           </thead>
@@ -155,6 +181,9 @@ const Orders = () => {
                   <td className="px-6 py-4 whitespace-nowrap">{order.created_at}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{order.completed_at}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{order.dueDate}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <LinkComponent id={order.id} />
+                  </td>
                   {/* Add more columns as needed */}
                 </tr>
               ))

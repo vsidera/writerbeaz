@@ -85,7 +85,8 @@ const ProposalDetails = () => {
                       </div>
                     </div>
 
-                    <div className="mb-4 border-2 p-4 rounded">
+                    <div className="mb-4 border-2 p-4 rounded flex items-center">
+                    <div className="w-1/2">
                       <label htmlFor="type" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
                       {proposalDetails.proposal.isAccepted == false ? (
                         <input
@@ -93,22 +94,47 @@ const ProposalDetails = () => {
                           name="price"
                           type="number"
                           value={price}
-                          onChange={(e) => setPrice(e.target.value)}
+                          //onChange={(e) => setPrice(e.target.value)}
                           className="w-full px-3 py-2 border "
-                          required
+                          //required
+                          disabled
                         />
                       ) : (
                         <p>{proposalDetails.proposal.price}</p>
                       )}
+              </div>
+              <div className="w-1/2 ml-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Order number</label>
+                      <div className="flex items-center">
+                        <span className='text-xl font-bold'>{proposalDetails.order_number}</span>
+                      </div>
+        </div>
+
                     </div>
 
-                    <div className="mb-4 border-2 p-4 rounded">
+                    <div className="mb-4 border-2 p-4 rounded flex items-center">
+                    <div className="w-1/2">
                       <label htmlFor="orderTitle" className="block text-gray-700 text-md font-bold mb-2">Status</label>
                       {proposalDetails.proposal.isAccepted == false ? (
                         <span className='bg-blue-500 text-white px-2 py-1 rounded'>Pending</span>
                       ) : (
                         <span className='bg-green-500 text-white px-2 py-1 rounded'>Accepted</span>
                       )}
+                    </div>
+                    <div className="w-1/2 ml-6">
+                        <Link
+                        to={"/user/chatx"}
+                        state={{
+                          order_message: {
+                            order_number: proposalDetails.order_number,
+                            email: proposalDetails.email,
+                          }
+                        }}
+                        className="text-blue-500 underline"
+                      >
+                        Message Tutor
+                      </Link>
+                    </div>
                     </div>
                   </>
 
@@ -129,18 +155,7 @@ const ProposalDetails = () => {
                         />
                     </div>
                     ) : (
-                      <Link
-                        to={"/user/chatx"}
-                        state={{
-                          order_message: {
-                            order_number: proposalDetails.order_number,
-                            email: proposalDetails.email,
-                          }
-                        }}
-                        className="text-blue-500 underline"
-                      >
-                        Message Tutor
-                      </Link>
+                        <></>
                     )}
                   </div>
                 </div>

@@ -69,7 +69,7 @@ function TutorView(props) {
                   <div className="bg-white shadow-xl rounded-lg p-6">
                     <div className="flex flex-col items-center">
                       <img
-                        src={profileData.profile_photo}
+                        src={process.env.REACT_APP_BASE_URL + profileData.profile_photo}
                         className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
                         alt="Profile Photo"
                       />

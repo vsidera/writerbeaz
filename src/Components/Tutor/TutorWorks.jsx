@@ -92,7 +92,7 @@ function TutorWorks() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link
                       to={`/tutor/job-details/${job.id}`}
-                      state={{ jobDetails: job }} // This should pass jobDetails to JobDetails
+                      state={{ jobDetails: job, from: "works" }} // This should pass jobDetails to JobDetails
                       className="text-blue-500 hover:underline mr-2"
                     >
                       View More
@@ -140,7 +140,7 @@ function TutorWorks() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link
                       to={`/tutor/job-details/${job.id}`}
-                      state={{ jobDetails: job }} // This should pass jobDetails to JobDetails
+                      state={{ jobDetails: job, from: 'works' }} // This should pass jobDetails to JobDetails
                       className="text-blue-500 hover:underline mr-2"
                     >
                       View More and Apply

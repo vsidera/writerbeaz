@@ -11,6 +11,7 @@ import NotFound404 from '../Components/Layout/NotFound404'
 import JobList from '../Components/Tutor/JobList'
 import JobDetails from '../Components/Tutor/JobDetails'
 import Bids from '../Components/Tutor/Bids'
+import SupportChat from '../Components/Layout/SupportChat'
 
 function TutorRouter() {
   return (
@@ -23,6 +24,7 @@ function TutorRouter() {
         <Route path="/inbox" element={<TutorInbox />} />
         <Route path="/works" element={<TutorWorks />} />
         <Route path="/chatx" element={<TutorChatX />} />
+        <Route path="/chat-support" element={<SupportChat />} />
         <Route path="/job-details/:jobId" element={<JobDetails />} />
         <Route path="*" element={<NotFound404 />} />
     </Routes>

@@ -95,7 +95,7 @@ function UserSidebar() {
 
             <aside style={{ boxShadow: '0 0 2px', background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)' }}
                 className={`${menuOpen ? 'ml-0' : '-ml-[100%]'
-                    } fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]`}
+                    } fixed z-10 top-0 pb-3 px-6 flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]`}
             >
                 <button onClick={() => setMenuOpen(false)} className="absolute top-2 right-2 text-blue-800 focus:outline-none hover:text-black lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +116,7 @@ function UserSidebar() {
                             <div className="mt-8 text-center">
                                 <Link to='/user/profile'>
                                     <img
-                                        src={process.env.REACT_APP_BASE_URL + profileData.profile_photo}
+                                        src={profileData.profile_photo}
                                         alt="user Profile"
                                         className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
                                     />
@@ -197,6 +197,16 @@ function UserSidebar() {
                                 <span className={`${location.pathname === '/user/chatx' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>ChatX</span>
                             </NavLink>
                         </li>
+                        <li>
+                            <Link
+                                to="/user/chat-support"
+                                className={`px-4 py-3 flex items-center space-x-4 rounded-lg mt-8 text-white bg-black group ${location.pathname === '/user/chat-support' ? 'bg-black' : ''
+                                    }`}
+                            >
+                                Chat with Support
+                            </Link>
+                        </li>
+
                     </ul>
                 </div>
 
