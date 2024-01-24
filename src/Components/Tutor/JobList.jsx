@@ -48,8 +48,11 @@ const JobList = () => {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Order Number
+                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Order Title
+                  Title
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Subject
@@ -68,6 +71,7 @@ const JobList = () => {
             <tbody className="bg-white divide-y divide-gray-200">
               {jobs.map((job) => (
                 <tr key={job.id}>
+                  <td className="px-6 py-4 whitespace-nowrap"><b>{job.order_number}</b></td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.subject}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>

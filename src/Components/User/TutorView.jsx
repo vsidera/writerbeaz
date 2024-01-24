@@ -9,51 +9,15 @@ function TutorView(props) {
   const { id } = useParams();
   const [profileData, setProfileData] = useState({});
   const [skillData, setSkillData] = useState({});
-  const [educationData, setEducationData] = useState({});
-  const [experienceData, setExperienceData] = useState({});
-  const [gigData, setGigData] = useState({});
-
   useEffect(() => {
     api.get(`/users/user-tutor/${id}/`)
       .then((response) => {
-        setProfileData(response.data);
+        setProfileData(response.data.profile);
+        setSkillData(response.data.skills);
       })
       .catch((error) => {
         console.error(error);
       });
-
-    api.get(`/users/user-tutor-skill/${id}/`)
-      .then((response) => {
-        setSkillData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    api.get(`/users/user-tutor-education/${id}/`)
-      .then((response) => {
-        setEducationData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    api.get(`/users/user-tutor-experience/${id}/`)
-      .then((response) => {
-        setExperienceData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    api.get(`/users/user-tutor-gig/${id}/`)
-      .then((response) => {
-        setGigData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
   }, [id]);
 
   return (
@@ -69,9 +33,9 @@ function TutorView(props) {
                   <div className="bg-white shadow-xl rounded-lg p-6">
                     <div className="flex flex-col items-center">
                       <img
-                        src={process.env.REACT_APP_BASE_URL + profileData.profile_photo}
+                        src={profileData.profile_photo}
                         className="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0"
-                        alt="Profile Photo"
+                        alt="Tutor"
                       />
                       {profileData.tutor && (
                         <>
@@ -109,7 +73,7 @@ function TutorView(props) {
           )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

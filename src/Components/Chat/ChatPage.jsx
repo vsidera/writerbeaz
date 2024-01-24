@@ -73,7 +73,7 @@ const ChatPage = ({ order_message = null }) => {
       sender: senderId,
       recipient: roomId == "SUPPORT" ? "writerbeaz@gmail.com" : recipient.email,
     };
-        console.log("sending message", roomId, message);
+    console.log("sending message", roomId, message);
     api
       .post(`/api/${roomId}/send/`, message)
       .then((response) => {
@@ -100,30 +100,30 @@ const ChatPage = ({ order_message = null }) => {
   useEffect(() => {
     // Fetch user data
     console.log("fetching message list");
-      if(new_chat) {
-          setMessageList([new_chat]);
-      }
+    if (new_chat) {
+      setMessageList([new_chat]);
+    }
     api
       .get('/api/accounts-list/')
       .then((response) => {
         if (new_chat) {
-            //if response.data contains new_chat, then don't add it
-            //else add it
-            var found = false;
-            for (var i = 0; i < response.data.length; i++) {
-              if (response.data[i].order_number == new_chat.order_number) {
-                found = true;
-                break;
-              }
+          //if response.data contains new_chat, then don't add it
+          //else add it
+          var found = false;
+          for (var i = 0; i < response.data.length; i++) {
+            if (response.data[i].order_number == new_chat.order_number) {
+              found = true;
+              break;
             }
-            if (!found) {
-                setMessageList([...response.data, new_chat]);
-                setNewChat(null);
-            }
-            else {
-                setMessageList(response.data);
-                setNewChat(null);
-            }
+          }
+          if (!found) {
+            setMessageList([...response.data, new_chat]);
+            setNewChat(null);
+          }
+          else {
+            setMessageList(response.data);
+            setNewChat(null);
+          }
         }
         else {
           setMessageList(response.data);
@@ -134,17 +134,17 @@ const ChatPage = ({ order_message = null }) => {
       });
   }, []);
 
-    if (fetchingMessages) {
-        api
-            .get(`/api/${roomId}/`)
-            .then((response) => {
-                setMessages(response.data);
-                setFetchingMessages(false);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
+  if (fetchingMessages) {
+    api
+      .get(`/api/${roomId}/`)
+      .then((response) => {
+        setMessages(response.data);
+        setFetchingMessages(false);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-100">
@@ -174,7 +174,7 @@ const ChatPage = ({ order_message = null }) => {
                   />
                 </div>
                 <div className="flex-grow">
-                  <h3 className="text-start ms-3 text-lg font-semibold">{ message.order_number == "SUPPORT" ? "SUPPORT" : "Order " + message.order_number }</h3>
+                  <h3 className="text-start ms-3 text-lg font-semibold">{message.order_number == "SUPPORT" ? "SUPPORT" : "Order " + message.order_number}</h3>
                 </div>
                 {/* You can add online/offline status indicators here */}
               </li>

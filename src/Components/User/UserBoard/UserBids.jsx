@@ -56,7 +56,8 @@ function UserBids() {
             <table className="w-full border border-gray-300">
               <thead>
                 <tr className="bg-gray-200">
-                  <th className="py-2 px-4 border-r">Order Title</th>
+                <th className="py-2 px-4 border-r">Order number</th>
+                  <th className="py-2 px-4 border-r">Title</th>
                   <th className="py-2 px-4 border-r">Tutor</th>
                   <th className="py-2 px-4 border-r">Proposal</th>
                   <th className="py-2 px-4 border-r">Actions</th>
@@ -65,6 +66,7 @@ function UserBids() {
               <tbody>
                 {jobProposals.map((proposal) => (
                   <tr key={proposal.id}>
+                    <td className="py-2 px-4 border-r text-center"><b>{proposal.order_number}</b></td>
                     <td className="py-2 px-4 border-r">{proposal.orderTitle}</td>
                     <td className="py-2 px-4 border-r">{proposal.tutor}</td>
                     <td className="py-2 px-4 border-r">{proposal.proposal}</td>

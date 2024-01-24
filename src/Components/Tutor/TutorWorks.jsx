@@ -63,45 +63,45 @@ function TutorWorks() {
               <h2 className="text-2xl font-semibold mb-2">Upcoming Works</h2>
               {upcomingWorks.length > 0 ? (
                 <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Order Title
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Subject
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Type
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Service
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {upcomingWorks.map((job) => (
-                <tr key={job.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.subject}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.service}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <Link
-                      to={`/tutor/job-details/${job.id}`}
-                      state={{ jobDetails: job, from: "works" }} // This should pass jobDetails to JobDetails
-                      className="text-blue-500 hover:underline mr-2"
-                    >
-                      View More
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Order Title
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Subject
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Type
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Service
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {upcomingWorks.map((job) => (
+                      <tr key={job.id}>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.subject}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.service}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <Link
+                            to={`/tutor/job-details/${job.id}`}
+                            state={{ jobDetails: job, from: "works" }} // This should pass jobDetails to JobDetails
+                            className="text-blue-500 hover:underline mr-2"
+                          >
+                            View More
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               ) : (
                 <p>No upcoming works found.</p>
               )}
@@ -110,46 +110,46 @@ function TutorWorks() {
             <div className="pt-16 mb-10 border-t-2">
               <h2 className="text-2xl font-semibold mb-2">Completed Works</h2>
               {completedWorks.length > 0 ? (
-                  <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Order Title
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Subject
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Type
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Service
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {completedWorks.map((job) => (
-                <tr key={job.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.subject}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.service}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <Link
-                      to={`/tutor/job-details/${job.id}`}
-                      state={{ jobDetails: job, from: 'works' }} // This should pass jobDetails to JobDetails
-                      className="text-blue-500 hover:underline mr-2"
-                    >
-                      View More and Apply
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Order Title
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Subject
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Type
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Service
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {completedWorks.map((job) => (
+                      <tr key={job.id}>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.subject}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{job.service}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <Link
+                            to={`/tutor/job-details/${job.id}`}
+                            state={{ jobDetails: job, from: 'works' }} // This should pass jobDetails to JobDetails
+                            className="text-blue-500 hover:underline mr-2"
+                          >
+                            View More and Apply
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
               ) : (
                 <p>No Completed works found yet.</p>

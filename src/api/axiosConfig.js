@@ -6,24 +6,21 @@ import {
   setTokenExpiry,
   clearUser,
 } from "../Redux/store";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const get_timezone = () => {
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    return timezone;
-}
-
-
-document.cookie = `timezone=${get_timezone()}; path=/`;
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return timezone;
+};
 
 const dispatch = store.dispatch;
 const api = axios.create({
   // baseURL: 'https://localhost.com',
-    baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "Content-Type": "application/json",
-      "timezone": get_timezone(),
+    timezone: get_timezone(),
   },
 });
 axios.defaults.withCredentials = true;
@@ -33,7 +30,7 @@ api.interceptors.request.use(
     // Check if access token is available in the Redux store
     const accessToken = store.getState().accessToken;
 
-    if (accessToken) {
+    if (accessToken && accessToken != "null") {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
@@ -75,7 +72,7 @@ api.interceptors.response.use(
             return axios.request(error.config);
           } else {
             dispatch(clearUser());
-            toast.error('Authentication Token expired. Please login!');
+            toast.error("Authentication Token expired. Please login!");
           }
         } catch (refreshError) {
           dispatch(clearUser());

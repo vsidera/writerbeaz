@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 import api from '../../../api/axiosConfig';
 
-const JobForm = ({jobDetails = null, edit}) => {
+const JobForm = ({ jobDetails = null, edit }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [measure, setMeasure] = useState("pages");
@@ -35,31 +35,31 @@ const JobForm = ({jobDetails = null, edit}) => {
     userId: user ? user.user_id : null,
   });
 
-    useEffect(() => {
-        if (jobDetails) {
-            setOrderDetails({
-                ...orderDetails,
-                orderTitle: jobDetails.orderTitle,
-                subject: jobDetails.subject,
-                type: jobDetails.type,
-                service: jobDetails.service,
-                pages: jobDetails.pages,
-                citation: jobDetails.citation,
-                spacing: jobDetails.spacing,
-                educationLevel: jobDetails.educationLevel,
-                sources: jobDetails.sources,
-                language: jobDetails.language,
-                instructions: jobDetails.instructions,
-                dueDate: new Date(jobDetails.dueDate).toISOString().slice(0, 16),
-            })
-            setUploadedFiles(jobDetails.files.map((file) => {
-                return {
-                    name: file.split('/').pop(),
-                }
-            }))
+  useEffect(() => {
+    if (jobDetails) {
+      setOrderDetails({
+        ...orderDetails,
+        orderTitle: jobDetails.orderTitle,
+        subject: jobDetails.subject,
+        type: jobDetails.type,
+        service: jobDetails.service,
+        pages: jobDetails.pages,
+        citation: jobDetails.citation,
+        spacing: jobDetails.spacing,
+        educationLevel: jobDetails.educationLevel,
+        sources: jobDetails.sources,
+        language: jobDetails.language,
+        instructions: jobDetails.instructions,
+        dueDate: new Date(jobDetails.dueDate).toISOString().slice(0, 16),
+      })
+      setUploadedFiles(jobDetails.files.map((file) => {
+        return {
+          name: file.split('/').pop(),
         }
-        console.log(uploadedFiles);
-    }, [jobDetails])
+      }))
+    }
+    console.log(uploadedFiles);
+  }, [jobDetails])
 
 
   const handleInputChange = (e) => {
@@ -72,10 +72,10 @@ const JobForm = ({jobDetails = null, edit}) => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-      if(edit) {
-          handleEdit();
-          return;
-      }
+    if (edit) {
+      handleEdit();
+      return;
+    }
     setSubmitting(true);
 
     // console.log('Submitting form...', orderDetails);
@@ -99,7 +99,7 @@ const JobForm = ({jobDetails = null, edit}) => {
         },
       });
 
-      toast.success('Order successfully submitted!');
+      toast.success('Order placed successfully., Writers will start bidding soon! Go to "My bids" section to view the bids.', { duration: 10000 });
       navigate('/user/orders');
     } catch (error) {
       console.error('Submission Error:', error);
@@ -131,49 +131,49 @@ const JobForm = ({jobDetails = null, edit}) => {
   };
 
   const removeUploadedFile = (file) => {
-      if(file.lastModified) {
-          return;
-      }
-      console.log("Removing file", file);
-      api.delete(`/users/job-order/remove/?file=${file.name}`);
+    if (file.lastModified) {
+      return;
+    }
+    console.log("Removing file", file);
+    api.delete(`/users/job-order/remove/?file=${file.name}`);
   }
 
-    const handleEdit = () => {
-        setSubmitting(true);
-        const form = new FormData();
-        for (const key in orderDetails) {
-            form.append(key, orderDetails[key]);
-        }
-
-
-        for (const file of uploadedFiles) {
-            if (!file.lastModified) {
-                continue;
-            }
-            form.append('file', file);
-        }
-        //log form data
-        for (var pair of form.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
-
-
-        api.put(`/users/job-order/${jobDetails.id}/`, form, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
-            },
-        })
-            .then((resp) => {
-                toast.success('Order successfully updated!');
-                navigate('/user/orders');
-            })
-            .catch((err) => {
-                console.error('Error updating order:', err);
-                toast.error('Error updating order. Please try again.');
-                setSubmitting(false);
-            });
+  const handleEdit = () => {
+    setSubmitting(true);
+    const form = new FormData();
+    for (const key in orderDetails) {
+      form.append(key, orderDetails[key]);
     }
+
+
+    for (const file of uploadedFiles) {
+      if (!file.lastModified) {
+        continue;
+      }
+      form.append('file', file);
+    }
+    //log form data
+    for (var pair of form.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+
+    api.put(`/users/job-order/${jobDetails.id}/`, form, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+      },
+    })
+      .then((resp) => {
+        toast.success('Order successfully updated!');
+        navigate('/user/orders');
+      })
+      .catch((err) => {
+        console.error('Error updating order:', err);
+        toast.error('Error updating order. Please try again.');
+        setSubmitting(false);
+      });
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
@@ -416,10 +416,10 @@ const JobForm = ({jobDetails = null, edit}) => {
                     <span
                       type="button"
                       onClick={() => {
-                          if (edit) {
-                              removeUploadedFile(file);
-                          }
-                          setUploadedFiles(uploadedFiles.filter((f) => f.name !== file.name))
+                        if (edit) {
+                          removeUploadedFile(file);
+                        }
+                        setUploadedFiles(uploadedFiles.filter((f) => f.name !== file.name))
                       }}
                       className="bg-red-500 text-white px-2 rounded-full cursor-pointer"
                     >

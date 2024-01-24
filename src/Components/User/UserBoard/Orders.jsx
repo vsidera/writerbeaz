@@ -63,30 +63,43 @@ const Orders = () => {
     }
   }
 
-  const LinkComponent = ({id}) => {
-      let userActions = [];
-      if (selected === 'pending') {
-          userActions = ["edit", "cancel"];
-        }
-      if (selected === 'progress') {
-          userActions = ["accept", "cancel"];
-        }
-
-      return (
-          <Link
-            to={`/user/job-details/${id}`}
-            state={{userActions: userActions}}
-            className="text-indigo-600 hover:text-indigo-900"
-          >
-            {"view, " + userActions.join(', ')}
-          </Link>
-        );
+  const LinkComponent = ({ id }) => {
+    let userActions = [];
+    if (selected === 'pending') {
+      userActions = ["edit", "cancel"];
     }
+    if (selected === 'progress') {
+      userActions = ["accept", "cancel"];
+    }
+
+    return (
+      <Link
+        to={`/user/job-details/${id}`}
+        state={{ userActions: userActions }}
+        className="text-indigo-600 hover:text-indigo-900"
+      >
+        {"view, " + userActions.join(', ')}
+      </Link>
+    );
+  }
+
+  const createDate = (d) => {
+      //return wed 5th may 2021 12:00 am
+      const date = new Date(d);
+      const day = date.getDate();
+      const month = date.toLocaleString('default', { month: 'short' });
+      const year = date.getFullYear();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const ampm = hours >= 12 ? 'pm' : 'am';
+      const formattedTime = hours + ':' + minutes + ' ' + ampm;
+      return `${day} ${month} ${year} ${formattedTime}`;
+  }
 
   return (
     <div>
       <UserSidebar />
-    <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+      <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
 
         <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
         <div className="flex flex-row justify-around items-center py-2 mb-4 w-1/2 mx-auto border rounded-lg border-2">
@@ -108,35 +121,17 @@ const Orders = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Order Number
+              </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Order Title
+                Title
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Subject
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Type
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Service
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Pages
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Citation
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Spacing
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Educational Level
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Sources
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Language
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Instructions
@@ -150,9 +145,9 @@ const Orders = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Due Date
               </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                 Actions
-                </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
 
               {/* Add more headers as needed */}
             </tr>
@@ -167,20 +162,14 @@ const Orders = () => {
             ) : (
               getOrders().map((order) => (
                 <tr key={order.id}>
+                  <td className="px-6 py-4 whitespace-nowrap"><b>{order.order_number}</b></td>
                   <td className="px-6 py-4 whitespace-nowrap">{order.orderTitle}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{order.subject}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.service}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{order.pages}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.citation}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.spacing}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.educationLevel}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.sources}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.language}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{order.instructions}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.created_at}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.completed_at}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.dueDate}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{createDate(order.created_at)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{order.completed_at ? createDate(order.completed_at) : 'N/A'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{createDate(order.dueDate)}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <LinkComponent id={order.id} />
                   </td>
