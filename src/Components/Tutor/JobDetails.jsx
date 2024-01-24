@@ -216,7 +216,15 @@ const Submission = ({ submission_status, submission_files, job_id, is_user }) =>
 const UserActions = ({ userActions, jobDetails, submissionStatus, setUserActions, setJobDetails }) => {
   const [submitting, setSubmitting] = useState(false);
   const cancel = () => {
-    console.log("Cancel");
+    api.post(`/users/job-order/cancel/${jobDetails.id}/`)
+      .then((response) => {
+        setUserActions([]);
+        setJobDetails({ ...response.data });
+        toast.success("Job cancelled successfully!");
+      })
+      .catch((error) => {
+        toast.error("Error cancelling request.\nPlease try again!");
+      })
   }
 
   const accept = () => {
@@ -228,7 +236,7 @@ const UserActions = ({ userActions, jobDetails, submissionStatus, setUserActions
       delete response.data.submission_files;
       setJobDetails({ ...response.data });
       setSubmitting(false);
-      toast.success("Job completed <br/>successfully!");
+      toast.success("Job completed successfully!");
     })
       .catch((error) => {
         toast.error("Error completing request.\nPlease try again!");
@@ -365,6 +373,7 @@ const JobDetails = () => {
 
     // Clear any previous price error
     setPriceError('');
+    console.log(jobDetails);
 
     try {
       // Assuming you have an API endpoint to handle proposal submission
