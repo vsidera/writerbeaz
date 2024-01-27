@@ -111,7 +111,13 @@ function Home() {
               <TypeWriterText />
             </h2>
             <p className="mt-2 text-base text-white md:text-lg font-serif">
-We offer professsional writing services. We have the best Prices and Guaranteed value for money. Click the Button below to proceed            </p>
+            Welcome to WriterBeaz, where your words come to life and dreams take flight! Our professional writing services are tailored to elevate your ideas, transform your stories, and amplify your voice.
+
+Experience the power of precision, creativity, and expertise as we craft compelling narratives, persuasive essays, and captivating content designed to resonate with your audience.
+
+At WriterBeaz, we don't just offer services; we provide unparalleled value and unwavering dedication to your success. With competitive prices and a commitment to excellence, your satisfaction is our guarantee.
+
+Join the ranks of satisfied clients who have entrusted their stories to us. Click the button below to embark on a journey of literary excellence!            </p>
             <div className="mt-6 relative w-full">
               <a href='/signup' >
               <button className="get-started-btn">
@@ -120,7 +126,7 @@ We offer professsional writing services. We have the best Prices and Guaranteed 
               </button>
               </a>
             </div>
-
+   <img  src={hellow} alt='helo' style={{ position: 'absolute', height: 'auto', width: 'auto', left: '20%', top: '55%' }} />
     </div>
         </div>
 
