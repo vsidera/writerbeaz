@@ -17,10 +17,10 @@ const  Footer=()=>{
                  <div className="sb_footer-links_div">
                     
                     <div className="socialmedia">
-                        <p><img src = {fb} alt="" /></p>
-                        <p><img src = {twitter} alt=""/></p>
+                        {/*<p><img src = {fb} alt="" /></p>
+                        //<p><img src = {twitter} alt=""/></p>
                         <p><img src = {linkedin} alt=""/></p>
-                        <p><img src = {insta} alt=""/></p>
+    <p><img src = {insta} alt=""/></p>*/}
 
                     </div>
                     </div>
@@ -94,9 +94,9 @@ const  Footer=()=>{
                         </div>
                     </a>
                     <a href="/terms">
-                        <div style={{marginLeft:'100%'}}>
-                            <p>Writerbeaz.com  support@writerbeaz.com  Whatsapp: +1 (914) 201-4858 </p>
-                        </div>
+                    <div style={{ marginLeft: '100%' }}>
+                        <p>Writerbeaz.com | Email: support@writerbeaz.com | Whatsapp: +1 (914) 201-4858</p>
+                    </div>
                     </a>
                     
                 </div>

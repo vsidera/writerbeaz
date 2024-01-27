@@ -6,7 +6,7 @@ const WhatsAppButton = () => {
   const handleButtonClick = () => {
     // Replace the phone number and message with your own information
     const phoneNumber = '+1 (914) 201-4858';
-    const message = 'Hello, writerbeaz admin, I need ypur help.';
+    const message = 'Hello, writerbeaz admin, I need your help.';
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
