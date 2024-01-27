@@ -6,7 +6,7 @@ import imgConfetti from "../../assets/images/articles/5.png";
 import imgCurrency1 from "../../assets/images/articles/5.png";
 import imgRestaurant2 from "../../assets/images/articles/9.jpg";
 import imgPlane3 from "../../assets/images/articles/6.png";
-import imgConfetti2 from "../../assets/images/articles/9.jpg";
+import imgConfetti2 from "../../assets/images/articles/7.jpg";
 
 export default function MeetOurTeam() {
 
@@ -26,70 +26,70 @@ export default function MeetOurTeam() {
               </a>
               <div class="p-5">
                 <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    <a style={{color:'#AD9551'}} href="#">Cameroon J</a>
+                    <a style={{color:'#AD9551'}} href="#">Cameroon J.</a>
                 </h3>
-                <span style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight dark:text-gray-400">17368 Orders 5***** </span>
-                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Bonnie drives the technical strategy of the flowbite .</p>
+                <span style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight dark:text-gray-400">17368 orders 5/5⭐⭐⭐⭐⭐</span>
+                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">HISTORY . NURSING . HEALTHCARE . EDUCATION . CRIMINOLOGY . SOCIOLOGY . PSYCHOLOGY . STATISTICS </p>
                                 </div>
           </div>
           <div class=" bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                  <img style={{borderRadius:'50%', width:'100px' }} class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgRestaurant} alt="Jese Avatar" />
+              <img style={{borderRadius:'50%', width:'80px' }}  class=" rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgRestaurant} alt="Bonnie Avatar" />
               </a>
               <div class="p-5">
-                  <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      <a style={{color:'#AD9551'}} href="#">Jese Leos</a>
-                  </h3>
-                  <span class="text-black dark:text-gray-400">Tutor</span>
-                  <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Jese drives the technical strategy of the flowbite platform and brand.</p>
+                <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <a style={{color:'#AD9551'}} href="#">Cecily N.</a>
+                </h3>
+                <span style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight dark:text-gray-400">15300 orders 5/5⭐⭐⭐⭐⭐</span>
+                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">HEALTHCARE . BIOLOGY . HISTORY . CRIMINOLOGY . AMERICAN HISTORY . ENGLISH . CHEMISTRY</p>
                                 </div>
           </div>
           <div class=" bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                  <img style={{borderRadius:'50%', width:'100px' }} class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgPlane} alt="Michael Avatar" />
+              <img style={{borderRadius:'50%', width:'80px' }}  class=" rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgPlane} alt="Bonnie Avatar" />
               </a>
               <div class="p-5">
-                  <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      <a style={{color:'#AD9551'}} href="#">Michael Gough</a>
-                  </h3>
-                  <span class="text-black dark:text-gray-400">Writer</span>
-                  <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Michael drives the technical strategy of the flowbite platform and brand.</p>
+                <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <a style={{color:'#AD9551'}} href="#">Marianne K.</a>
+                </h3>
+                <span style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight dark:text-gray-400">12007 orders 5/5⭐⭐⭐⭐⭐</span>
+                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">NURSING . CRIMINOLOGY . SOCIAL WORK . ART . MARKETING . AMERICAN HISTORY . PHILOSOPHY.</p>
                                 </div>
           </div>
           <div class=" bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                  <img style={{borderRadius:'50%', width:'100px' }} class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgConfetti} alt="Sofia Avatar" />
+              <img style={{borderRadius:'50%', width:'80px' }}  class=" rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgConfetti} alt="Bonnie Avatar" />
               </a>
               <div class="p-5">
-                  <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      <a style={{color:'#AD9551'}} href="#">Lana Byrd</a>
-                  </h3>
-                  <span class="text-black dark:text-gray-400">Writer</span>
-                  <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Lana drives the technical strategy of the flowbite platform and brand.</p>
+                <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <a style={{color:'#AD9551'}} href="#">Nancy W.</a>
+                </h3>
+                <span style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight dark:text-gray-400">9847 orders 5/5⭐⭐⭐⭐⭐</span>
+                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">NURSING . MEDICINE . BIOLOGY . HISTORY . BUSINESS MANAGEMENT . ENGLISH . HISTORY . PSYCOLOGY . </p>
                                 </div>
           </div>
           <div class=" bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                  <img style={{borderRadius:'50%', width:'100px' }} class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgPlane3} alt="Sofia Avatar" />
+              <img style={{borderRadius:'50%', width:'80px' }}  class=" rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgPlane3} alt="Bonnie Avatar" />
               </a>
               <div class="p-5">
-                  <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      <a style={{color:'#AD9551'}} href="#">Lana Byrd</a>
-                  </h3>
-                  <span class="text-black dark:text-gray-400">Writer</span>
-                  <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Lana drives the technical strategy of the flowbite platform and brand.</p>
+                <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <a style={{color:'#AD9551'}} href="#">Chan H.</a>
+                </h3>
+                <span style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight dark:text-gray-400">9062 orders 5/5⭐⭐⭐⭐⭐</span>
+                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">MATHEMATICS . CHEMISTRY . GEOGRAPHY . AGRICULTURE . PHYSICS . BUSINESS . STATISTICS . PSYCOLOGY . DATA SCIENCE </p>
                                 </div>
           </div>
           <div class=" bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                  <img style={{borderRadius:'50%', width:'100px' }} class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgRestaurant2} alt="Sofia Avatar" />
+              <img style={{borderRadius:'50%', width:'80px' }}  class=" rounded-lg sm:rounded-none sm:rounded-l-lg" src={imgConfetti2} alt="Bonnie Avatar" />
               </a>
               <div class="p-5">
-                  <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      <a style={{color:'#AD9551'}} href="#">Cameroon J.</a>
-                  </h3>
-                  <span class="text-black dark:text-gray-400">Writer</span>
-                  <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">17578 Orders 5***** 100% Completion rate.</p>
+                <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <a style={{color:'#AD9551'}} href="#">Wesley R</a>
+                </h3>
+                <span style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight dark:text-gray-400">7450 orders 5/5⭐⭐⭐⭐⭐</span>
+                <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">NURSING . STATISTICS . BUSINESS MANAGEMENT . ENGLISH . AMERICAN HISTORY </p>
                                 </div>
           </div>
 

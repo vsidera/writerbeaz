@@ -225,7 +225,7 @@ function About() {
     </p>
 </div>
 <div className="mt-4 text-black">
-    <h3 className="font-semibold text-lg">No Processing Fees!:</h3>
+    <h3 className="font-semibold text-lg">No Processing Fees!</h3>
     <p className="text-base text-black">
         Take advantage of our competitive prices where every penny counts.
     </p>
