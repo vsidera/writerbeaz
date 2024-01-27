@@ -3,7 +3,7 @@ import './EmailButton.css';
 import { FaBeer, FaPaperPlane } from 'react-icons/fa';
 
 const EmailButton = () => {
-  const recipientEmail = 'example@example.com';
+  const recipientEmail = 'support@writerbeaz.com';
 
   const handleClick = () => {
     window.location.href = `mailto:${recipientEmail}`;

@@ -8,7 +8,7 @@ const SECTIONS = [
   [iconOnline, "Essay Writing", "Expert writers in various fields deliver tailored essays."],
   [iconBudgeting, "Global Tutors", "Our diverse tutors worldwide meet global platform demands."],
   [iconOnboarding, "Constant Support", "24/7 support with rapid response times. Reach out anytime."],
-  [iconApi, "Easy Payment", "Streamlined, straightforward, and fast payment system."],
+  [iconApi, "Easy Payment", "Secure, Streamlined, straightforward, and fast payment system."],
 ];
 
 export default function HomeSections() {
