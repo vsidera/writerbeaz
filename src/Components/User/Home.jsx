@@ -120,7 +120,7 @@ We offer professsional writing services. We have the best Prices and Guaranteed 
               </button>
               </a>
             </div>
-   <img  src={hellow} alt='helo' style={{ position: 'absolute', height: 'auto', width: 'auto', left: '20%', top: '55%' }} />
+
     </div>
         </div>
 
