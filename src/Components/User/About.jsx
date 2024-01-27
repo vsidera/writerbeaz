@@ -13,7 +13,7 @@ function About() {
         <h1 id='about' className="font-bold text-4xl text-black mb-2 mt-10">
         About Us
         </h1>
-        <p className='text-black mb-10 lg:w-1/3'>There are good things about using our platform</p>
+        <p className='text-black mb-10 lg:w-1/3'>At writerbeaz, we pride ourselves on our team of proffesional writers who are experts in the field of creative writing. Our services are dedicated to delivering high quality work that meets the unique needs of each client. With years of experience in the industry, we have become a trusted name in essay writing industry.</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-4 pb-12 items-center">
           <div className="col-span-1 flex justify-center items-center">
             <img src={about} alt="Image" className="w-full h-auto max-w-lg" />
@@ -31,8 +31,8 @@ function About() {
                   borderRadius:'50px'
                   }}>
               </lord-icon>
-              <h2 className="font-bold text-lg mb-2 text-black ">Flexibility</h2>
-        <p  className="text-sm text-gray-700">Our platform provides the flexibility you<br></br> need to accomplish your goals efficiently.</p>            </div>
+              <h2 className="font-bold text-lg mb-2 text-black ">Expertise</h2>
+        <p  className="text-sm text-gray-700">We have a wide range writers who keenly engage you<br></br> to help you accomplish your goals efficiently.</p>            </div>
             
             <div className="mb-6 md:mb-10 mt-10 md:mt-0">
               <lord-icon
@@ -116,7 +116,7 @@ function About() {
           </div>
           <div style={{background:'linear-gradient(to right, #AD9551, #AD9551)'}} class="bg-white shadow-lg rounded-xl p-4 hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-200">
   <h1 class="font-bold text-xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Swift and Secure Transactions </h1>
-  <p style={{color:'white'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience the epitome of speed and security with our payment system. Our SafePay payment protection ensures tutors receive timely payments for their work, and employers can confidently review the work before settling invoices. We go the extra mile by offering multiple payment and withdrawal options, guaranteeing secure transactions for everyone involved.</p>
+  <p style={{color:'white'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience the epitome of speed and security with our payment system. Our payment protection ensures tutors receive timely payments for their work, and employers can confidently review the work before settling invoices. We go the extra mile by offering multiple payment and withdrawal options, guaranteeing secure transactions for everyone involved.</p>
 </div>
 
       </div>
@@ -225,9 +225,9 @@ function About() {
     </p>
 </div>
 <div className="mt-4 text-black">
-    <h3 className="font-semibold text-lg">Lowest Processing Fees:</h3>
+    <h3 className="font-semibold text-lg">No Processing Fees!:</h3>
     <p className="text-base text-black">
-        Take advantage of our competitive processing fees and convenient payment options for a seamless experience.
+        Take advantage of our competitive prices where every penny counts.
     </p>
 </div>
 

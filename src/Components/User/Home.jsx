@@ -132,7 +132,7 @@ Elevate your writing with our services! We offer professional writing services t
         <div className="mb-4 mt-5 sm:mt-4 mx-2">
           <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 px-6 flex flex-col items-center md:flex-row md:items-center" href="#">
             <p className="text-2xl font-bold text-gray-900">
-              <span style={{ color:'#AD9551', fontSize:'16px'}}>Over</span> 10,000
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Over</span> 200
             </p>
             <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-900 mt-2 leading-6 mx-1">
               <span style={{ color:'#AD9551', fontSize:'16px'}}>Writers</span>
@@ -142,7 +142,7 @@ Elevate your writing with our services! We offer professional writing services t
         <div className="mb-4 mt-5 sm:mt-4 mx-2">
           <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 px-6 flex flex-col items-center md:flex-row md:items-center" href="#">
             <p className="text-2xl font-bold text-gray-900 group-hover:text-gray-700">
-              <span style={{ color:'#AD9551', fontSize:'16px'}}>Over</span> 5,000
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Over</span> 10,000
             </p>
             <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700 mt-2 leading-6 mx-1">
               <span style={{ color:'#AD9551', fontSize:'16px'}}>Users worldwide</span>

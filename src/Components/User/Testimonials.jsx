@@ -21,8 +21,8 @@ const Testimonials = () => (
 			</div>
 			<div className="flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-400 dark:text-gray-900">
 				<img src="https://source.unsplash.com/50x50/?portrait?1" alt="" className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-700" />
-				<p className="text-xl font-semibold leadi">Distinctio Animi</p>
-				<p className="text-sm uppercase">Daniel simpson</p>
+				<p className="text-xl font-semibold leadi">Anonymous</p>
+				<p className="text-sm uppercase">November 2020</p>
 			</div>
 		</div>
 <div  className="flex flex-col max-w-sm mx-4 my-16 shadow-md">
@@ -40,8 +40,8 @@ const Testimonials = () => (
 			</div>
 			<div className="flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-400 dark:text-gray-900">
 				<img src="https://source.unsplash.com/50x50/?portrait?2" alt="" className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-700" />
-				<p className="text-xl font-semibold leadi">Distinctio Animi</p>
-				<p className="text-sm uppercase">Jude olrion</p>
+				<p className="text-xl font-semibold leadi">Anonymous</p>
+				<p className="text-sm uppercase">December 2022</p>
 			</div>
 		</div>
 <div  className="flex flex-col max-w-sm mx-4 my-16 shadow-md">	
@@ -59,8 +59,8 @@ const Testimonials = () => (
 			</div>
 			<div className="flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-400 dark:text-gray-900">
 				<img src="https://source.unsplash.com/50x50/?portrait?3" alt="" className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-700" />
-				<p className="text-xl font-semibold leadi">Distinctio Animi</p>
-				<p className="text-sm uppercase">Kim Chang hun</p>
+				<p className="text-xl font-semibold leadi">Anonymous</p>
+				<p className="text-sm uppercase">January 2024</p>
 			</div>
 		</div>
 <div  className="flex flex-col max-w-sm mx-4 my-16 shadow-md">
@@ -78,8 +78,8 @@ const Testimonials = () => (
 			</div>
 			<div className="flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-400 dark:text-gray-900">
 				<img src="https://source.unsplash.com/50x50/?portrait?4" alt="" className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-700" />
-				<p className="text-xl font-semibold leadi">Distinctio Animi</p>
-				<p className="text-sm uppercase">Okechukwu J</p>
+				<p className="text-xl font-semibold leadi">Anonymous</p>
+				<p className="text-sm uppercase">May 2023</p>
 			</div>
 		</div>
 	</div>
