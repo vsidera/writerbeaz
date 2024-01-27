@@ -244,8 +244,8 @@ function handleClick(params) {
                         <span style={{marginBottom:'-15px'}}>Select Account Type:</span>
                         <select style={{border:'1px solid gray', color:'black'}} value={userType} onChange={(e) => setUserType(e.target.value)} 
                             className={`flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-sm ${ userType ? 'font-semibold' : 'font-normal'} ${userType === '' ? 'text-[#9ca3af]' : 'text-black'}`} >
-                          <option value="Tutor">Tutor</option>
-                           {/* <option value="User">User</option>*/}
+                          {/*<option value="Tutor">Tutor</option>*/}
+                            <option value="User">User</option>
                         </select>
 
                          <button
