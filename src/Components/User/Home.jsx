@@ -111,7 +111,7 @@ function Home() {
               <TypeWriterText />
             </h2>
             <p className="mt-2 text-base text-white md:text-lg font-serif">
-We offer professsional essay and writers. We offer the best Prices and Guaranteed value for money. Click the Button below to proceed            </p>
+We offer professsional writing services. We have the best Prices and Guaranteed value for money. Click the Button below to proceed            </p>
             <div className="mt-6 relative w-full">
               <a href='/signup' >
               <button className="get-started-btn">
@@ -120,7 +120,7 @@ We offer professsional essay and writers. We offer the best Prices and Guarantee
               </button>
               </a>
             </div>
-   <img  src={hellow} alt='helo' style={{ position: 'absolute', height: '30%', width: '30%', left: '20%', top: '55%' }} />
+   <img  src={hellow} alt='helo' style={{ position: 'absolute', height: 'auto', width: 'auto', left: '20%', top: '55%' }} />
     </div>
         </div>
 
