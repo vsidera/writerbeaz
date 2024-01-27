@@ -95,7 +95,13 @@ const  Footer=()=>{
                     </a>
                     <a href="/terms">
                     <div style={{ marginLeft: '100%' }}>
-                        <p>Writerbeaz.com | Email: support@writerbeaz.com | Whatsapp: +1 (914) 201-4858</p>
+                        <p>Writerbeaz.com </p>
+                    </div>
+                    <div style={{ marginLeft: '100%' }}>
+                        <p>Email: support@writerbeaz.com </p>
+                    </div>
+                    <div style={{ marginLeft: '100%' }}>
+                        <p>Whatsapp: +1 (914) 201-4858 </p>
                     </div>
                     </a>
                     
