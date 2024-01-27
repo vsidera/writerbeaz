@@ -94,14 +94,16 @@ const  Footer=()=>{
                         </div>
                     </a>
                     <a href="/terms">
-                    <div style={{ marginLeft: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div>
                         <p>Writerbeaz.com </p>
                     </div>
-                    <div style={{ marginLeft: '100%' }}>
+                    <div>
                         <p>Email: support@writerbeaz.com </p>
                     </div>
-                    <div style={{ marginLeft: '100%' }}>
+                    <div>
                         <p>Whatsapp: +1 (914) 201-4858 </p>
+                    </div>
                     </div>
                     </a>
                     
