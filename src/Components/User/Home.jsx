@@ -128,46 +128,35 @@ We offer professsional essay and writers. We offer the best Prices and Guarantee
 
           <div className="h-full object-cover" style={{ backgroundImage: "url(/images/logo.svg)" }} ></div>
         </div>
-
-      </div>
-      <div  style={{boxShadow:'0 0 2px'}} className="flex flex-col md:flex-row bg-gradient-to-t from-gray-200 to-gray-200 justify-center items-center">
-        <div  className="mb-4 mt-5 sm:mt-4">
-          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" >
-            <p className="text-2xl font-bold text-gray-900 ">
-              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span> 10,000
+        </div>
+      <div className="flex flex-col md:flex-row justify-center items-center bg-gradient-to-t from-gray-200 to-gray-200">
+        <div className="mb-4 mt-5 sm:mt-4 mx-2">
+          <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 px-6 flex flex-col items-center md:flex-row md:items-center" href="#">
+            <p className="text-2xl font-bold text-gray-900">
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Over</span> 10,000
             </p>
             <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-900 mt-2 leading-6 mx-1">
-             <span style={{color:'#AD9551', fontSize:'16px'}}>Writers</span>
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Writers</span>
             </p>
           </a>
         </div>
-        <div className="mb-4 mx-5 sm:mt-4">
-          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" >
+        <div className="mb-4 mt-5 sm:mt-4 mx-2">
+          <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 px-6 flex flex-col items-center md:flex-row md:items-center" href="#">
             <p className="text-2xl font-bold text-gray-900 group-hover:text-gray-700">
-              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span> 5,000
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Over</span> 5,000
             </p>
             <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700 mt-2 leading-6 mx-1">
-             <span style={{color:'#AD9551', fontSize:'16px'}}>Users worldwide</span>
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Users worldwide</span>
             </p>
           </a>
         </div>
-        <div className="mb-4 mx-5 sm:mt-4">
-          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" >
+        <div className="mb-4 mt-5 sm:mt-4 mx-2">
+          <a className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 px-6 flex flex-col items-center md:flex-row md:items-center" href="#">
             <p className="text-2xl font-bold text-gray-900 group-hover:text-gray-700">
-              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span> 100
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Over</span> 100
             </p>
             <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700 mt-2 leading-6 mx-1">
-              <span style={{color:'#AD9551', fontSize:'16px'}}> Countries</span>
-            </p>
-          </a>
-        </div>
-        <div className='mb-4 sm:mt-4'>
-          <a style={{border:'1px solid #AD9551'}} className="group shadow-lg hover:shadow-2xl duration-200 delay-75 w-full bg-white rounded-sm py-6 pr-6 pl-9 flex flex-col items-center md:flex-row md:items-center" href="#" >
-            <p className="text-2xl font-bold text-gray-900 group-hover:text-gray-700">
-              <span style={{color:'#AD9551', fontSize:'16px'}}>Over</span>$50,000
-            </p>
-            <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700  leading-6 mx-1">
-             <span style={{color:'#AD9551', fontSize:'16px'}}>daily</span>
+              <span style={{ color:'#AD9551', fontSize:'16px'}}>Countries</span>
             </p>
           </a>
         </div>

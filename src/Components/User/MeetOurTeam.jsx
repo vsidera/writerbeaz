@@ -16,7 +16,7 @@ export default function MeetOurTeam() {
   <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-6 lg:px-5 ">
       <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
           <h1 className="text-4xl font-extrabold text-center text-gray-800 pb-5" id="team">
-         Meet Some of Our Team
+         Meet Some of Our Writers
        </h1>
       </div>
       <div class="grid gap-6 mb-3 lg:mb-6 md:grid-cols-3">
@@ -86,10 +86,10 @@ export default function MeetOurTeam() {
               </a>
               <div class="p-5">
                   <h3 style={{color:'#AD9551'}} class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      <a style={{color:'#AD9551'}} href="#">Lana Byrd</a>
+                      <a style={{color:'#AD9551'}} href="#">Cameroon J.</a>
                   </h3>
                   <span class="text-black dark:text-gray-400">Writer</span>
-                  <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Lana drives the technical strategy of the flowbite platform and brand.</p>
+                  <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">17578 Orders 5***** 100% Completion rate.</p>
                                 </div>
           </div>
 
