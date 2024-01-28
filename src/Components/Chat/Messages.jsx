@@ -3,6 +3,7 @@ import { Avatar } from "@material-tailwind/react";
 import { useState, useEffect } from 'react';
 import api from '../../api/axiosConfig';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 
 function Message({ message, userData, scroll }) {
@@ -61,15 +62,17 @@ export default function Messages({ messageDetails, userData, scroll }) {
     const [messages, setMessages] = useState(null);
     const [id, setId] = useState(null);
     const [sending, setSending] = useState(false);
+    const user = useSelector((state) => state.user);
+    const isAdmin = user && user.user_type == "Admin";
 
 
     const roomId = messageDetails?.roomId;
     const recipient = messageDetails?.recipient;
 
     useEffect(() => {
-        const fetchMessages = () => {
+        const fetchMessages = async () => {
             if (sending) return;
-            api
+            await api
                 .get(`/api/${roomId}/`)
                 .then((response) => {
                     setMessages(response.data);
@@ -83,8 +86,20 @@ export default function Messages({ messageDetails, userData, scroll }) {
             fetchMessages();
         }
 
+        let isFetching = false;
+
         if (roomId) {
-            let xid = setInterval(fetchMessages, 5000);
+            let xid = setInterval(async () => {
+                console.log("Checking " + isFetching)
+                if (!isFetching) {
+                    isFetching = true;
+                    fetchMessages()
+                        .then(() => {
+                            isFetching = false;
+                        })
+                }
+
+            }, 5000);
             setId(xid);
         }
     }
@@ -128,7 +143,7 @@ export default function Messages({ messageDetails, userData, scroll }) {
         };
         setSending(true);
         api
-            .post(`/api/${roomId}/send/`, message)
+            .post(`/api/${getSendId()}/send/`, message)
             .then((response) => {
                 const newMessage = response.data;
                 setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -139,6 +154,14 @@ export default function Messages({ messageDetails, userData, scroll }) {
                 toast.error('An error occurred while sending your message.', { duration: 5000 });
             });
     };
+
+    const getSendId = () => {
+        if (isAdmin) {
+            return "SUPPORT";
+        }
+
+        return roomId;
+    }
 
     useEffect(() => {
         return () => {
@@ -151,6 +174,10 @@ export default function Messages({ messageDetails, userData, scroll }) {
     return (
         <>
             <div className="flex-grow p-6 overflow-y-auto">
+                {!roomId && (
+                    <div className="text-center">Select a recipient to start chatting.</div>
+                )}
+
                 {messages?.length > 0 ? (
                     messages.map((message, index) => (
                         <Message
@@ -163,16 +190,19 @@ export default function Messages({ messageDetails, userData, scroll }) {
                     ))
                 ) : (
                     <>
-                        { messages == null ? (
+                        {messages == null && roomId ? (
                             <div className="text-center">Fetching messages...</div>
                         ) : (
-                            <div className="text-center">No messages yet.</div>
+                            <>
+                                {roomId && <div className="text-center">No messages yet.</div>
+                                }
+                            </>
                         )}
                     </>
                 )}
             </div>
 
-            <div className="py-4 px-6 bg-white absolute bottom-0 right-0 w-7/12">
+            {roomId && <div className="py-4 px-6 bg-white absolute bottom-0 right-0 w-7/12">
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
@@ -193,7 +223,7 @@ export default function Messages({ messageDetails, userData, scroll }) {
                         Send
                     </button>
                 </form>
-            </div>
+            </div>}
         </>
     );
 }
