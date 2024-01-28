@@ -293,6 +293,7 @@ const JobDetails = () => {
   const [showProposalForm, setShowProposalForm] = useState(false);
   const [priceError, setPriceError] = useState('');
   const user = useSelector(state => state.user);
+  console.log("User: ", user.user_type);
   const [propSubmitted, setPropSubmitted] = useState(false);
 
   const [userActions, setUserActions] = useState(state?.userActions);
@@ -497,6 +498,38 @@ const JobDetails = () => {
                 />
               }
               <UserActions userActions={userActions} setUserActions={setUserActions} jobDetails={jobDetails} setJobDetails={setJobDetails} submissionStatus={jobDetails.submission_status} />
+              {user.user_id == jobDetails.tutor &&
+                <div className='flex w-fit mx-auto justify-center border-2 rounded-md px-6 py-2'>
+                  <Link
+                    to={"/tutor/chatx"}
+                    className='text-blue-500 underline'
+                    state={{
+                      order_message: {
+                        order_number: jobDetails.order_number,
+                        email: jobDetails.tutor_email,
+                      }
+                    }}
+                  >
+                    Message client
+                  </Link>
+                </div>
+              }
+              {user.user_id == jobDetails.user && jobDetails.tutor != null &&
+                <div className='flex w-fit mx-auto justify-center border-2 rounded-md px-6 py-2'>
+                  <Link
+                    to={"/user/chatx"}
+                    className='text-blue-500 underline'
+                    state={{
+                      order_message: {
+                        order_number: jobDetails.order_number,
+                        email: jobDetails.user_email,
+                      }
+                    }}
+                  >
+                    Message tutor
+                  </Link>
+                </div>
+              }
 
             </div>
           )}
