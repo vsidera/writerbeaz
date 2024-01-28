@@ -67,7 +67,7 @@ export default function Messages({ messageDetails, userData, scroll }) {
 
 
     const roomId = messageDetails?.roomId;
-    const recipient = messageDetails?.recipient;
+    const recipient = roomId == "SUPPORT" ? "writerbeaz@gmail.com" : messageDetails?.recipient;
 
     useEffect(() => {
         const fetchMessages = async () => {
