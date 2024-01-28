@@ -57,11 +57,14 @@ function Message({ message, userData, scroll }) {
     )
 }
 
-export default function Messages({ roomId, recipient, initialMessages, userData, scroll }) {
-    const [messages, setMessages] = useState(initialMessages || []);
-    const [intervalInitialized, setIntervalInitialized] = useState(false);
+export default function Messages({ messageDetails, userData, scroll }) {
+    const [messages, setMessages] = useState(null);
     const [id, setId] = useState(null);
     const [sending, setSending] = useState(false);
+
+
+    const roomId = messageDetails?.roomId;
+    const recipient = messageDetails?.recipient;
 
     useEffect(() => {
         const fetchMessages = () => {
@@ -76,24 +79,26 @@ export default function Messages({ roomId, recipient, initialMessages, userData,
                 });
         }
 
-        if (!intervalInitialized && roomId) {
+        if (messages == null && roomId) {
             fetchMessages();
-            //sleep for 5 seconds
-            let time = new Date().getTime();
-            while (new Date().getTime() < time + 5000);
+        }
 
+        if (roomId) {
             let xid = setInterval(fetchMessages, 5000);
             setId(xid);
-            setIntervalInitialized(true);
         }
+    }
+        , [roomId, messages, sending]
+    );
+
+    useEffect(() => {
         return () => {
             if (id) {
                 clearInterval(id);
             }
         }
-    }
-        , [id, intervalInitialized, roomId]
-    );
+    }, [id]);
+
 
     //scroll to bottom
     useEffect(() => {
@@ -119,7 +124,7 @@ export default function Messages({ roomId, recipient, initialMessages, userData,
         const message = {
             content: to_send_text,
             sender: userData.user_id,
-            recipient: roomId === "SUPPORT" ? "writerbeaz@gmail.com" : recipient.email,
+            recipient: roomId === "SUPPORT" ? "writerbeaz@gmail.com" : recipient,
         };
         setSending(true);
         api
@@ -135,12 +140,18 @@ export default function Messages({ roomId, recipient, initialMessages, userData,
             });
     };
 
+    useEffect(() => {
+        return () => {
+            setMessages(null);
+        }
+    }, [roomId]);
+
 
 
     return (
         <>
             <div className="flex-grow p-6 overflow-y-auto">
-                {messages.length > 0 ? (
+                {messages?.length > 0 ? (
                     messages.map((message, index) => (
                         <Message
                             key={index}
@@ -151,7 +162,13 @@ export default function Messages({ roomId, recipient, initialMessages, userData,
 
                     ))
                 ) : (
-                    <p className="p-4 text-gray-500">No messages found.</p>
+                    <>
+                        { messages == null ? (
+                            <div className="text-center">Fetching messages...</div>
+                        ) : (
+                            <div className="text-center">No messages yet.</div>
+                        )}
+                    </>
                 )}
             </div>
 

@@ -1,18 +1,25 @@
 import avatar from '../../images/avatar.jpg';
 import { Avatar } from "@material-tailwind/react";
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 
-export default function AccountList({ new_chat, setRecipient, setRoomId, setMessages, setFetchingMessages, setSelected, selected }) {
+export default function AccountList({ new_chat, messageDetails, setMessageDetails}) {
     const [messageList, setMessageList] = useState([]);
     const [newChat, setNewChat] = useState(new_chat);
     const [intervalInitialized, setIntervalInitialized] = useState(false);
     const [id, setId] = useState(null);
+    const [recipient, setRecipient] = useState(null);
+    const user = useSelector((state) => state.user);
+    const isAdmin = user && user.user_type == "Admin";
+
 
     useEffect(() => {
         if (newChat) {
-            setRecipient(newChat);
-            setRoomId(newChat.order_number);
+            setMessageDetails({
+                roomId: isAdmin ? newChat.username : newChat.order_number,
+                recipient: newChat.email,
+            });
             return;
         }
     }, []);
@@ -55,9 +62,11 @@ export default function AccountList({ new_chat, setRecipient, setRoomId, setMess
         }
         if (!intervalInitialized) {
             fetchAccounts();
-            let xid = setInterval(fetchAccounts, 10000);
-            console.log("setting interval id: " + xid);
-            setId(xid);
+            if (!isAdmin) {
+                let xid = setInterval(fetchAccounts, 10000);
+                console.log("setting interval id: " + xid);
+                setId(xid);
+            }
             setIntervalInitialized(true);
         }
 
@@ -69,17 +78,33 @@ export default function AccountList({ new_chat, setRecipient, setRoomId, setMess
     }, []);
 
 
+    const isSelected = (message) => {
+        if (!messageDetails) {
+            return false;
+        }
+        if (isAdmin && message.username == messageDetails.roomId) {
+            return true;
+        }
+        else if (!isAdmin && message.order_number == messageDetails.roomId) {
+            return true;
+        }
+        return false;
+    }
+
+
+
     return (
         <ul className="flex-grow overflow-y-auto">
             {Array.isArray(messageList) && messageList.length > 0 ? (
                 messageList.map((message, ind) => (
                     <li
                         key={ind}
-                        className={`flex items-center py-3 px-4 cursor-pointer` + (selected === message.order_number ? ' bg-blue-200' : '')}
+                        className={`flex items-center py-3 px-4 cursor-pointer` + (isSelected(message) ? " bg-gray-200" : "")}
                         onClick={() => {
-                            setSelected((prev) => message.order_number);
-                            setRecipient((prev) => message);
-                            setRoomId((prev) => message.order_number);
+                            setMessageDetails({
+                                roomId: isAdmin ? message.username : message.order_number,
+                                recipient: message.email,
+                            });
                         }}
                     >
                         <div className="flex-shrink-0 mr-3 mt-1">
@@ -91,7 +116,10 @@ export default function AccountList({ new_chat, setRecipient, setRoomId, setMess
                             />
                         </div>
                         <div className="flex-grow">
-                            <h3 className="text-start ms-3 text-lg font-semibold">{message.order_number == "SUPPORT" ? "SUPPORT" : "Order " + message.order_number}</h3>
+                            <h3 className="text-start ms-3 text-lg font-semibold">
+                                {isAdmin && message.username}
+                                {!isAdmin && (message.order_number == "SUPPORT" ? "SUPPORT" : "Order " + message.order_number)}
+                            </h3>
                         </div>
                         {/* You can add online/offline status indicators here */}
                     </li>
