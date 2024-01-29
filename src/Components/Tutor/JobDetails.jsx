@@ -424,6 +424,10 @@ const JobDetails = () => {
             {jobDetails ? (
               <div className={`job-details ${isProposalSubmitted ? '' : ''}`}>
                 {Object.entries(jobDetails).map(([key, value]) => (
+                  <>
+                  { key == "user_email" || key == "tutor_email" ? (
+                    <></>
+                  ) : (
                   <p key={key} className="mb-2">
                     <span className="font-bold">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}:</span>
                     {key === 'files' ? (
@@ -451,6 +455,8 @@ const JobDetails = () => {
                       </span>
                     )}
                   </p>
+                  )}
+                  </>
                 ))}
               </div>
             ) : (
