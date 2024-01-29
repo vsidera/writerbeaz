@@ -71,6 +71,9 @@ const Orders = () => {
     if (selected === 'progress') {
       userActions = ["accept", "cancel"];
     }
+    if(selected === "completed"){
+      userActions = ["upload files"]
+    }
 
     return (
       <Link

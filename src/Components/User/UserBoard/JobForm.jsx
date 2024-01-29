@@ -8,11 +8,12 @@ import { useEffect } from 'react';
 
 import api from '../../../api/axiosConfig';
 
-const JobForm = ({ jobDetails = null, edit }) => {
+const JobForm = ({ jobDetails = null, edit, upload }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [measure, setMeasure] = useState("pages");
   const [uploadedFiles, setUploadedFiles] = useState([]); // New state for uploaded files
+  console.log(upload)
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -51,7 +52,11 @@ const JobForm = ({ jobDetails = null, edit }) => {
         language: jobDetails.language,
         instructions: jobDetails.instructions,
         dueDate: new Date(jobDetails.dueDate).toISOString().slice(0, 16),
+        files: jobDetails.files,
       })
+      if(upload){
+        setCurrentStep(4);
+      }
       setUploadedFiles(jobDetails.files.map((file) => {
         return {
           name: file.split('/').pop(),

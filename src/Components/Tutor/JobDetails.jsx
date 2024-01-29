@@ -215,6 +215,7 @@ const Submission = ({ submission_status, submission_files, job_id, is_user }) =>
 
 const UserActions = ({ userActions, jobDetails, submissionStatus, setUserActions, setJobDetails }) => {
   const [submitting, setSubmitting] = useState(false);
+  console.log("User actions: ", userActions)
   const cancel = () => {
     api.post(`/users/job-order/cancel/${jobDetails.id}/`)
       .then((response) => {
@@ -278,6 +279,20 @@ const UserActions = ({ userActions, jobDetails, submissionStatus, setUserActions
       >
         {submitting ? "Processing..." : "Accept & release payment"}
       </div>}
+      {
+        userActions.includes("upload files") == true && <Link
+          to={`/user/post-job`}
+          state={{
+            jobDetails: jobDetails,
+            upload: true,
+          }}
+        >
+          <div
+            className="bg-blue-500 text-white px-4 py-1 flex justify-center items-center rounded focus:outline-none w-fit cursor-pointer mt-4"
+          >Upload files</div>
+        </Link>
+
+      }
     </div>
   )
 }
