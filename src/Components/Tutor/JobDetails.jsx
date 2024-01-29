@@ -188,7 +188,7 @@ const Submission = ({ submission_status, submission_files, job_id, is_user }) =>
       return false;
     }
     if (submission_status == "submitted") {
-      return false;
+      return true;
     }
     return true;
   }
