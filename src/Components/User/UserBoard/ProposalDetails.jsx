@@ -143,8 +143,8 @@ const ProposalDetails = () => {
                       <div>
                         <PaymentComponent
                           amount={price}
-                          country={"KE"}
-                          currency={"KES"}
+                          country={"US"}
+                          currency={"USD"}
                           email={user.email}
                           first_name={user.first_name}
                           last_name={user.last_name}

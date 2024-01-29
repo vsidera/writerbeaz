@@ -63,13 +63,13 @@ const PaymentComponent = ({
     <div>
       <button
         className="intaSendPayButton"
+        data-method="CARD-PAYMENT"
         data-amount={amount}
         data-currency={currency}
         data-email={email}
         data-first_name={first_name}
         data-last_name={last_name}
         data-country={country}
-        data-method="CARD-PAYMENT"
         style={buttonStyles}
         onMouseOver={(e) => e.currentTarget.style = { ...buttonStyles, ...buttonHoverStyles }}
         onMouseOut={(e) => e.currentTarget.style = buttonStyles}
