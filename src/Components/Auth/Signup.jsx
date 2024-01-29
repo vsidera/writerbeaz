@@ -19,7 +19,7 @@ const Signup = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [userType, setUserType] = useState('');
+  const [userType, setUserType] = useState('User');
 
   const [error, setError] = useState('');
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
@@ -35,11 +35,11 @@ const Signup = () => {
   const navigate = useNavigate();
     const [loading, setLoading] = useState(false); // New state for loading indicator
 
-  
+
 
 function handleClick(params) {
   navigate('/');
-  
+
 }
 
   useEffect(() => {
@@ -126,7 +126,7 @@ function handleClick(params) {
             setLoading(true); // Enable loading state
 
       const response = await api.post('/accounts/signup/', {
-        
+
         first_name: firstName,
         last_name: lastName,
         username: userName,
@@ -135,7 +135,7 @@ function handleClick(params) {
         password: password,
         user_type: userType,
       });
-  
+
       console.log('Request Payload:', {
         first_name: firstName,
         last_name: lastName,
@@ -145,9 +145,9 @@ function handleClick(params) {
         password: password,
         user_type: userType,
       });
-  
+
       console.log('Response:', response.data);
-  
+
       if (response.status === 201) {
         dispatch(setUser(response.data));
         dispatch(setEmailAddress(email));
@@ -174,7 +174,7 @@ function handleClick(params) {
     <div  className="flex min-h-screen">
         <div  className="flex flex-row w-full">
             <div style={{boxShadow:'0 0 2px',background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)'}}  className='hidden lg:flex flex-r justify-between bg-gradient-to-r from-yellow-700 to-yellow-600 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
-                
+
                 <div  className='space-y-5 mb-8 text-center'>
                 <h1 class="header-logo" onClick={handleClick}>WriterBeaz<FaBookOpen /> </h1>
                     <div className='w-96 h-96' style={{backgroundImage: `url(/images/Fingerprint-cuate.svg)`}}></div>
@@ -187,7 +187,7 @@ function handleClick(params) {
             <div  className="flex flex-1 flex-col items-center justify-center px-10 relative">
                 <div className="flex lg:hidden justify-between items-center w-full py-4">
                     <div className="flex items-center justify-start space-x-3">
-                        
+
                        <a
     style={{
       display: 'flex',
@@ -199,7 +199,7 @@ function handleClick(params) {
     id="write"
   >
     WriterBeaz<FaBookOpen style={{ color: '#AD9551' }} />
-  </a>                 
+  </a>
                     </div>
                     <div className="flex items-center space-x-2">
                         <span>Have an Account? </span>
@@ -237,12 +237,12 @@ function handleClick(params) {
                         <input style={{border:'1px solid gray'}} type="password" placeholder="Password" value={password} onChange={(e) => handlePasswordChange(e.target.value)}
                         className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-sm font-medium placeholder:font-normal" />
                         {error === 'password' && <p className="text-xs text-red-500">{passwordError}</p>}
-                        
+
                         <input style={{border:'1px solid gray'}} type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e.target.value)}
                         className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-sm font-medium placeholder:font-normal" />
                         {error === 'confirm password' && <p className="text-xs text-red-500">{confirmPasswordError}</p>}
                         <span style={{marginBottom:'-15px'}}>Select Account Type:</span>
-                        <select style={{border:'1px solid gray', color:'black'}} value={userType} onChange={(e) => setUserType(e.target.value)} 
+                        <select style={{border:'1px solid gray', color:'black'}} value={userType} onChange={(e) => setUserType(e.target.value)}
                             className={`flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-sm ${ userType ? 'font-semibold' : 'font-normal'} ${userType === '' ? 'text-[#9ca3af]' : 'text-black'}`} >
                           {/*<option value="Tutor">Tutor</option>*/}
                             <option value="User">User</option>
@@ -264,7 +264,7 @@ function handleClick(params) {
                             <span className="w-full border border-black"></span>
                             <span className="px-4">Or</span>
                             <span className="w-full border border-black"></span>
-                        </div>  
+                        </div>
                         <button className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black relative">
                             <span className="absolute left-4">
                             </span>
