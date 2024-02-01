@@ -4,7 +4,7 @@ import TutorSidebar from './TutorSidebar';
 
 function SupportChat() {
   const order_message = {
-    order_number: "SUPPORT"
+    order_number: "SUPPORT✅"
   }
 
   return (
