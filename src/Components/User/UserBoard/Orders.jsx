@@ -106,16 +106,16 @@ const Orders = () => {
 
         <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
         <div className="flex flex-row justify-around items-center py-2 mb-4 w-1/2 mx-auto border rounded-lg border-2">
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'pending' ? 'bg-blue-500' : ''}`} onClick={() => setSelected('pending')}>
+          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'pending' ? 'bg-amber-500' : ''}`} onClick={() => setSelected('pending')}>
             <span className="text-lg font-bold mb-2">Pending</span>
           </div>
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'progress' ? 'bg-blue-500' : ''}`} onClick={() => setSelected('progress')}>
+          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'progress' ? 'bg-amber-500' : ''}`} onClick={() => setSelected('progress')}>
             <span className="text-lg font-bold mb-2">In Progress</span>
           </div>
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'completed' ? 'bg-blue-500' : ''}`} onClick={() => setSelected('completed')}>
+          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'completed' ? 'bg-amber-500' : ''}`} onClick={() => setSelected('completed')}>
             <span className="text-lg font-bold mb-2">Completed</span>
           </div>
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'cancelled' ? 'bg-blue-500' : ''}`} onClick={() => setSelected('cancelled')}>
+          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'cancelled' ? 'bg-amber-500' : ''}`} onClick={() => setSelected('cancelled')}>
             <span className="text-lg font-bold mb-2">Cancelled</span>
           </div>
         </div>
@@ -134,7 +134,7 @@ const Orders = () => {
                 Subject
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Pages
+                Pages/Words
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Instructions
