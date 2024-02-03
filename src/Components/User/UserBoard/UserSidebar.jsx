@@ -111,7 +111,7 @@ function UserSidebar() {
                         </Link>
                         <hr style={{ width: '100%' }}></hr>
                     </div>
-                    <div style={{ background: 'red' }}>
+                    <div style={{ background: '#AD9551' }}>
                         {profileData && (
                             <div className="mt-8 text-center">
                                 <Link to='/user/profile'>
