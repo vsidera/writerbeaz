@@ -78,7 +78,7 @@ const Order = ({ order, LinkComponent }) => {
   }
 
   return (
-    <div className='shadow-md rounded my-6 p-4 flex flex-row justify-between items-start'>
+    <div className='shadow-custom rounded my-6 p-4 flex flex-row justify-between items-start'>
       <div className='w-full md:w-1/3'>
         <h2 className="text-xl font-bold">{order.orderTitle}</h2>
         <p className='text-sm text-ellipsis'>{order.instructions}</p>
@@ -106,6 +106,7 @@ const Orders = () => {
   const [selected, setSelected] = useState('pending');
   const [loading, setLoading] = useState(true);
   const user = useSelector(state => state.user);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fetchUserOrders = async () => {
@@ -140,18 +141,29 @@ const Orders = () => {
   }, [user]);
 
   const getOrders = () => {
+    let orders = [];
     switch (selected) {
       case 'pending':
-        return pendingOrders;
+        orders = pendingOrders;
+        break;
       case 'progress':
-        return progressOrders;
+        orders = progressOrders;
+        break;
       case 'completed':
-        return completedOrders;
+        orders = completedOrders;
+        break;
       case 'cancelled':
-        return cancelledOrders;
+        orders = cancelledOrders;
+        break;
       default:
-        return pendingOrders;
+        orders = pendingOrders;
     }
+
+      // //filter orders by search
+      if (search.length > 0) {
+        orders = orders.filter((order) => order.orderTitle.toLowerCase().includes(search.toLowerCase()));
+      }
+      return orders || [];
   }
 
   const getUserActions = (status) => {
@@ -246,14 +258,15 @@ const Orders = () => {
         <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
         <SelectorLg className={"hidden lg:flex"}/>
         <SelectorSm className={"lg:hidden"}/>
-
-
+        <input type="text" placeholder="Search orders by title" className="w-full p-2 rounded-lg border-2 border-gray-200 " onChange={(e) => setSearch(e.target.value)} />
         {getOrders().length === 0 ? (
-          <tr>
-            <td colSpan="12" className="px-6 py-4 text-center">
-              {loading ? <Loader /> : 'No orders found.'}
-            </td>
-          </tr>
+          <div className='flex flex-col items-center justify-center'>
+            {loading ? (
+              <Loader />
+            ) : (
+              <h2 className='text-2xl font-bold text-center'>No orders available</h2>
+            )}
+          </div>
         ) : (
           getOrders().map((order) => (
             <Link
