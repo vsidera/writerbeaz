@@ -8,6 +8,8 @@ import Home from "./Components/User/Home";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import OtpVerification from "./Components/Auth/OtpVerification";
+import Forgot from "./Components/Auth/Forgot";
+import Reset from "./Components/Auth/Reset";
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -23,6 +25,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<Forgot />} />
+          <Route path="/forgot-password/:id" element={<Reset />} />
           <Route path="/otp-verification" element={<OtpVerification />} />
           {/* USER */}
           {isUser || isAdmin ? (

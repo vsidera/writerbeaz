@@ -15,6 +15,12 @@ function Login() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const param = new URLSearchParams(window.location.search);
+    const from = param.get('from');
+    if (from === 'reset') {
+        toast.success("Password reset was successful. Login to continue!")
+        param.delete('from');
+    }
 
     const emailAddress = useSelector(state => state.emailAddress);
     const user = useSelector(state => state.user);
@@ -151,7 +157,17 @@ function Login() {
                                         <FaLockOpen className='icon' />
                                     </button>
                                 </form>
-                            </div></div>
+                                <a
+                                    className='text-blue-500 hover:text-blue-700 underline float-right mt-2'
+                                    href="/forgot-password"
+                                >
+                                    Forgot password ?
+                                </a>
+                            </div>
+
+                        </div>
+
+
                     </div>
                 </div>
 
