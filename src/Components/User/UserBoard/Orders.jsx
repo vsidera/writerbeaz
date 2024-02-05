@@ -1,10 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import UserSidebar from './UserSidebar';
+import { MdRemoveRedEye } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
+import { MdCancel } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
+
 
 import { useSelector } from 'react-redux';
 import api from '../../../api/axiosConfig';
 import Loader from '../../Loader';
 import { Link } from 'react-router-dom';
+
+const Order = ({ order, LinkComponent }) => {
+  // statuses = pending, progress, completed, cancelled
+  const Status = ({ status }) => {
+    let bg = '';
+    switch (status.toLowerCase()) {
+      case 'pending':
+        bg = 'bg-yellow-500';
+        break;
+      case 'progress':
+        bg = 'bg-blue-500';
+        break;
+      case 'completed':
+        bg = 'bg-green-500';
+        break;
+      case 'cancelled':
+        bg = 'bg-red-500';
+        break;
+      default:
+        bg = 'bg-yellow-500';
+    }
+    return (
+      <span className={`px-3 py-1.5 text-sm font-semibold rounded-lg w-fit text-white ${bg}`}>
+        {status}
+      </span>
+    );
+  }
+
+  const createDate = (d) => {
+    //return wed 5th may 2021 12:00 am
+    const date = new Date(d);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    const formattedTime = hours + ':' + minutes + ' ' + ampm;
+    return `${day} ${month} ${year} ${formattedTime}`;
+  }
+
+  const getDueTime = (d) => {
+    // return something like 4 days and 3 hours remaining
+    const dueDate = new Date(d);
+    const now = new Date();
+    console.log('now', now);
+    console.log('due', dueDate);
+    const diff = dueDate - now;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(diff / (1000 * 60 * 60) % 24);
+    const minutes = Math.floor(diff / (1000 * 60) % 60);
+    if (days > 0) {
+      return `${days} days and ${hours} hours remaining`;
+    }
+    if (hours > 0) {
+      return `${hours} hours and ${minutes} minutes remaining`;
+    }
+    return `${minutes} minutes remaining`;
+  }
+
+  const DueOrCompleted = (status, dueDate, completedDate) => {
+    if (status.toLowerCase() === 'completed') {
+      return "Completed on " + createDate(completedDate);
+    }
+    return "Due on " + createDate(dueDate);
+  }
+
+  return (
+    <div className='shadow-md rounded my-6 p-4 flex flex-row justify-between items-start'>
+      <div className='w-full md:w-1/3'>
+        <h2 className="text-xl font-bold">{order.orderTitle}</h2>
+        <p className='text-sm text-ellipsis'>{order.instructions}</p>
+        <p className='text-md text-gray-400 font-bold mt-2'>{order.order_number}</p>
+      </div>
+      <div className='hidden md:block w-1/3'>
+        <p className="text-lg">{order.subject}</p>
+        <p className='text-sm'>{order.pages} pages</p>
+      </div>
+      <div className='h-full flex flex-col gap-4 items-center'>
+        <Status status={order.status} />
+        <LinkComponent id={order.id} />
+        <p className='text-sm text-gray-400'>{DueOrCompleted(order.status, order.dueDate, order.completed_at)}</p>
+      </div>
+    </div>
+  )
+}
 
 const Orders = () => {
   const [userOrders, setUserOrders] = useState([]);
@@ -63,7 +154,7 @@ const Orders = () => {
     }
   }
 
-  const LinkComponent = ({ id }) => {
+  const getUserActions = (status) => {
     let userActions = [];
     if (selected === 'pending') {
       userActions = ["edit", "cancel"];
@@ -71,41 +162,45 @@ const Orders = () => {
     if (selected === 'progress') {
       userActions = ["accept", "cancel"];
     }
-    if(selected === "completed"){
+    if (selected === "completed") {
       userActions = ["upload files"]
     }
+
+    return userActions;
+  }
+
+  const LinkComponent = ({ id }) => {
+
 
     return (
       <Link
         to={`/user/job-details/${id}`}
-        state={{ userActions: userActions }}
-        className="text-indigo-600 hover:text-indigo-900"
+        state={{ userActions: getUserActions(selected) }}
+        className="text-indigo-600 hover:text-indigo-900 flex gap-2 justify-center"
       >
-        {"view, " + userActions.join(', ')}
+        <MdRemoveRedEye style={{ color: '#ffb300' }} size={15} />
+
+        {selected === 'pending' &&
+          <>
+            <MdOutlineEdit fill='black' size={15}
+            />
+            <MdCancel fill='red' size={15} />
+          </>
+        }
+        {selected === 'progress' &&
+          <>
+            <FaCheck fill='green' size={15} />
+            <MdCancel fill='red' size={15} />
+          </>
+        }
+
       </Link>
     );
   }
 
-  const createDate = (d) => {
-      //return wed 5th may 2021 12:00 am
-      const date = new Date(d);
-      const day = date.getDate();
-      const month = date.toLocaleString('default', { month: 'short' });
-      const year = date.getFullYear();
-      const hours = date.getHours();
-      const minutes = date.getMinutes();
-      const ampm = hours >= 12 ? 'pm' : 'am';
-      const formattedTime = hours + ':' + minutes + ' ' + ampm;
-      return `${day} ${month} ${year} ${formattedTime}`;
-  }
-
-  return (
-    <div>
-      <UserSidebar />
-      <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-
-        <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
-        <div className="flex flex-row justify-around items-center py-2 mb-4 w-1/2 mx-auto border rounded-lg border-2">
+  const SelectorLg = ({className}) => {
+    return (
+      <div className={"flex flex-row justify-around items-center py-2 mb-4 w-fit gap-3 mx-auto border rounded-lg border-2 " + className}>
           <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'pending' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('pending')}>
             <span className="text-lg font-bold mb-2">Pending</span>
           </div>
@@ -119,69 +214,57 @@ const Orders = () => {
             <span className="text-lg font-bold mb-2">Cancelled</span>
           </div>
         </div>
+    )
+  }
+
+  const SelectorSm = ({className}) => {
+    // create a select element
+    return (
+      <div className={"" + className}>
+        <select
+          value={selected}
+          onChange={(e) => setSelected(e.target.value)}
+          className="px-6 py-2 rounded-lg cursor-pointer"
+        >
+          <option value="pending">Pending</option>
+          <option value="progress">In Progress</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    );
+  }
 
 
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Order Number
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Title
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Subject
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Pages/Words
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Instructions
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Created on
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Completed on
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Due Date
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
 
-              {/* Add more headers as needed */}
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {getOrders().length === 0 ? (
-              <tr>
-                <td colSpan="12" className="px-6 py-4 text-center">
-                  {loading ? <Loader /> : 'No orders found.'}
-                </td>
-              </tr>
-            ) : (
-              getOrders().map((order) => (
-                <tr key={order.id}>
-                  <td className="px-6 py-4 whitespace-nowrap"><b>{order.order_number}</b></td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.orderTitle}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.subject}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.pages}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.instructions}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{createDate(order.created_at)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.completed_at ? createDate(order.completed_at) : 'N/A'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{createDate(order.dueDate)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <LinkComponent id={order.id} />
-                  </td>
-                  {/* Add more columns as needed */}
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+
+  return (
+    <div className='md:flex'>
+      <UserSidebar />
+      <div class="ml-0 lg:ml-80 mb-6 lg:w-[50%] xl:w-[50%] 2xl:w-[50%] p-4">
+
+        <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
+        <SelectorLg className={"hidden lg:flex"}/>
+        <SelectorSm className={"lg:hidden"}/>
+
+
+        {getOrders().length === 0 ? (
+          <tr>
+            <td colSpan="12" className="px-6 py-4 text-center">
+              {loading ? <Loader /> : 'No orders found.'}
+            </td>
+          </tr>
+        ) : (
+          getOrders().map((order) => (
+            <Link
+              to={`/user/job-details/${order.id}`}
+              state={{ userActions: getUserActions(selected) }}
+              className='text-black hover:text-black'
+            >
+              <Order order={order} LinkComponent={LinkComponent} />
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );

@@ -68,9 +68,8 @@ function UserSidebar() {
 
     return (
         <>
-            <div className="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5 mx-8">
+            <div className="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5 lg:mx-8">
                 <div className="px-6 flex items-center justify-between space-x-4 2xl:container">
-                    <h2 className="text-2xl text-black font-bold lg:ml-72 lg:mt-2">{heading}</h2>
                     <button
                         className="w-12 h-16 -mr-2 border-r lg:hidden"
                         onClick={() => setMenuOpen(!menuOpen)}
