@@ -7,6 +7,7 @@ const initialState = {
   refreshToken: localStorage.getItem("refreshToken") || null,
   accessToken: localStorage.getItem("accessToken") || null,
   profile: JSON.parse(localStorage.getItem("profile")) || null,
+  displayChat: false,
 };
 
 const appSlice = createSlice({
@@ -31,6 +32,9 @@ const appSlice = createSlice({
     setProfile: (state, action) => {
       state.profile = action.payload;
     },
+    setDisplayChat: (state, action) => {
+      state.displayChat = action.payload;
+    },
     clearUser: (state) => {
       state.user = null;
       state.emailAddress = "";
@@ -38,6 +42,7 @@ const appSlice = createSlice({
       state.refreshToken = null;
       state.accessToken = null;
       state.profile = null;
+      state.displayChat = false;
     },
   },
 });
@@ -50,6 +55,7 @@ export const {
   setAccessToken,
   setProfile,
   clearUser,
+  setDisplayChat,
 } = appSlice.actions;
 
 const store = configureStore({
@@ -64,6 +70,7 @@ store.subscribe(() => {
   localStorage.setItem("refreshToken", state.refreshToken);
   localStorage.setItem("accessToken", state.accessToken);
   localStorage.setItem("profile", JSON.stringify(state.profile));
+  localStorage.setItem("displayChat", state.displayChat);
 });
 
 export default store;

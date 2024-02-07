@@ -10,6 +10,8 @@ import Signup from "./Components/Auth/Signup";
 import OtpVerification from "./Components/Auth/OtpVerification";
 import Forgot from "./Components/Auth/Forgot";
 import Reset from "./Components/Auth/Reset";
+import ChatPage from "./Components/Chat/ChatPage";
+import { useState } from "react";
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -17,6 +19,7 @@ function App() {
   const isAdmin = user && user.user_type === "Admin";
   const isUser = user && user.user_type === "User";
   const isTutor = user && user.user_type === "Tutor";
+  const [display, setDisplay] = useState('none');
 
   return (
     <>
@@ -50,6 +53,7 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
+      <ChatPage display={display} setDisplay={setDisplay}/>
     </>
   );
 }

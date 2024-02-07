@@ -4,6 +4,7 @@ import { MdRemoveRedEye } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
+import { toast } from 'react-toastify';
 
 
 import { useSelector } from 'react-redux';
@@ -121,22 +122,32 @@ const Orders = () => {
     };
 
     if (user && user.user_id) {
-      fetchUserOrders().then((data) => {
-        let orders = data.map((order) => {
-          let instructions = order.instructions;
-          if (order.instructions.length > 30) {
-            instructions = order.instructions.slice(0, 30) + '...';
-          }
+      try {
+        fetchUserOrders().then((data) => {
+          let orders = data.map((order) => {
+            let instructions = order.instructions;
+            if (order.instructions.length > 30) {
+              instructions = order.instructions.slice(0, 30) + '...';
+            }
 
-          return { ...order, instructions: instructions };
+            return { ...order, instructions: instructions };
+          });
+          setUserOrders(orders);
+          setPendingOrders(orders.filter((order) => order.status.toLowerCase() === 'pending'));
+          setProgressOrders(orders.filter((order) => order.status.toLowerCase() === 'progress'));
+          setCompletedOrders(orders.filter((order) => order.status.toLowerCase() === 'completed'));
+          setCancelledOrders(orders.filter((order) => order.status.toLowerCase() === 'cancelled'));
+          setLoading(false);
         });
-        setUserOrders(orders);
-        setPendingOrders(orders.filter((order) => order.status.toLowerCase() === 'pending'));
-        setProgressOrders(orders.filter((order) => order.status.toLowerCase() === 'progress'));
-        setCompletedOrders(orders.filter((order) => order.status.toLowerCase() === 'completed'));
-        setCancelledOrders(orders.filter((order) => order.status.toLowerCase() === 'cancelled'));
+      } catch (error) {
+        toast.error('Error fetching orders. Please check your internet connection and try again.');
         setLoading(false);
-      });
+        setUserOrders([]);
+        setPendingOrders([]);
+        setProgressOrders([]);
+        setCompletedOrders([]);
+        setCancelledOrders([]);
+      }
     }
   }, [user]);
 
@@ -159,11 +170,11 @@ const Orders = () => {
         orders = pendingOrders;
     }
 
-      // //filter orders by search
-      if (search.length > 0) {
-        orders = orders.filter((order) => order.orderTitle.toLowerCase().includes(search.toLowerCase()));
-      }
-      return orders || [];
+    // //filter orders by search
+    if (search.length > 0) {
+      orders = orders.filter((order) => order.orderTitle.toLowerCase().includes(search.toLowerCase()));
+    }
+    return orders || [];
   }
 
   const getUserActions = (status) => {
@@ -210,26 +221,26 @@ const Orders = () => {
     );
   }
 
-  const SelectorLg = ({className}) => {
+  const SelectorLg = ({ className }) => {
     return (
       <div className={"flex flex-row justify-around items-center py-2 mb-4 w-fit gap-3 mx-auto border rounded-lg border-2 " + className}>
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'pending' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('pending')}>
-            <span className="text-lg font-bold mb-2">Pending</span>
-          </div>
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'progress' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('progress')}>
-            <span className="text-lg font-bold mb-2">In Progress</span>
-          </div>
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'completed' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('completed')}>
-            <span className="text-lg font-bold mb-2">Completed</span>
-          </div>
-          <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'cancelled' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('cancelled')}>
-            <span className="text-lg font-bold mb-2">Cancelled</span>
-          </div>
+        <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'pending' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('pending')}>
+          <span className="text-lg font-bold mb-2">Pending</span>
         </div>
+        <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'progress' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('progress')}>
+          <span className="text-lg font-bold mb-2">In Progress</span>
+        </div>
+        <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'completed' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('completed')}>
+          <span className="text-lg font-bold mb-2">Completed</span>
+        </div>
+        <div className={`flex flex-col items-center p-2 rounded-lg cursor-pointer ${selected === 'cancelled' ? 'bg-amber-600' : ''}`} onClick={() => setSelected('cancelled')}>
+          <span className="text-lg font-bold mb-2">Cancelled</span>
+        </div>
+      </div>
     )
   }
 
-  const SelectorSm = ({className}) => {
+  const SelectorSm = ({ className }) => {
     // create a select element
     return (
       <div className={"" + className}>
@@ -256,8 +267,8 @@ const Orders = () => {
       <div class="ml-0 lg:ml-80 mb-6 lg:w-[50%] xl:w-[50%] 2xl:w-[50%] p-4">
 
         <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
-        <SelectorLg className={"hidden lg:flex"}/>
-        <SelectorSm className={"lg:hidden"}/>
+        <SelectorLg className={"hidden lg:flex"} />
+        <SelectorSm className={"lg:hidden"} />
         <input type="text" placeholder="Search orders by title" className="w-full p-2 rounded-lg border-2 border-gray-200 " onChange={(e) => setSearch(e.target.value)} />
         {getOrders().length === 0 ? (
           <div className='flex flex-col items-center justify-center'>

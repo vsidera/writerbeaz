@@ -58,12 +58,13 @@ function Message({ message, userData, scroll }) {
     )
 }
 
-export default function Messages({ messageDetails, userData, scroll }) {
+export default function Messages({ messageDetails, userData, scroll, display}) {
     const [messages, setMessages] = useState(null);
     const [id, setId] = useState(null);
     const [sending, setSending] = useState(false);
     const user = useSelector((state) => state.user);
     const isAdmin = user && user.user_type == "Admin";
+    const [lastId, setLastId] = useState(0);
 
 
     const roomId = messageDetails?.roomId;
@@ -75,7 +76,18 @@ export default function Messages({ messageDetails, userData, scroll }) {
             await api
                 .get(`/api/${roomId}/`)
                 .then((response) => {
-                    setMessages(response.data);
+                    const fetchedMessages = response.data;
+                    try{
+                        if (fetchedMessages.length > 0) {
+                            const lastMessage = fetchedMessages[fetchedMessages.length - 1];
+                            if (lastMessage.id !== lastId) {
+                                setMessages(fetchedMessages);
+                                setLastId(lastMessage.id);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -88,7 +100,7 @@ export default function Messages({ messageDetails, userData, scroll }) {
 
         let isFetching = false;
 
-        if (roomId) {
+        if (roomId && display !== 'none') {
             let xid = setInterval(async () => {
                 console.log("Checking " + isFetching)
                 if (!isFetching) {
@@ -173,7 +185,8 @@ export default function Messages({ messageDetails, userData, scroll }) {
 
     return (
         <>
-            <div className="flex-grow p-6 overflow-y-auto">
+            <div className="p-6 overflow-y-auto h-[80%] ">
+                {/* Arrow back */}
                 {!roomId && (
                     <div className="text-center">Select a recipient to start chatting.</div>
                 )}
@@ -202,7 +215,7 @@ export default function Messages({ messageDetails, userData, scroll }) {
                 )}
             </div>
 
-            {roomId && <div className="py-4 px-6 bg-white absolute bottom-0 right-0 w-7/12">
+            {roomId && <div className="py-4 px-6 bg-white">
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();

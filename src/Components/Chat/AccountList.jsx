@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 
-export default function AccountList({ new_chat, messageDetails, setMessageDetails}) {
+export default function AccountList({ new_chat, setShowChat, messageDetails, setMessageDetails, display}) {
     const [messageList, setMessageList] = useState([]);
     const [newChat, setNewChat] = useState(new_chat);
     const [intervalInitialized, setIntervalInitialized] = useState(false);
@@ -12,6 +12,7 @@ export default function AccountList({ new_chat, messageDetails, setMessageDetail
     const [recipient, setRecipient] = useState(null);
     const user = useSelector((state) => state.user);
     const isAdmin = user && user.user_type == "Admin";
+    console.log(display);
 
 
     useEffect(() => {
@@ -29,7 +30,7 @@ export default function AccountList({ new_chat, messageDetails, setMessageDetail
             setMessageList([newChat]);
         }
 
-        const fetchAccounts = () => {
+        const fetchAccounts = async () => {
             api
                 .get('/api/accounts-list/')
                 .then((response) => {
@@ -60,12 +61,23 @@ export default function AccountList({ new_chat, messageDetails, setMessageDetail
                     console.error('Error fetching user data:', error);
                 });
         }
-        if (!intervalInitialized) {
+
+        let isFetching = false;
+
+        if (!intervalInitialized && display !== 'none') {
             fetchAccounts();
             if (!isAdmin) {
-                let xid = setInterval(fetchAccounts, 10000);
-                console.log("setting interval id: " + xid);
+                let xid = setInterval(async () => {
+                    if (!isFetching) {
+                        isFetching = true;
+                        fetchAccounts()
+                            .then(() => {
+                                isFetching = false;
+                            })
+                    }
+                }, 5000);
                 setId(xid);
+
             }
             setIntervalInitialized(true);
         }
@@ -94,7 +106,7 @@ export default function AccountList({ new_chat, messageDetails, setMessageDetail
 
 
     return (
-        <ul className="flex-grow overflow-y-auto">
+        <ul className="h-full overflow-y-auto">
             {Array.isArray(messageList) && messageList.length > 0 ? (
                 messageList.map((message, ind) => (
                     <li
@@ -105,6 +117,7 @@ export default function AccountList({ new_chat, messageDetails, setMessageDetail
                                 roomId: isAdmin ? message.username : message.order_number,
                                 recipient: message.email,
                             });
+                            setShowChat(true);
                         }}
                     >
                         <div className="flex-shrink-0 mr-3 mt-1">

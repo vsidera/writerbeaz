@@ -25,7 +25,7 @@ import SupportChat from '../Components/User/SupportChat';
 import JobDetails from '../Components/Tutor/JobDetails';
 
 
-function UserRouter() {
+function UserRouter({}) {
   return (
     <Routes>
         {/* <Route path="/" element={<Home />} /> */}

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
-import { clearUser, setProfile } from '../../../Redux/store';
+import { clearUser, setProfile, setDisplayChat } from '../../../Redux/store';
 import api from '../../../api/axiosConfig';
 import { FaBookOpen, FaFirstOrder, FaFolder, FaMailBulk, FaPlus, FaSpinner, FaUser } from 'react-icons/fa';
 
@@ -18,6 +18,7 @@ function UserSidebar() {
     const user = useSelector(state => state.user);
     const profile = useSelector(state => state.profile);
     const [bidCount, setBidCount] = useState(-1);
+
 
 
     let heading = 'My Dashboard';
@@ -65,6 +66,15 @@ function UserSidebar() {
         toast.success('User Logged out');
         navigate('/login')
     };
+
+    const openChat = () => {
+
+        // if small screen, close the sidebar
+        if (window.innerWidth < 1024) {
+            setMenuOpen(false);
+        }
+        dispatch(setDisplayChat(true));
+    }
 
     return (
         <>
@@ -184,8 +194,8 @@ function UserSidebar() {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink
-                                to="/user/chatx"
+                            <button
+                                onClick={openChat}
                                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${location.pathname === '/user/chatx' ? 'bg-black' : 'bg-transparent'
                                     }`}
                             >
@@ -194,7 +204,7 @@ function UserSidebar() {
                                     <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
                                 </svg>
                                 <span className={`${location.pathname === '/user/chatx' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>ChatX</span>
-                            </NavLink>
+                            </button>
                         </li>
                         <li>
                             <Link
