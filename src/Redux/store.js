@@ -8,6 +8,7 @@ const initialState = {
   accessToken: localStorage.getItem("accessToken") || null,
   profile: JSON.parse(localStorage.getItem("profile")) || null,
   displayChat: false,
+  newOrderMessage: null,
 };
 
 const appSlice = createSlice({
@@ -35,6 +36,9 @@ const appSlice = createSlice({
     setDisplayChat: (state, action) => {
       state.displayChat = action.payload;
     },
+    setNewOrderMessage: (state, action) => {
+      state.newOrderMessage = action.payload;
+    },
     clearUser: (state) => {
       state.user = null;
       state.emailAddress = "";
@@ -43,6 +47,7 @@ const appSlice = createSlice({
       state.accessToken = null;
       state.profile = null;
       state.displayChat = false;
+      state.newOrderMessage = null;
     },
   },
 });
@@ -56,6 +61,7 @@ export const {
   setProfile,
   clearUser,
   setDisplayChat,
+  setNewOrderMessage,
 } = appSlice.actions;
 
 const store = configureStore({
@@ -71,6 +77,7 @@ store.subscribe(() => {
   localStorage.setItem("accessToken", state.accessToken);
   localStorage.setItem("profile", JSON.stringify(state.profile));
   localStorage.setItem("displayChat", state.displayChat);
+  localStorage.setItem("newOrderMessage", JSON.stringify(state.newOrderMessage));
 });
 
 export default store;

@@ -64,7 +64,7 @@ export default function AccountList({ new_chat, setShowChat, messageDetails, set
 
         let isFetching = false;
 
-        if (!intervalInitialized && display !== 'none') {
+        if (!intervalInitialized) {
             fetchAccounts();
             if (!isAdmin) {
                 let xid = setInterval(async () => {

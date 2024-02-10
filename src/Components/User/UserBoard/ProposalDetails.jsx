@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import UserSidebar from './UserSidebar';
 import api from '../../../api/axiosConfig';
 import PaymentComponent from '../../../features/PaymentComponent';
 import Loader from '../../Loader';
+import { setNewOrderMessage, setDisplayChat } from '../../../Redux/store';
+
+
 const ProposalDetails = () => {
   const { id } = useParams();
 
@@ -13,6 +16,7 @@ const ProposalDetails = () => {
   const [price, setPrice] = useState(0);
   const user = useSelector(state => state.user);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -53,6 +57,9 @@ const ProposalDetails = () => {
       console.error('Error accepting proposal:', error);
     }
   }
+
+  const openNewChat = () => {
+  };
 
   return (
     <div>
@@ -122,7 +129,7 @@ const ProposalDetails = () => {
                         )}
                       </div>
                       <div className="w-1/2 ml-6">
-                        <Link
+                        {/* <Link
                           to={"/user/chatx"}
                           state={{
                             order_message: {
@@ -133,7 +140,19 @@ const ProposalDetails = () => {
                           className="text-blue-500 underline"
                         >
                           Message Tutor
-                        </Link>
+                        </Link> */}
+                        <button
+                          onClick={() => {
+                            dispatch(setNewOrderMessage({
+                              order_number: proposalDetails.order_number,
+                              email: proposalDetails.email,
+                            }));
+                            dispatch(setDisplayChat(true));
+                          }}
+                          className="text-blue-500 underline"
+                        >
+                          Message Tutor
+                        </button>
                       </div>
                     </div>
                   </>

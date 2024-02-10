@@ -19,7 +19,7 @@ function App() {
   const isAdmin = user && user.user_type === "Admin";
   const isUser = user && user.user_type === "User";
   const isTutor = user && user.user_type === "Tutor";
-  const [display, setDisplay] = useState('none');
+  // const [display, setDisplay] = useState('none');
 
   return (
     <>
@@ -53,7 +53,7 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
-      <ChatPage display={display} setDisplay={setDisplay}/>
+      <ChatPage/>
     </>
   );
 }

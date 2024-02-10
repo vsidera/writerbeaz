@@ -84,6 +84,8 @@ export default function Messages({ messageDetails, userData, scroll, display}) {
                                 setMessages(fetchedMessages);
                                 setLastId(lastMessage.id);
                             }
+                        } else {
+                            setMessages([]);
                         }
                     } catch (error) {
                         console.error('Error:', error);

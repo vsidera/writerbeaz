@@ -2,20 +2,31 @@ import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Messages from './Messages';
 import AccountList from './AccountList';
-import { setDisplayChat } from '../../Redux/store';
+import { setDisplayChat, setNewOrderMessage } from '../../Redux/store';
 
-const ChatPage = ({ order_message = null, display, setDisplay = null }) => {
+const ChatPage = ({ }) => {
   const scroll = useRef();
   const userData = useSelector((state) => state.user);
-  const [newChat, setNewChat] = useState(order_message);
+  const [display, setDisplay] = useState('none');
+
   const [messageDetails, setMessageDetails] = useState(null);
   const [showChat, setShowChat] = useState(false);
   const displayChat = useSelector((state) => state.displayChat);
+  const newOrderMessage = useSelector((state) => state.newOrderMessage);
   const dispatch = useDispatch();
+  const [newChat, setNewChat] = useState(newOrderMessage);
+
+  if (newOrderMessage) {
+    setNewChat(newOrderMessage);
+    dispatch(setNewOrderMessage(null));
+
+  }
+
 
 
   if (displayChat == true) {
     setDisplay('block');
+    dispatch(setDisplayChat(false));
   }
 
   const ChatHeading = () => {

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TutorSidebar from '../Layout/TutorSidebar';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 import Loader from '../Loader';
 import UserSidebar from '../User/UserBoard/UserSidebar';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { setDisplayChat, setNewOrderMessage } from '../../Redux/store';
 
 // Separate ProposalForm component
 const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal }) => (
@@ -310,6 +311,7 @@ const JobDetails = () => {
   const user = useSelector(state => state.user);
   console.log("User: ", user.user_type);
   const [propSubmitted, setPropSubmitted] = useState(false);
+  const dispatch = useDispatch();
 
   const [userActions, setUserActions] = useState(state?.userActions);
 
@@ -521,34 +523,35 @@ const JobDetails = () => {
               <UserActions userActions={userActions} setUserActions={setUserActions} jobDetails={jobDetails} setJobDetails={setJobDetails} submissionStatus={jobDetails.submission_status} />
               {user.user_id == jobDetails.tutor &&
                 <div className='flex w-fit mx-auto justify-center border-2 rounded-md px-6 py-2'>
-                  <Link
-                    to={"/tutor/chatx"}
-                    className='text-blue-500 underline'
-                    state={{
-                      order_message: {
+                  <button
+                    onClick={() => {
+                      dispatch(setNewOrderMessage({
                         order_number: jobDetails.order_number,
-                        email: jobDetails.tutor_email,
-                      }
+                        email: jobDetails.user_email,
+                      }));
+                      dispatch(setDisplayChat(true));
                     }}
+                    className="text-blue-500 underline"
                   >
                     Message client
-                  </Link>
+                  </button>
+
                 </div>
               }
               {user.user_id == jobDetails.user && jobDetails.tutor != null &&
                 <div className='flex w-fit mx-auto justify-center border-2 rounded-md px-6 py-2'>
-                  <Link
-                    to={"/user/chatx"}
-                    className='text-blue-500 underline'
-                    state={{
-                      order_message: {
+                  <button
+                    onClick={() => {
+                      dispatch(setNewOrderMessage({
                         order_number: jobDetails.order_number,
-                        email: jobDetails.user_email,
-                      }
+                        email: jobDetails.tutor_email,
+                      }));
+                      dispatch(setDisplayChat(true));
                     }}
+                    className="text-blue-500 underline"
                   >
-                    Message tutor
-                  </Link>
+                    Message Tutor
+                  </button>
                 </div>
               }
 
