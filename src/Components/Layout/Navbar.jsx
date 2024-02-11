@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Logout from '../Auth/Logout';
 import logoheader from '../../images/assets/logonobg.png'
-import { FaBookOpen } from 'react-icons/fa';
+import { FaBookOpen } from 'react-icons/fa';    
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -62,7 +62,7 @@ function Navbar() {
                         )}
                         <a href="#testimony"  className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '#testimonials' ? 'bg-black' : ''}`}>Testimonials
                         </a>
-                        <a href='#blog' style={{marginRight:'100px'}} className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '/signup' ? 'bg-black' : ''}`}>Blog</a>
+                        <a href="https://blogs.writerbeaz.com" style={{marginRight:'100px'}} className={`block md:inline font-bold text-black hover:bg-none hover:text-gray-900 hover:font-extrabold py-2 px-2 md:py-0 rounded-md ${location.pathname === '/signup' ? 'bg-black' : ''}`}>Blog</a>
                         {  (
                         <>
                             <div className="relative inline-block text-left">
