@@ -77,7 +77,7 @@ function TutorRegister() {
                     <div  className='space-y-5 mb-8 text-center'>
                 <h1 class="header-logo" >WriterBeaz<FaBookOpen /> </h1>
                     <div className='w-96 h-96' style={{backgroundImage: `url(/images/Fingerprint-cuate.svg)`}}></div>
-                    <p style={{fontStyle:'italic'}} className="text-lg text-center ">if you already have an account?</p>
+                    <p style={{fontStyle:'italic'}} className="text-lg text-center ">Already have an account?</p>
                     <Link to="/login" >
 <button class="button-30" role="button">Click To Login </button>                    </Link>
                 </div>

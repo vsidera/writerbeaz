@@ -74,7 +74,7 @@ const PaymentComponent = ({
         onMouseOver={(e) => e.currentTarget.style = { ...buttonStyles, ...buttonHoverStyles }}
         onMouseOut={(e) => e.currentTarget.style = buttonStyles}
       >
-        Pay Now
+        Hire Writer
       </button>
     </div>
   );
