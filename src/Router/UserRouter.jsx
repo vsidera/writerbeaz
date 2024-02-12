@@ -43,8 +43,8 @@ function UserRouter({}) {
         <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
         <Route path="/orderstatus/:id" element={<OrderStatus />} />
         <Route path="/job-details/:jobId" element={<JobDetails />} />
-        <Route path="/chatx" element={<UserChatX />} />
-        <Route path="/chat-support" element={<SupportChat />} />
+        {/* <Route path="/chatx" element={<UserChatX />} />
+        <Route path="/chat-support" element={<SupportChat />} /> */}
         {/* <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} /> */}
         <Route path="/login" element={<Login />} />

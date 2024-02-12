@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { clearUser, setProfile } from '../../Redux/store';
+import { clearUser, setProfile, setDisplayChat, setNewOrderMessage } from '../../Redux/store';
 import api from '../../api/axiosConfig';
 import { useSelector } from 'react-redux';
 import { FaBookOpen, FaFirstOrder, FaMailBulk, FaSearch, FaSpinner, FaUser } from 'react-icons/fa';
@@ -52,6 +52,26 @@ function TutorSidebar() {
     toast.success('Tutor Logged out');
     navigate('/login')
   };
+
+  const openChat = () => {
+    // if small screen, close the sidebar
+    if (window.innerWidth < 1024) {
+      setMenuOpen(false);
+    }
+    dispatch(setDisplayChat(true));
+  };
+
+  const openSupportChat = () => {
+    // if small screen, close the sidebar
+    if (window.innerWidth < 1024) {
+      setMenuOpen(false);
+    }
+    const orderMessage = {
+      order_number: 'SUPPORT'
+    }
+    dispatch(setNewOrderMessage(orderMessage));
+    dispatch(setDisplayChat(true));
+  }
 
   return (
     <>
@@ -149,8 +169,8 @@ function TutorSidebar() {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/tutor/chatx"
+              <button
+                onClick={openChat}
                 className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${location.pathname === '/tutor/chatx' ? 'bg-black' : 'bg-transparent'
                   }`}
               >
@@ -158,9 +178,8 @@ function TutorSidebar() {
                   <path className="fill-current text-gray-600 group-hover:text-cyan-600" d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
                   <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
                 </svg>
-
                 <span className={`${location.pathname === '/tutor/chatx' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>ChatX</span>
-              </NavLink>
+              </button>
             </li>
             <li>
               <NavLink
@@ -187,13 +206,24 @@ function TutorSidebar() {
               </NavLink>
             </li>
             <li>
-              <Link
+              {/* <Link
                 to="/tutor/chat-support"
                 className={`px-4 py-3 flex items-center space-x-4 rounded-lg mt-8 text-white bg-black group ${location.pathname === '/tutor/chat-support' ? 'bg-black' : ''
                   }`}
               >
                 Chat with Support
-              </Link>
+              </Link> */}
+              <button
+                onClick={openSupportChat}
+                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${location.pathname === '/tutor/chat-support' ? 'bg-black' : 'bg-transparent'
+                  }`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path className="fill-current text-gray-600 group-hover:text-cyan-600" d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
+                  <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
+                </svg>
+                <span className={`${location.pathname === '/tutor/chat-support' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>Chat Support</span>
+              </button>
             </li>
 
           </ul>

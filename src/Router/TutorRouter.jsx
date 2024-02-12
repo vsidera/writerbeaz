@@ -23,8 +23,8 @@ function TutorRouter() {
         <Route path="/bids" element={<Bids />} />
         <Route path="/inbox" element={<TutorInbox />} />
         <Route path="/works" element={<TutorWorks />} />
-        <Route path="/chatx" element={<TutorChatX />} />
-        <Route path="/chat-support" element={<SupportChat />} />
+        {/* <Route path="/chatx" element={<TutorChatX />} />
+        <Route path="/chat-support" element={<SupportChat />} /> */}
         <Route path="/job-details/:jobId" element={<JobDetails />} />
         <Route path="*" element={<NotFound404 />} />
     </Routes>
