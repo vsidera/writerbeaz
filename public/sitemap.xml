@@ -7,12 +7,6 @@
         <lastmod>2024-02-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-        <content-preview>
-            <![CDATA[
-                <h1>Welcome to WriterBeaz</h1>
-                <p>Explore our platform to connect with writers and access valuable writing resources.</p>
-            ]]>
-        </content-preview>
     </url>
 
     <!-- Signup Page -->
@@ -21,12 +15,6 @@
         <lastmod>2024-01-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
-        <content-preview>
-            <![CDATA[
-                <h1>Sign Up for WriterBeaz</h1>
-                <p>Create an account to access exclusive features and connect with writers.</p>
-            ]]>
-        </content-preview>
     </url>
 
     <!-- Login Page -->
@@ -35,12 +23,6 @@
         <lastmod>2024-01-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
-        <content-preview>
-            <![CDATA[
-                <h1>Login to WriterBeaz</h1>
-                <p>Log in to your account and manage your profile, projects, and interactions.</p>
-            ]]>
-        </content-preview>
     </url>
 
     <!-- Blog Section -->
@@ -48,12 +30,6 @@
         <loc>https://www.writerbeaz.com/#blog</loc>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-        <content-preview>
-            <![CDATA[
-                <h1>WriterBeaz Blog</h1>
-                <p>Discover insightful articles, tips, and guides on writing and storytelling.</p>
-            ]]>
-        </content-preview>
     </url>
 
     <!-- Team Section -->
@@ -61,12 +37,6 @@
         <loc>https://www.writerbeaz.com/#team</loc>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-        <content-preview>
-            <![CDATA[
-                <h1>Meet the WriterBeaz Team</h1>
-                <p>Learn about the individuals behind WriterBeaz.</p>
-            ]]>
-        </content-preview>
     </url>
 
     <!-- About Section -->
@@ -74,12 +44,6 @@
         <loc>https://www.writerbeaz.com/#about</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
-        <content-preview>
-            <![CDATA[
-                <h1>About WriterBeaz</h1>
-                <p>Discover our commitment to supporting learners worldwide.</p>
-            ]]>
-        </content-preview>
     </url>
 
     <!-- Services Section -->
@@ -87,12 +51,6 @@
         <loc>https://www.writerbeaz.com/#services</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
-        <content-preview>
-            <![CDATA[
-                <h1>WriterBeaz Services</h1>
-                <p>Explore our range of services designed to empower writers and enhance their skills.</p>
-            ]]>
-        </content-preview>
     </url>
 
 </urlset>
