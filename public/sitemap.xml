@@ -29,7 +29,7 @@
 
     <!-- Blog Section -->
     <url>
-        <loc>https://www.writerbeaz.com/#blog</loc>
+        <loc>https://blogs.writerbeaz.com</loc>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
