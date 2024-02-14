@@ -58,13 +58,15 @@ function Message({ message, userData, scroll }) {
     )
 }
 
-export default function Messages({ messageDetails, userData, scroll, display}) {
+export default function Messages({ messageDetails, userData, scroll, display, setMgId}) {
     const [messages, setMessages] = useState(null);
     const [id, setId] = useState(null);
     const [sending, setSending] = useState(false);
     const user = useSelector((state) => state.user);
     const isAdmin = user && user.user_type == "Admin";
     const [lastId, setLastId] = useState(0);
+
+    console.log("Time is: ", new Date(), " showing messages")
 
 
     const roomId = messageDetails?.roomId;
@@ -115,6 +117,7 @@ export default function Messages({ messageDetails, userData, scroll, display}) {
 
             }, 5000);
             setId(xid);
+            setMgId(xid);
         }
     }
         , [roomId, messages, sending]

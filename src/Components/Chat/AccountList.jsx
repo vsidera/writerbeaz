@@ -1,19 +1,15 @@
 import avatar from '../../images/avatar.jpg';
 import { Avatar } from "@material-tailwind/react";
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../api/axiosConfig';
 
-export default function AccountList({ new_chat, setShowChat, messageDetails, setMessageDetails, display}) {
+export default function AccountList({ setShowChat, messageDetails, setMessageDetails, setAcId, added, setAdded, dispatch, setNewOrderMessage, newChat, setNewChat}) {
     const [messageList, setMessageList] = useState([]);
-    const [newChat, setNewChat] = useState(new_chat);
     const [intervalInitialized, setIntervalInitialized] = useState(false);
     const [id, setId] = useState(null);
-    const [recipient, setRecipient] = useState(null);
     const user = useSelector((state) => state.user);
     const isAdmin = user && user.user_type == "Admin";
-    console.log(display);
-
 
     useEffect(() => {
         if (newChat) {
@@ -21,41 +17,18 @@ export default function AccountList({ new_chat, setShowChat, messageDetails, set
                 roomId: isAdmin ? newChat.username : newChat.order_number,
                 recipient: newChat.email,
             });
-            return;
-        }
-    }, []);
-
-    useEffect(() => {
-        if (newChat) {
-            setMessageList([newChat]);
+            setShowChat(true);
+            dispatch(setNewOrderMessage(null));
         }
 
-        const fetchAccounts = async () => {
+        const fetchAccounts = async (messages) => {
+            console.log("Message list:", messages)
+
             api
                 .get('/api/accounts-list/')
                 .then((response) => {
-                    if (newChat) {
-                        //if response.data contains newChat, then don't add it
-                        //else add it
-                        var found = false;
-                        for (var i = 0; i < response.data.length; i++) {
-                            if (response.data[i].order_number == newChat.order_number) {
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            setMessageList([...response.data, newChat]);
-                            setNewChat(null);
-                        }
-                        else {
-                            setMessageList(response.data);
-                            setNewChat(null);
-                        }
-                    }
-                    else {
-                        setMessageList(response.data);
-                    }
+                    console.log("Response: ", response.data)
+                    setMessageList(response.data);
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error);
@@ -64,19 +37,22 @@ export default function AccountList({ new_chat, setShowChat, messageDetails, set
 
         let isFetching = false;
 
+        console.log("Interval initialized: ", intervalInitialized)
+
         if (!intervalInitialized) {
-            fetchAccounts();
+            fetchAccounts(messageList);
             if (!isAdmin) {
                 let xid = setInterval(async () => {
                     if (!isFetching) {
                         isFetching = true;
-                        fetchAccounts()
+                        fetchAccounts(messageList)
                             .then(() => {
                                 isFetching = false;
                             })
                     }
                 }, 5000);
                 setId(xid);
+                setAcId(xid);
 
             }
             setIntervalInitialized(true);
@@ -87,7 +63,7 @@ export default function AccountList({ new_chat, setShowChat, messageDetails, set
                 clearInterval(id);
             }
         }
-    }, []);
+    }, [newChat]);
 
 
     const isSelected = (message) => {
@@ -102,8 +78,6 @@ export default function AccountList({ new_chat, setShowChat, messageDetails, set
         }
         return false;
     }
-
-
 
     return (
         <ul className="h-full overflow-y-auto">

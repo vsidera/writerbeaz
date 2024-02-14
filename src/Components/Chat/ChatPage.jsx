@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Messages from './Messages';
 import AccountList from './AccountList';
@@ -9,25 +9,37 @@ const ChatPage = ({ }) => {
   const userData = useSelector((state) => state.user);
   const [display, setDisplay] = useState('none');
 
+  const dispatch = useDispatch();
+  const newOrderMessage = useSelector((state) => state.newOrderMessage);
+  const displayChat = useSelector((state) => state.displayChat);
+  const [acId, setAcId] = useState(null);
+  const [mgId, setMgId] = useState(null);
+  const [added, setAdded] = useState(false);
+
   const [messageDetails, setMessageDetails] = useState(null);
   const [showChat, setShowChat] = useState(false);
-  const displayChat = useSelector((state) => state.displayChat);
-  const newOrderMessage = useSelector((state) => state.newOrderMessage);
-  const dispatch = useDispatch();
-  const [newChat, setNewChat] = useState(newOrderMessage);
+  const [newChat, setNewChat] = useState(null);
 
-  if (newOrderMessage) {
+
+  useEffect(() => {
+    console.log("Changed!")
     setNewChat(newOrderMessage);
-    dispatch(setNewOrderMessage(null));
+    if(display == 'none'){
+      setDisplay(displayChat);
+    }
+  }, [newOrderMessage]);
 
+  const cleanUp = () => {
+    clearInterval(acId);
+    clearInterval(mgId);
+  }
+
+  if(display === 'none'){
+    cleanUp();
+    return <></>
   }
 
 
-
-  if (displayChat == true) {
-    setDisplay('block');
-    dispatch(setDisplayChat(false));
-  }
 
   const ChatHeading = () => {
     return (
@@ -65,8 +77,9 @@ const ChatPage = ({ }) => {
         < div
           className='flex justify-center items-center w-6 h-6 text-white bg-red-500 rounded-full cursor-pointer'
           onClick={() => {
-            dispatch(setDisplayChat(false));
+            cleanUp();
             setDisplay('none');
+            dispatch(setDisplayChat('none'));
           }}>
           x
         </div>
@@ -77,7 +90,7 @@ const ChatPage = ({ }) => {
 
 
   return (
-    <div className={"overflow-hidden h-full w-full lg:w-1/5 fixed bg-white top-0 lg:top-16 lg:right-4 border-2 border-gray-300 z-40" + (display === 'none' ? ' hidden' : '')}>
+    <div className={"overflow-hidden h-full w-full lg:w-1/5 fixed bg-white top-0 lg:top-16 lg:right-4 border-2 border-gray-300 z-40" + (display === 'none' ? '' : '')}>
       <div className="flex flex-col w-full h-full border-r border-gray-200">
         <div>
           <ChatHeading />
@@ -89,14 +102,21 @@ const ChatPage = ({ }) => {
             scroll={scroll}
             display={display}
             setShowChat={setShowChat}
+            setMgId={setMgId}
           />
         ) : (
           <AccountList
-            new_chat={newChat}
             setShowChat={setShowChat}
             messageDetails={messageDetails}
             setMessageDetails={setMessageDetails}
             display={display}
+            setAcId={setAcId}
+            added={added}
+            setAdded={setAdded}
+            dispatch={dispatch}
+            setNewOrderMessage={setNewOrderMessage}
+            newChat={newChat}
+            setNewChat={setNewChat}
           />
         )}
       </div>

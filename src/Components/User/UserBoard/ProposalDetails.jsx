@@ -17,6 +17,7 @@ const ProposalDetails = () => {
   const user = useSelector(state => state.user);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  dispatch(setNewOrderMessage(null));
 
 
   useEffect(() => {
@@ -59,6 +60,13 @@ const ProposalDetails = () => {
   }
 
   const openNewChat = () => {
+    const orderMessage = {
+      order_number: proposalDetails.order_number,
+      email: proposalDetails.email,
+    }
+
+    dispatch(setNewOrderMessage(orderMessage))
+    dispatch(setDisplayChat(true));
   };
 
   return (
@@ -143,11 +151,13 @@ const ProposalDetails = () => {
                         </Link> */}
                         <button
                           onClick={() => {
-                            dispatch(setNewOrderMessage({
-                              order_number: proposalDetails.order_number,
-                              email: proposalDetails.email,
-                            }));
-                            dispatch(setDisplayChat(true));
+                            // console.log("Proposal details", proposalDetails)
+                            // dispatch(setNewOrderMessage({
+                            //   order_number: proposalDetails.order_number,
+                            //   email: proposalDetails.email,
+                            // }));
+                            // dispatch(setDisplayChat(true));
+                            openNewChat();
                           }}
                           className="text-blue-500 underline"
                         >
