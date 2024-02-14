@@ -67,10 +67,10 @@ const  Footer=()=>{
                 <a  href="#services">
                 <p>Services{''} <FaServer className="icons"/>
 </p>
-                </a>
-                <a  href="#portfolio">
-                <p>Our Team {''}<FaTeamspeak className="icons"/>
-</p>
+</a>
+                {/* Updated section to link to T&Cs */}
+                <a href="https://terms-of-use.writerbeaz.com/" rel="noopener noreferrer">
+                    <p>T&Cs {''}<FaTeamspeak className="icons" /></p>
                 </a>
                
                 </div>
