@@ -22,19 +22,22 @@ const ChatPage = ({ }) => {
 
 
   useEffect(() => {
-    console.log("Changed!")
+    console.log("Called!", display, displayChat);
     setNewChat(newOrderMessage);
-    if(display == 'none'){
-      setDisplay(displayChat);
-    }
-  }, [newOrderMessage]);
+    setDisplay(displayChat);
+  }, [newOrderMessage, displayChat]);
 
   const cleanUp = () => {
     clearInterval(acId);
     clearInterval(mgId);
+    dispatch(setNewOrderMessage(null));
+    // dispatch(setDisplayChat('none'));
   }
 
-  if(display === 'none'){
+  if (display === 'none' || displayChat === 'none') {
+    if (display !== 'none') {
+      setDisplay('none');
+    }
     cleanUp();
     return <></>
   }
@@ -77,9 +80,8 @@ const ChatPage = ({ }) => {
         < div
           className='flex justify-center items-center w-6 h-6 text-white bg-red-500 rounded-full cursor-pointer'
           onClick={() => {
-            cleanUp();
-            setDisplay('none');
             dispatch(setDisplayChat('none'));
+            cleanUp();
           }}>
           x
         </div>

@@ -66,7 +66,7 @@ const ProposalDetails = () => {
     }
 
     dispatch(setNewOrderMessage(orderMessage))
-    dispatch(setDisplayChat(true));
+    dispatch(setDisplayChat('block'));
   };
 
   return (

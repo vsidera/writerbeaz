@@ -72,7 +72,7 @@ function UserSidebar() {
         if (window.innerWidth < 1024) {
             setMenuOpen(false);
         }
-        dispatch(setDisplayChat(true));
+        dispatch(setDisplayChat('block'));
     }
 
     const openSupportChat = () => {
@@ -84,7 +84,7 @@ function UserSidebar() {
           order_number: 'SUPPORT'
         }
         dispatch(setNewOrderMessage(orderMessage));
-        dispatch(setDisplayChat(true));
+        dispatch(setDisplayChat('block'));
       }
 
     return (
@@ -220,14 +220,10 @@ function UserSidebar() {
                         <li>
                             <button
                                 onClick={openSupportChat}
-                                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${location.pathname === '/tutor/chat-support' ? 'bg-black' : 'bg-transparent'
+                                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-white group bg-black mt-4 mx-auto'
                                     }`}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path className="fill-current text-gray-600 group-hover:text-cyan-600" d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
-                                    <path className="fill-current text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
-                                </svg>
-                                <span className={`${location.pathname === '/tutor/chat-support' ? 'font-bold text-white' : '-mr-1 font-medium '}`}>Chat Support</span>
+                                <span className="">Chat Support</span>
                             </button>
                         </li>
 

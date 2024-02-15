@@ -7,7 +7,7 @@ const initialState = {
   refreshToken: localStorage.getItem("refreshToken") || null,
   accessToken: localStorage.getItem("accessToken") || null,
   profile: JSON.parse(localStorage.getItem("profile")) || null,
-  displayChat: false,
+  displayChat: 'none',
   newOrderMessage: null,
 };
 
@@ -46,7 +46,7 @@ const appSlice = createSlice({
       state.refreshToken = null;
       state.accessToken = null;
       state.profile = null;
-      state.displayChat = false;
+      state.displayChat = 'none';
       state.newOrderMessage = null;
     },
   },

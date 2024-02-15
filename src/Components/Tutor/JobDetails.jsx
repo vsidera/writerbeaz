@@ -376,8 +376,6 @@ const JobDetails = () => {
     return false;
   }
 
-
-
   const isValidPrice = (value) => /^[1-9]\d*$/.test(value);
 
   const handleProposalSubmission = async (event) => {
@@ -529,7 +527,7 @@ const JobDetails = () => {
                         order_number: jobDetails.order_number,
                         email: jobDetails.user_email,
                       }));
-                      dispatch(setDisplayChat(true));
+                      dispatch(setDisplayChat('block'));
                     }}
                     className="text-blue-500 underline"
                   >
@@ -546,7 +544,7 @@ const JobDetails = () => {
                         order_number: jobDetails.order_number,
                         email: jobDetails.tutor_email,
                       }));
-                      dispatch(setDisplayChat(true));
+                      dispatch(setDisplayChat('block'));
                     }}
                     className="text-blue-500 underline"
                   >
