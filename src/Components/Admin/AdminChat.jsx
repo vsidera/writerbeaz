@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import AdminSidebar from '../Layout/AdminSidebar';
-import AChat from '../Chat/AChat';
+import AChat from '../AdminChat/AChat';
 
 function AdminChatX() {
 
