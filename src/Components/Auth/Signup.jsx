@@ -72,11 +72,11 @@ function handleClick(params) {
   const handlePhoneChange = (value) => {
     setPhone(value);
 
-    if (!/^\d{12}$/.test(value)) {
+    if (!/^\d{10,12}$/.test(value)) {
       if (error !== 'email' && error !== 'password' && error !== 'confirm password') {
         setError('phone');
       }
-      setPhoneError('Phone number must be no more than 12 digits');
+      setPhoneError('Phone number must be between 10 and 12 digits');
     } else {
       setPhoneError('');
       if (error === 'phone') setError('');
