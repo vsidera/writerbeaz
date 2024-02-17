@@ -72,11 +72,11 @@ function handleClick(params) {
   const handlePhoneChange = (value) => {
     setPhone(value);
 
-    if (!/^\d{10,12}$/.test(value)) {
+    if (!/^\d{10,13}$/.test(value)) {
       if (error !== 'email' && error !== 'password' && error !== 'confirm password') {
         setError('phone');
       }
-      setPhoneError('Phone number must be between 10 and 12 digits');
+      setPhoneError('Phone number must be between 10 and 13 digits');
     } else {
       setPhoneError('');
       if (error === 'phone') setError('');
@@ -155,14 +155,14 @@ function handleClick(params) {
         navigate('/otp-verification');
 
       } else {
-        toast.error("Error occurred! Please check your inputs");
+        toast.error("Error occurred! Please check one or more inputs");
       }
     } catch (error) {
       console.error('Signup Error:', error);
       if (error.response.data.error) {
         toast.error(error.response.data.error);
       } else {
-        toast.error('Error occurred! Please check your inputs');
+        toast.error('Error occurred! Please check one or more inputs');
       }
     }
     finally {
@@ -178,7 +178,7 @@ function handleClick(params) {
                 <div  className='space-y-5 mb-8 text-center'>
                 <h1 class="header-logo" onClick={handleClick}>WriterBeaz<FaBookOpen /> </h1>
                     <div className='w-96 h-96' style={{backgroundImage: `url(/images/Fingerprint-cuate.svg)`}}></div>
-                    <p style={{fontStyle:'italic'}} className="text-lg text-center ">if you already have an account?</p>
+                    <p style={{fontStyle:'italic'}} className="text-lg text-center ">Already have an account?</p>
                     <Link to="/login" >
 <button class="button-30" role="button">Click To Login </button>                    </Link>
                 </div>
