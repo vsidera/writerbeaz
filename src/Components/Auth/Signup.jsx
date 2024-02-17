@@ -76,7 +76,7 @@ function handleClick(params) {
       if (error !== 'email' && error !== 'password' && error !== 'confirm password') {
         setError('phone');
       }
-      setPhoneError('Phone number must be 10 digits');
+      setPhoneError('Phone number must be no more than 12 digits');
     } else {
       setPhoneError('');
       if (error === 'phone') setError('');
