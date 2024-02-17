@@ -72,7 +72,7 @@ function handleClick(params) {
   const handlePhoneChange = (value) => {
     setPhone(value);
 
-    if (!/^\d{10}$/.test(value)) {
+    if (!/^\d{12}$/.test(value)) {
       if (error !== 'email' && error !== 'password' && error !== 'confirm password') {
         setError('phone');
       }
