@@ -104,7 +104,7 @@ const JobForm = ({ jobDetails = null, edit, upload }) => {
         },
       });
 
-      toast.success('Order placed successfully., Writers will start bidding soon! Go to "My bids" section to view the bids.', { duration: 10000 });
+      toast.success('Order placed successfully., Writers will start bidding soon! Refresh and go to "Bids" section to view the bids.', { duration: 10000 });
       navigate('/user/orders');
     } catch (error) {
       console.error('Submission Error:', error);
@@ -300,10 +300,17 @@ const JobForm = ({ jobDetails = null, edit, upload }) => {
                 required
               >
                 <option value="">Select Citation</option>
-                <option value="APA">APA</option>
-                <option value="MLA">MLA</option>
+                <option value="APA 6th Edition">APA 6th Edition</option>
+                <option value="APA 7th Edition">APA 7th Edition</option>
                 <option value="Chicago">Chicago</option>
-                <option value="Harvard">Harvard</option>
+                <option value="MLA">MLA</option>
+                <option value="Havard">Havard</option>
+                <option value="APA">OSCOLA</option>
+                <option value="Bluebook">Bluebook</option>
+                <option value="IEE">IEE</option>
+                <option value="Vancouver">Vancouver</option>
+                <option value="MHRA">MHRA</option>
+                <option value="AMA">AMA</option>
               </select>
             </div>
 
