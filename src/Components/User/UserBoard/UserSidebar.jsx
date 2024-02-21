@@ -115,7 +115,7 @@ function UserSidebar() {
 
             <aside style={{ boxShadow: '0 0 2px', background: 'linear-gradient(to bottom ,#AD9551 , goldenrod)' }}
                 className={`${menuOpen ? 'ml-0' : '-ml-[100%]'
-                    } fixed z-10 top-0 pb-3 px-6 flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]`}
+                    } fixed z-10 top-0 pb-3 px-6 flex flex-col justify-between h-screen border-r bg-gradient-to-r from-cyan-500 to-blue-500 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%] overflow-y-auto`}
             >
                 <button onClick={() => setMenuOpen(false)} className="absolute top-2 right-2 text-blue-800 focus:outline-none hover:text-black lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -147,7 +147,7 @@ function UserSidebar() {
                                 <Link className='font-bold text-xs text-gray-700 hover:text-gray-600 md:ml-2' to='/user/profile'>view profile</Link>
                             </div>
                         )}</div>
-                    <ul className="space-y- tracking-wide mt-8">
+                    <ul className="tracking-wide mt-8 overflow-y-auto">
                         <li >
                             <Link style={{ boxShadow: '0 0 10px' }}
                                 to="/user/post-job"

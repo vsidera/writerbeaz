@@ -48,7 +48,10 @@ function Message({ message, userData, scroll }) {
 
                 </div>
                 <div className="text-xs text-gray-400 mt-1">
-                    {new Date(message.timestamp).toLocaleTimeString([], {
+                    {new Date(message.timestamp).toLocaleString([], {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit',
                     })}

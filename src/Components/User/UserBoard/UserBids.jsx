@@ -47,9 +47,9 @@ function UserBids() {
   }, [user.user_id, jobProposals.length]);
 
   return (
-    <div>
+    <div className='md:flex'>
       <UserSidebar />
-      <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+      <div class="ml-0 lg:ml-80 mb-6 lg:w-[50%] xl:w-[50%] 2xl:w-[50%] p-4">
         <h1 className="text-3xl font-bold mb-4">Proposals for Your Jobs</h1>
         {jobProposals.length > 0 ? (
           <div>
