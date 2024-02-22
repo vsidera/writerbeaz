@@ -29,6 +29,9 @@ const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposa
           required
         />
       </label>
+    </div>
+    
+    <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700">
         Price
         <input
@@ -54,6 +57,7 @@ const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposa
     </button>
   </form>
 );
+
 
 const SubmissionFile = ({ file, removeFile, downloadFile, submitted = false }) => {
   console.log("File: ", file);
