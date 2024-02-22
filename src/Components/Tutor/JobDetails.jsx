@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { setDisplayChat, setNewOrderMessage } from '../../Redux/store';
 
 // Separate ProposalForm component
-const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal }) => (
+const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal, price, setPrice }) => (
   <form
     onSubmit={onSubmit}
     className="absolute mt-6 ml-8 bg-[#f6f6f6] p-4 border border-gray-300 rounded-md"
@@ -20,25 +20,25 @@ const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposa
     <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700"> 
         Message to client
-      <textarea
-        name='proposal'
-        value={proposal}
-        onChange={(e) => setProposal(e.target.value)}
-        rows={6} // Adjust the number of rows as needed
-        className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-        required
-      />
-    </label>
+        <textarea
+          name='proposal'
+          value={proposal}
+          onChange={(e) => setProposal(e.target.value)}
+          rows={6} // Adjust the number of rows as needed
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+          required
+        />
+      </label>
       <label className="block text-sm font-medium text-gray-700">
         Price
-      <input
-        type='number'
-        name='price'
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-        required
-      />
+        <input
+          type='number'
+          name='price'
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+          required
+        />
       </label>
     </div>
 
