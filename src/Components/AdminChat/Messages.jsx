@@ -1,4 +1,4 @@
-import avatar from '../../images/avatar.jpg';
+import avatar from '../../images/support.jpg';
 import { Avatar } from "@material-tailwind/react";
 import { useState, useEffect } from 'react';
 import api from '../../api/axiosConfig';
