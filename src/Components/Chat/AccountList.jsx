@@ -9,7 +9,7 @@ export default function AccountList({ setShowChat, messageDetails, setMessageDet
     const [intervalInitialized, setIntervalInitialized] = useState(false);
     const [id, setId] = useState(null);
     const user = useSelector((state) => state.user);
-    const isAdmin = user && user.user_type == "Admin";
+    const isAdmin = user && user.user_type === "Admin";
 
     useEffect(() => {
         if (newChat) {
@@ -21,34 +21,29 @@ export default function AccountList({ setShowChat, messageDetails, setMessageDet
             dispatch(setNewOrderMessage(null));
         }
 
-        const fetchAccounts = async (messages) => {
-            console.log("Message list:", messages)
-
-            api
-                .get('/api/accounts-list/')
-                .then((response) => {
-                    console.log("Response: ", response.data)
-                    setMessageList(response.data);
-                })
-                .catch((error) => {
-                    console.error('Error fetching user data:', error);
-                });
-        }
+        const fetchAccounts = async () => {
+            try {
+                const response = await api.get('/api/accounts-list/');
+                setMessageList(response.data);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
 
         let isFetching = false;
 
-        console.log("Interval initialized: ", intervalInitialized)
+        console.log("Interval initialized: ", intervalInitialized);
 
         if (!intervalInitialized) {
-            fetchAccounts(messageList);
+            fetchAccounts();
             if (!isAdmin) {
                 let xid = setInterval(async () => {
                     if (!isFetching) {
                         isFetching = true;
-                        fetchAccounts(messageList)
+                        fetchAccounts()
                             .then(() => {
                                 isFetching = false;
-                            })
+                            });
                     }
                 }, 5000);
                 setId(xid);
@@ -62,7 +57,7 @@ export default function AccountList({ setShowChat, messageDetails, setMessageDet
             if (id) {
                 clearInterval(id);
             }
-        }
+        };
     }, [newChat]);
 
 
@@ -70,22 +65,22 @@ export default function AccountList({ setShowChat, messageDetails, setMessageDet
         if (!messageDetails) {
             return false;
         }
-        if (isAdmin && message.username == messageDetails.roomId) {
+        if (isAdmin && message.username === messageDetails.roomId) {
             return true;
         }
-        else if (!isAdmin && message.order_number == messageDetails.roomId) {
+        else if (!isAdmin && message.order_number === messageDetails.roomId) {
             return true;
         }
         return false;
-    }
+    };
 
-    const supportIndex = messageList.findIndex((message) => message.order_number == "SUPPORT");
-    console.log("Support index: ", supportIndex)
+    const supportIndex = messageList.findIndex((message) => message.order_number === "SUPPORT");
+    console.log("Support index: ", supportIndex);
 
 
     return (
         <ul className="h-full overflow-y-auto">
-            {supportIndex != -1 && messageList.length > 1 ? (
+            {supportIndex !== -1 && messageList.length > 1 ? (
                 <li
                     key={supportIndex}
                     className={`flex items-center py-3 px-4 cursor-pointer` + (isSelected(messageList[supportIndex]) ? " bg-gray-200" : "")}
@@ -116,7 +111,7 @@ export default function AccountList({ setShowChat, messageDetails, setMessageDet
             {Array.isArray(messageList) && messageList.length > 0 ? (
                 messageList.map((message, ind) => (
                     <>
-                        {message.order_number == "SUPPORT" ? <></> :
+                        {message.order_number === "SUPPORT" ? <></> :
                             <li
                                 key={ind}
                                 className={`flex items-center py-3 px-4 cursor-pointer` + (isSelected(message) ? " bg-gray-200" : "")}
@@ -139,7 +134,7 @@ export default function AccountList({ setShowChat, messageDetails, setMessageDet
                                 <div className="flex-grow">
                                     <h3 className="text-start ms-3 text-lg font-semibold">
                                         {isAdmin && message.username}
-                                        {!isAdmin && (message.order_number == "SUPPORT" ? "SUPPORT" : "Order " + message.order_number)}
+                                        {!isAdmin && (message.order_number === "SUPPORT" ? "SUPPORT" : "Order " + message.order_number)}
                                     </h3>
                                 </div>
                                 {/* You can add online/offline status indicators here */}
