@@ -181,6 +181,7 @@ const ProposalDetails = () => {
                           publishable={process.env.REACT_APP_PUBLIC}
                           onCompleted={() => handleAccept(user.user_id, proposalDetails.order_number)}
                           onFailed={() => toast.error('Payment failed!')}
+                          buttonText={"Hire Writer"}
                         />
                       </div>
                     ) : (

@@ -9,6 +9,7 @@ import UserSidebar from '../User/UserBoard/UserSidebar';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { setDisplayChat, setNewOrderMessage } from '../../Redux/store';
+import PaymentComponent from '../../features/PaymentComponent';
 
 // Separate ProposalForm component
 const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal }) => (
@@ -378,6 +379,15 @@ const JobDetails = () => {
 
   const isValidPrice = (value) => /^[1-9]\d*$/.test(value);
 
+  const showTip = () => {
+    //show tip if the user is the client and the tutor is not null and order status is not cancelled
+    if (user.user_id == jobDetails.user && jobDetails.tutor != null && jobDetails.status != "cancelled") {
+      return true;
+    }
+
+    return false;
+  }
+
   const handleProposalSubmission = async (event) => {
     event.preventDefault();
 
@@ -440,37 +450,37 @@ const JobDetails = () => {
               <div className={`job-details ${isProposalSubmitted ? '' : ''}`}>
                 {Object.entries(jobDetails).map(([key, value]) => (
                   <>
-                  { key == "user_email" || key == "tutor_email" ? (
-                    <></>
-                  ) : (
-                  <p key={key} className="mb-2">
-                    <span className="font-bold">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}:</span>
-                    {key === 'files' ? (
-                      // display a list of filenames color blue text, underlined, and clickable
-                      <span>
-
-                        {value == null ? "No files" : (
-                          value.map((file) => (
-                            <span key={file}>
-                              <span
-                                className="text-blue-500 hover:underline cursor-pointer"
-                                onClick={() => downloadFile(file)}
-                              >
-                                {file.split('/').pop()}
-                              </span>
-                              <br />
-                            </span>
-                          ))
-                        )}
-                      </span>
+                    {key == "user_email" || key == "tutor_email" ? (
+                      <></>
                     ) : (
-                      <span>{" "}
+                      <p key={key} className="mb-2">
+                        <span className="font-bold">{key.replace(/([a-z])([A-Z])/g, '$1 $2')}:</span>
+                        {key === 'files' ? (
+                          // display a list of filenames color blue text, underlined, and clickable
+                          <span>
 
-                        {value == null ? "null" : value.toString()}
-                      </span>
+                            {value == null ? "No files" : (
+                              value.map((file) => (
+                                <span key={file}>
+                                  <span
+                                    className="text-blue-500 hover:underline cursor-pointer"
+                                    onClick={() => downloadFile(file)}
+                                  >
+                                    {file.split('/').pop()}
+                                  </span>
+                                  <br />
+                                </span>
+                              ))
+                            )}
+                          </span>
+                        ) : (
+                          <span>{" "}
+
+                            {value == null ? "null" : value.toString()}
+                          </span>
+                        )}
+                      </p>
                     )}
-                  </p>
-                  )}
                   </>
                 ))}
               </div>
@@ -519,6 +529,22 @@ const JobDetails = () => {
                 />
               }
               <UserActions userActions={userActions} setUserActions={setUserActions} jobDetails={jobDetails} setJobDetails={setJobDetails} submissionStatus={jobDetails.submission_status} />
+              {showTip() &&
+                <div className='flex justify-center mb-4'>
+                  <PaymentComponent
+                    country={"US"}
+                    currency={"USD"}
+                    email={user.email}
+                    first_name={user.first_name}
+                    last_name={user.last_name}
+                    redirect_url={window.location.href}
+                    publishable={process.env.REACT_APP_PUBLIC}
+                    onCompleted={() => toast.success('Transaction was successful!')}
+                    onFailed={() => toast.error('Payment failed!')}
+                    buttonText={"Tip Writer"}
+                  />
+                </div>
+              }
               {user.user_id == jobDetails.tutor &&
                 <div className='flex w-fit mx-auto justify-center border-2 rounded-md px-6 py-2'>
                   <button

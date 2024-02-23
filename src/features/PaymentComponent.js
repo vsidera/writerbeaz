@@ -11,6 +11,7 @@ const PaymentComponent = ({
   country,
   onCompleted,
   onFailed,
+  buttonText,
 }) => {
   useEffect(() => {
     const intaSendScript = document.createElement("script");
@@ -74,7 +75,7 @@ const PaymentComponent = ({
         onMouseOver={(e) => e.currentTarget.style = { ...buttonStyles, ...buttonHoverStyles }}
         onMouseOut={(e) => e.currentTarget.style = buttonStyles}
       >
-        Hire Writer
+        {buttonText}
       </button>
     </div>
   );
