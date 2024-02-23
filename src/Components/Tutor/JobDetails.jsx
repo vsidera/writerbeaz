@@ -12,31 +12,38 @@ import { setDisplayChat, setNewOrderMessage } from '../../Redux/store';
 import PaymentComponent from '../../features/PaymentComponent';
 
 // Separate ProposalForm component
-const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal }) => (
+const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal, price, setPrice }) => (
   <form
     onSubmit={onSubmit}
     className="absolute mt-6 ml-8 bg-[#f6f6f6] p-4 border border-gray-300 rounded-md"
     style={{ top: '-550%', left: '16%', transform: 'translateX(-50%)', boxShadow: '0 0 10px ' }}
   >
     <div className="mb-4">
-      <label className="block text-sm font-medium text-gray-700">
+      <label className="block text-sm font-medium text-gray-700"> 
         Message to client
+        <textarea
+          name='proposal'
+          value={proposal}
+          onChange={(e) => setProposal(e.target.value)}
+          rows={6} // Adjust the number of rows as needed
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+          required
+        />
       </label>
-      <input
-        type='textarea'
-        name='proposal'
-        className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-        required
-      />
+    </div>
+    
+    <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700">
         Price
+        <input
+          type='number'
+          name='price'
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+          required
+        />
       </label>
-      <input
-        type='number'
-        name='price'
-        className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-        required
-      />
     </div>
 
     <div className="text-red-500 mb-2">{priceError}</div>
@@ -51,6 +58,7 @@ const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposa
     </button>
   </form>
 );
+
 
 const SubmissionFile = ({ file, removeFile, downloadFile, submitted = false }) => {
   console.log("File: ", file);

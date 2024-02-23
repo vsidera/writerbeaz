@@ -1,4 +1,4 @@
-import avatar from '../../images/avatar.jpg';
+import avatar from '../../images/support.jpg';
 import { Avatar } from "@material-tailwind/react";
 import { useState, useEffect } from 'react';
 import api from '../../api/axiosConfig';
@@ -49,6 +49,9 @@ function Message({ message, userData, scroll }) {
                 </div>
                 <div className="text-xs text-gray-400 mt-1">
                     {new Date(message.timestamp).toLocaleTimeString([], {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit',
                     })}
