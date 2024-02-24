@@ -80,7 +80,7 @@ const  Footer=()=>{
                     <div style={{backgroundColor:'black', borderRadius:'0px', marginLeft:'0px', padding:'0px'}} className="text-xl md:text-3xl">
                         <a style={{display:'flex'}} href="/" >
                            {/* <img src={logoheader} alt='logo' style={{ height: '115px', width: 'auto', position:'absolute', transform: 'rotate(90deg)', marginLeft:'18px', marginTop:'-30px' }}/> */}
-                        <h1  className="header-logo" style={{fontSize:'36px',padding:'0px', marginLeft:'0px'}} >Writer<br></br>Beaz<FaBookOpen /> </h1></a>                        
+                        {/*<h1  className="header-logo" style={{fontSize:'36px',padding:'0px', marginLeft:'0px'}} >Writer<br></br>Beaz<FaBookOpen /> </h1>*/}</a>                        
                     </div>
                 </div>
 
