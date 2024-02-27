@@ -73,7 +73,7 @@ const JobList = () => {
               {jobs.map((job) => (
                 <tr key={job.id}>
                   <td className="px-6 py-4 whitespace-nowrap"><b>{job.order_number}</b></td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle.length > 20 ? job.orderTitle.substring(0, 20) + '...' : job.orderTitle}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.subject}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.service}</td>
