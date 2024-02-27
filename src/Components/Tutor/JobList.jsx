@@ -15,7 +15,7 @@ const JobList = () => {
       try {
         const response = await api.get('/users/job-order/');
         // Sort the jobs based on the Order Number before setting the state
-        const sortedJobs = response.data.sort((a, b) => a.order_number - b.order_number);
+        const sortedJobs = response.data.sort((a, b) => b.order_number - a.order_number);
         setJobs(sortedJobs);
       } catch (error) {
         console.error('Error fetching jobs:', error);
