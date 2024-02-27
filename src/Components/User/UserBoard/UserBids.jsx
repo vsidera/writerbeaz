@@ -13,34 +13,32 @@ function UserBids() {
   useEffect(() => {
     const fetchJobProposals = async () => {
       try {
-        // Fetch all proposals associated with jobs posted by the user
         const jobProposalsResponse = await api.get(`/tutor/user_proposals/`, {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
           },
         });
-        const proposals = jobProposalsResponse.data;
-
+  
+        // Sort the job proposals by order number with the latest on top
+        const sortedProposals = jobProposalsResponse.data.sort((a, b) => b.order_number - a.order_number);
+        setJobProposals(sortedProposals);
+  
         // Check for new proposals
-        const newProposalsCount = proposals.length - jobProposals.length;
+        const newProposalsCount = sortedProposals.length - jobProposals.length;
         if (newProposalsCount > 0) {
-          // Update the count of new proposals
           setNewProposals(newProposalsCount);
         }
-
-        setJobProposals(proposals);
       } catch (error) {
         console.error('Error fetching job proposals:', error);
       }
     };
-
-    // Fetch job proposals on component mount
+  
     if (user.user_id) {
       fetchJobProposals();
-
+  
       // Poll for new proposals every 60 seconds (adjust as needed)
       const pollInterval = setInterval(fetchJobProposals, 60000);
-
+  
       // Cleanup interval on component unmount
       return () => clearInterval(pollInterval);
     }

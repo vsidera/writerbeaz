@@ -12,17 +12,20 @@ function Bids() {
       try {
         // Fetch all proposals from the server
         const response = await api.get('/tutor/proposal/');
-
+  
         // Filter proposals for the tutor based on their username
         const bidsForTutor = response.data.filter(proposal => proposal.username === user.username);
-
-        // Update state with the filtered bids
-        setTutorBids(bidsForTutor);
+  
+        // Sort the bids by order number with the latest on top
+        const sortedBids = bidsForTutor.sort((a, b) => b.order_number - a.order_number);
+  
+        // Update state with the sorted bids
+        setTutorBids(sortedBids);
       } catch (error) {
         console.error('Error fetching tutor bids:', error);
       }
     };
-
+  
     fetchTutorBids();
   }, [user.username]);
 
