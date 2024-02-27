@@ -17,7 +17,7 @@ function Bids() {
         const bidsForTutor = response.data.filter(proposal => proposal.username === user.username);
   
         // Sort the bids by order number with the latest on top
-        const sortedBids = bidsForTutor.sort((a, b) => b.order_id - a.id);
+        const sortedBids = bidsForTutor.sort((a, b) => b.id - a.id);
   
         // Update state with the sorted bids
         setTutorBids(sortedBids);
