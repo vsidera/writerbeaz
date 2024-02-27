@@ -14,16 +14,17 @@ const JobList = () => {
     const fetchJobs = async () => {
       try {
         const response = await api.get('/users/job-order/');
-        setJobs(response.data);
+        // Sort the jobs based on the Order Number before setting the state
+        const sortedJobs = response.data.sort((a, b) => a.order_number - b.order_number);
+        setJobs(sortedJobs);
       } catch (error) {
         console.error('Error fetching jobs:', error);
+      } finally {
+        setLoading(false);
       }
     };
-
-    fetchJobs()
-      .then(() => {
-        setLoading(false);
-      })
+  
+    fetchJobs();
   }, []);
 
     if (loading) {
