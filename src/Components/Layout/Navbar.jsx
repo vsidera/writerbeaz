@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Logout from '../Auth/Logout';
 import logoheader from '../../images/assets/logonobg.png';
 import { FaBookOpen } from 'react-icons/fa';
-import Survey from '../SurveyMonkeyEmbed'; // Import the SurveyMonkeyEmbed component
+import Survey from '../Survey'; // Import the SurveyMonkeyEmbed component
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
