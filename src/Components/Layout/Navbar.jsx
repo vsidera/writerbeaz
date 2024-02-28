@@ -9,6 +9,8 @@ import Survey from '../Survey/Survey'; // Import the SurveyMonkeyEmbed component
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [hovered, setHovered] = useState(false); // Define hovered state
+
     const location = useLocation();
     const user = useSelector(state => state.user);
 
