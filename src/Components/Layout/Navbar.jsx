@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Logout from '../Auth/Logout';
 import logoheader from '../../images/assets/logonobg.png';
 import { FaBookOpen } from 'react-icons/fa';
-import survey from '../Survey'; // Import the SurveyMonkeyEmbed component
+import Survey from '../Survey/Survey'; // Import the SurveyMonkeyEmbed component
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -100,7 +100,7 @@ function Navbar() {
                     </div>
                 </div>
                 <div className="md:flex md:items-center justify-end">
-                    <survey style={{ padding: '10px 30px', border: '1px solid gray', backgroundColor: 'white', color: 'black', borderRadius: '5px' }} />
+                    <Survey style={{ padding: '10px 30px', border: '1px solid gray', backgroundColor: 'white', color: 'black', borderRadius: '5px' }} />
                 </div>
             </div>
         </nav>
