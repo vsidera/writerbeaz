@@ -12,34 +12,30 @@ import { setDisplayChat, setNewOrderMessage } from '../../Redux/store';
 import PaymentComponent from '../../features/PaymentComponent';
 
 // Separate ProposalForm component
-const ProposalForm = ({ onSubmit, isSubmitting, priceError, proposal, setProposal, price, setPrice }) => (
+const ProposalForm = ({ onSubmit, isSubmitting, priceError }) => (
   <form
     onSubmit={onSubmit}
     className="absolute mt-6 ml-8 bg-[#f6f6f6] p-4 border border-gray-300 rounded-md"
     style={{ top: '-550%', left: '16%', transform: 'translateX(-50%)', boxShadow: '0 0 10px ' }}
   >
     <div className="mb-4">
-      <label className="block text-sm font-medium text-gray-700"> 
+      <label className="block text-sm font-medium text-gray-700">
         Message to client
         <textarea
           name='proposal'
-          value={proposal}
-          onChange={(e) => setProposal(e.target.value)}
           rows={6} // Adjust the number of rows as needed
           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
           required
         />
       </label>
     </div>
-    
+
     <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700">
         Price
         <input
           type='number'
           name='price'
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
           required
         />
@@ -396,6 +392,10 @@ const JobDetails = () => {
     return false;
   }
 
+  const handleTip = () => {
+    toast.success("Tip sent successfully!");
+  }
+
   const handleProposalSubmission = async (event) => {
     event.preventDefault();
 
@@ -510,8 +510,6 @@ const JobDetails = () => {
                   onSubmit={handleProposalSubmission}
                   isSubmitting={isProposalSubmitted}
                   priceError={priceError}
-                  proposal={proposal}
-                  setProposal={setProposal}
                 />
               )}
             </div>
@@ -547,7 +545,7 @@ const JobDetails = () => {
                     last_name={user.last_name}
                     redirect_url={window.location.href}
                     publishable={process.env.REACT_APP_PUBLIC}
-                    onCompleted={() => toast.success('Transaction was successful!')}
+                    onCompleted={() => handleTip()}
                     onFailed={() => toast.error('Payment failed!')}
                     buttonText={"Tip Writer"}
                   />

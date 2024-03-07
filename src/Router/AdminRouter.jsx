@@ -6,6 +6,7 @@ import AdminUserManagement from '../Components/Admin/AdminUserManagement'
 import AdminTransactions from '../Components/Admin/AdminTransactions'
 import NotFound404 from '../Components/Layout/NotFound404'
 import AdminChatX from '../Components/Admin/AdminChat'
+import AdminCoupons from '../Components/Admin/AdminCoupons'
 
 function AdminRouter() {
   return (
@@ -15,6 +16,7 @@ function AdminRouter() {
         <Route path="/management" element={<AdminUserManagement />} />
         <Route path="/transactions" element={<AdminTransactions />} />
         <Route path="/chatx" element={<AdminChatX />} />
+        <Route path='/coupons' element={<AdminCoupons />} />
         <Route path="*" element={<NotFound404 />} />
     </Routes>
   )

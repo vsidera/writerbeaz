@@ -204,6 +204,19 @@ function UserSidebar() {
                                 </span>
                             </NavLink>
                         </li>
+                        {/* coupons */}
+                        <li>
+                            <NavLink
+                                to="/user/coupons"
+                                className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group ${location.pathname === '/user/coupons' ? 'bg-black' : 'bg-transparent'
+                                    }`}
+                            >
+                                <FaFolder />
+                                <span className={`${location.pathname === '/user/coupons' ? 'font-bold text-white' : '-mr-1 font-medium flex '}`}>
+                                    Coupons
+                                </span>
+                            </NavLink>
+                        </li>
                         <li>
                             <button
                                 onClick={openChat}

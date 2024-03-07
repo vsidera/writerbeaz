@@ -16,6 +16,8 @@ const ProposalDetails = () => {
   const [price, setPrice] = useState(0);
   const user = useSelector(state => state.user);
   const [loading, setLoading] = useState(true);
+  const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
   const dispatch = useDispatch();
   dispatch(setNewOrderMessage(null));
 
@@ -33,6 +35,7 @@ const ProposalDetails = () => {
     if (id) {
       fetchProposalDetails().then(() => setLoading(false));
     }
+    getCoupons()
   }, [id]);
 
 
@@ -43,7 +46,8 @@ const ProposalDetails = () => {
         order_number: order_number,
         tutor_id: proposalDetails.user_id,
         price: price,
-        isAccepted: true
+        isAccepted: true,
+        coupon: selectedCoupon
       });
       setProposalDetails({
         ...proposalDetails,
@@ -56,6 +60,15 @@ const ProposalDetails = () => {
       toast.success('Proposal accepted!');
     } catch (error) {
       console.error('Error accepting proposal:', error);
+    }
+  }
+
+  const getCoupons = async () => {
+    try {
+      const response = await api.get('/coupons/coupon/');
+      setCoupons(response.data);
+    } catch (error) {
+      console.error('Error fetching coupons:', error);
     }
   }
 
@@ -127,6 +140,32 @@ const ProposalDetails = () => {
 
                     </div>
 
+                    {/* show coupons */}
+                    <div className="mb-4 border-2 p-4 rounded">
+                      {/* show coupons as badges e.g <span className='bg-blue-500 text-white px-2 py-1 rounded'>5.0%</span> */}
+                      <label className="block text-gray-700 text-sm font-bold mb-2">Coupons</label>
+                      <p>Click on a coupon to use it.</p>
+                      <div className="flex items-center">
+                        {coupons.map(coupon => (
+                          <span key={coupon.id} className={`text-white px-3 py-1 rounded mr-2 cursor-pointer ${selectedCoupon === coupon.id ? 'bg-blue-500' : 'bg-gray-500'}`}
+                            onClick={() => {
+                              if(selectedCoupon === coupon.id){
+                                setSelectedCoupon(null)
+                                setPrice(proposalDetails.proposal.price)
+                              } else{
+                                setSelectedCoupon(coupon.id)
+                                setPrice(proposalDetails.proposal.price - (proposalDetails.proposal.price * (coupon.coupon_type.value / 100)))
+                              }
+                            }}
+                          >
+                            {coupon.coupon_type.value}%
+                            {/* coupon count */}
+                            <span className='rounded-full bg-white text-gray-500 px-1 ml-3'>{coupon.count}</span>
+                            </span>
+                        ))}
+                      </div>
+                    </div>
+
                     <div className="mb-4 border-2 p-4 rounded flex items-center">
                       <div className="w-1/2">
                         <label htmlFor="orderTitle" className="block text-gray-700 text-md font-bold mb-2">Status</label>
@@ -137,26 +176,8 @@ const ProposalDetails = () => {
                         )}
                       </div>
                       <div className="w-1/2 ml-6">
-                        {/* <Link
-                          to={"/user/chatx"}
-                          state={{
-                            order_message: {
-                              order_number: proposalDetails.order_number,
-                              email: proposalDetails.email,
-                            }
-                          }}
-                          className="text-blue-500 underline"
-                        >
-                          Message Tutor
-                        </Link> */}
                         <button
                           onClick={() => {
-                            // console.log("Proposal details", proposalDetails)
-                            // dispatch(setNewOrderMessage({
-                            //   order_number: proposalDetails.order_number,
-                            //   email: proposalDetails.email,
-                            // }));
-                            // dispatch(setDisplayChat(true));
                             openNewChat();
                           }}
                           className="text-blue-500 underline"

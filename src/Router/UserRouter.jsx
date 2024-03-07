@@ -23,6 +23,7 @@ import ProposalDetails from '../Components/User/UserBoard/ProposalDetails';
 import UserChatX from '../Components/User/UserChat';
 import SupportChat from '../Components/User/SupportChat';
 import JobDetails from '../Components/Tutor/JobDetails';
+import Coupons from '../Components/User/UserBoard/Coupons';
 
 
 function UserRouter({}) {
@@ -43,6 +44,7 @@ function UserRouter({}) {
         <Route path="/orderconfirmation/:id" element={<OrderConfirmation />} />
         <Route path="/orderstatus/:id" element={<OrderStatus />} />
         <Route path="/job-details/:jobId" element={<JobDetails />} />
+        <Route path='/coupons' element={<Coupons />} />
         {/* <Route path="/chatx" element={<UserChatX />} />
         <Route path="/chat-support" element={<SupportChat />} /> */}
         {/* <Route path="/signup" element={<Signup />} />
