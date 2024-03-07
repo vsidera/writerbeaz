@@ -14,16 +14,17 @@ const JobList = () => {
     const fetchJobs = async () => {
       try {
         const response = await api.get('/users/job-order/');
-        setJobs(response.data);
+        // Sort the jobs based on the Order Number before setting the state
+        const sortedJobs = response.data.sort((a, b) => b.order_number - a.order_number);
+        setJobs(sortedJobs);
       } catch (error) {
         console.error('Error fetching jobs:', error);
+      } finally {
+        setLoading(false);
       }
     };
-
-    fetchJobs()
-      .then(() => {
-        setLoading(false);
-      })
+  
+    fetchJobs();
   }, []);
 
     if (loading) {
@@ -72,7 +73,7 @@ const JobList = () => {
               {jobs.map((job) => (
                 <tr key={job.id}>
                   <td className="px-6 py-4 whitespace-nowrap"><b>{job.order_number}</b></td>
-                  <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{job.orderTitle.length > 20 ? job.orderTitle.substring(0, 20) + '...' : job.orderTitle}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.subject}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.type}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{job.service}</td>
