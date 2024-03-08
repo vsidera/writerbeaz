@@ -4,17 +4,19 @@ import UserSidebar from './UserSidebar';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import api from '../../../api/axiosConfig';
+import Loader from '../../Loader';
 
 function Coupons() {
     const [coupons, setCoupons] = useState([]);
     const [couponCode, setCouponCode] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const user = useSelector((state) => state.user);
 
     useEffect(() => {
         if (user.user_id) {
             getCoupons();
-            getCouponCode();
+            getCouponCode().then(() => setLoading(false));
         }
     }, [user.user_id]);
 
@@ -48,6 +50,18 @@ function Coupons() {
         catch (error) {
             console.error('Error fetching coupon code:', error);
         }
+    }
+
+    if(loading) {
+        return (
+            <div className='md:flex'>
+                <UserSidebar />
+                <div class="ml-0 lg:ml-80 mb-6 lg:w-[50%] xl:w-[50%] 2xl:w-[50%] p-4">
+                    <h1 className="text-3xl font-bold mb-4">Your coupons</h1>
+                    <Loader />
+                </div>
+            </div>
+        )
     }
 
     return (
