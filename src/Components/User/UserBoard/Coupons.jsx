@@ -57,6 +57,7 @@ function Coupons() {
                 <h1 className="text-3xl font-bold mb-4">Your coupons</h1>
                 {couponCode !== '' &&
                     <>
+                    <p>Share the code with your friends and get a coupon once <br/>they place an order successfully</p>
                         Your coupon code:
                         <div className='flex justify-start items-center gap-2'>
                             <div className='py-3 px-6 border border-black rounded w-fit my-4'>
