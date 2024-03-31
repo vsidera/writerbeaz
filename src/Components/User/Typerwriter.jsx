@@ -10,13 +10,21 @@ const TypeWriterText = () => {
           options={{
             autoStart: true,
             loop: true,
+            delay: 50,
+            deleteSpeed: 50,
           }}
           onInit={(typewriter) => {
             typewriter
-              .typeString(`<span class="text-1">  Welcome To WriterBeaz</span>`)
+              .typeString(`<span class="text-1">  Welcome to WriterBeaz</span>`)
               .pauseFor(2000)
               .deleteAll()
-              .typeString(`<span class="text-1">Enjoy the best & high quality services</span>`)
+              .typeString(`<span class="text-1">We provide excellence in every assignment`)
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString(`<span class="text-1">From essays to research papers, we've got you covered`)
+              .pauseFor(2000)
+              .deleteAll()
+              .typeString(`<span class="text-1">Unlock your academic success with us`)
               .pauseFor(2000)
               .deleteAll()
               .typeString(`<span class="text-1">Login or sign up to start</span>`)
