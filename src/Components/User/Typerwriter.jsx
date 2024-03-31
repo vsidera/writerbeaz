@@ -14,19 +14,19 @@ const TypeWriterText = () => {
           onInit={(typewriter) => {
             typewriter
               .typeString(`<span class="text-1">Welcome To WriterBeaz</span>`)
-              .pauseFor(3500)
-              // .deleteAll()
-              // .typeString(`<span class="text-2">To!</span>`)
-              // .pauseFor(1000)
-              // .deleteAll()
-              // .typeString(`<span class="text-3">WriterBeaz!!</span>`)
-              // .pauseFor(1000)
-              .deleteAll() 
+              .pauseFor(3000)
+              .deleteAll()
+              .typeString(`<span class="text-2">We offer the best and high quality writing services</span>`)
+              .pauseFor(3000)
+              .deleteAll()
+              .typeString(`<span class="text-3">Login or sign up to start</span>`)
+              .pauseFor(3000)
+              // You can continue adding more texts here in the same manner
+              .deleteAll()
               .start();
           }}
         />
       </Title>
-      {/* <Subtitle>Dare to code!</Subtitle> */}
     </>
   );
 };
@@ -68,21 +68,5 @@ const Title = styled.h2`
     font-size: 24px; /* Adjust font size for smaller screens */
   }
 `;
-
-// const Subtitle = styled.p`
-//   font-size: ${(props) => props.theme.fontlg};
-//   margin-bottom: 1rem;
-//   font-weight: 300;
-//   align-self: flex-start;
-
-//   @media (max-width: 40em) {
-//     font-size: ${(props) => props.theme.fontmd};
-//   }
-
-//   @media (max-width: 48em) {
-//     align-self: center;
-//     text-align: center;
-//   }
-// `;
 
 export default TypeWriterText;
