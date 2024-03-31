@@ -16,10 +16,10 @@ const TypeWriterText = () => {
               .typeString(`<span class="text-1">Welcome To WriterBeaz</span>`)
               .pauseFor(3000)
               .deleteAll()
-              .typeString(`<span class="text-2">We offer the best and high quality writing services</span>`)
+              .typeString(`<span class="text-1">We offer the best and high quality writing services</span>`)
               .pauseFor(3000)
               .deleteAll()
-              .typeString(`<span class="text-3">Login or sign up to start</span>`)
+              .typeString(`<span class="text-1">Login or sign up to start</span>`)
               .pauseFor(3000)
               // You can continue adding more texts here in the same manner
               .deleteAll()
@@ -46,10 +46,10 @@ const Title = styled.h2`
       color: black;
     }
     &-2 {
-      color: goldenrod;
+      color: black;
     }
     &-3 {
-      color: orangered;
+      color: black;
     }
   }
 
