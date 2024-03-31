@@ -13,14 +13,14 @@ const TypeWriterText = () => {
           }}
           onInit={(typewriter) => {
             typewriter
-              .typeString(`<span class="text-1">Welcome To WriterBeaz</span>`)
-              .pauseFor(3000)
+              .typeString(`<span class="text-1">  Welcome To WriterBeaz</span>`)
+              .pauseFor(2000)
               .deleteAll()
-              .typeString(`<span class="text-1">We offer the best and high quality writing services</span>`)
-              .pauseFor(3000)
+              .typeString(`<span class="text-1">Enjoy the best & high quality services</span>`)
+              .pauseFor(2000)
               .deleteAll()
               .typeString(`<span class="text-1">Login or sign up to start</span>`)
-              .pauseFor(3000)
+              .pauseFor(2000)
               // You can continue adding more texts here in the same manner
               .deleteAll()
               .start();
