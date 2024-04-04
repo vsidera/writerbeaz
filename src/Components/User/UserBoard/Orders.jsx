@@ -183,7 +183,7 @@ const Orders = () => {
       userActions = ["edit", "cancel"];
     }
     if (selected === 'progress') {
-      userActions = ["accept", "cancel"];
+      userActions = ["upload files", "accept", "cancel"];
     }
     if (selected === "completed") {
       userActions = ["upload files"]
@@ -193,7 +193,6 @@ const Orders = () => {
   }
 
   const LinkComponent = ({ id }) => {
-
 
     return (
       <Link
