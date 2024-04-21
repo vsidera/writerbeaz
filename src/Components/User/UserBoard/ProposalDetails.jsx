@@ -18,7 +18,6 @@ const ProposalDetails = () => {
   const [loading, setLoading] = useState(true);
   const [coupons, setCoupons] = useState([]);
   const [selectedCoupon, setSelectedCoupon] = useState(null);
-  const [buttonClicked, setButtonClicked] = useState(false);
   const dispatch = useDispatch();
   dispatch(setNewOrderMessage(null));
 
@@ -74,15 +73,15 @@ const ProposalDetails = () => {
   }
 
   const openNewChat = () => {
-    if (!buttonClicked) {
-      setButtonClicked(true);
-      const orderMessage = {
-        order_number: proposalDetails.order_number,
-        email: proposalDetails.email,
-      }
-      dispatch(setNewOrderMessage(orderMessage))
-      dispatch(setDisplayChat('block'));
+    const orderMessage = {
+      order_number: proposalDetails.order_number,
+      email: proposalDetails.email,
+      
     }
+
+    dispatch(setNewOrderMessage(orderMessage))
+    dispatch(setDisplayChat('block'));
+
   };
 
   return (
