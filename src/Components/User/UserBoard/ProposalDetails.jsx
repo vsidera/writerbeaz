@@ -18,6 +18,7 @@ const ProposalDetails = () => {
   const [loading, setLoading] = useState(true);
   const [coupons, setCoupons] = useState([]);
   const [selectedCoupon, setSelectedCoupon] = useState(null);
+  const [buttonClicked, setButtonClicked] = useState(false);
   const dispatch = useDispatch();
   dispatch(setNewOrderMessage(null));
 
