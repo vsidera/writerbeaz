@@ -73,13 +73,15 @@ const ProposalDetails = () => {
   }
 
   const openNewChat = () => {
-    const orderMessage = {
-      order_number: proposalDetails.order_number,
-      email: proposalDetails.email,
+    if (!buttonClicked) {
+      setButtonClicked(true);
+      const orderMessage = {
+        order_number: proposalDetails.order_number,
+        email: proposalDetails.email,
+      }
+      dispatch(setNewOrderMessage(orderMessage))
+      dispatch(setDisplayChat('block'));
     }
-
-    dispatch(setNewOrderMessage(orderMessage))
-    dispatch(setDisplayChat('block'));
   };
 
   return (
