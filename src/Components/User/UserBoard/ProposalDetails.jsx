@@ -78,6 +78,15 @@ const ProposalDetails = () => {
         order_number: proposalDetails.order_number,
         email: proposalDetails.email,
       };
+      
+      // Dispatch action to create the new chat
+      dispatch(createNewChat(orderMessage));
+  
+      // Dispatch action to display the chat
+      dispatch(setDisplayChat('block'));
+    }
+  };
+  
   // const openNewChat = () => {
   //   const orderMessage = {
   //     order_number: proposalDetails.order_number,
@@ -85,10 +94,10 @@ const ProposalDetails = () => {
       
   //   }
 
-    dispatch(setNewOrderMessage(orderMessage))
-    dispatch(setDisplayChat('block'));
+  //   dispatch(setNewOrderMessage(orderMessage))
+  //   dispatch(setDisplayChat('block'));
 
-  };
+  // };
 
   return (
     <div>
