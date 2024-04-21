@@ -80,13 +80,14 @@ const ProposalDetails = () => {
       };
       
       // Dispatch action to create the new chat
-      dispatch(createNewChat(orderMessage));
+      dispatch(setNewOrderMessage(orderMessage));
   
       // Dispatch action to display the chat
       dispatch(setDisplayChat('block'));
     }
   };
-  
+
+
   // const openNewChat = () => {
   //   const orderMessage = {
   //     order_number: proposalDetails.order_number,
