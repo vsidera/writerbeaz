@@ -174,11 +174,26 @@ const Submission = ({ submission_status, submission_files, job_id, is_user }) =>
   }
 
   const downloadFile = async (url) => {
+    // Extract filename from the URL
+    const filename = url.substring(url.lastIndexOf('/') + 1);
+
+    // Fetch the file
     const response = await fetch(url, { responseType: 'blob' });
     const blob = await response.blob();
+
+    // Create a temporary URL for the blob
     const downloadUrl = URL.createObjectURL(blob);
-    window.open(downloadUrl);
-  }
+
+    // Create an anchor element to trigger download
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = filename; // Use extracted filename
+    link.click();
+
+    // Cleanup
+    URL.revokeObjectURL(downloadUrl);
+}
+
 
   const removeFile = (file) => {
     setFiles(files.filter((f) => f != file));
@@ -432,11 +447,26 @@ const JobDetails = () => {
   };
 
   const downloadFile = async (url) => {
+    // Extract filename from the URL
+    const filename = url.substring(url.lastIndexOf('/') + 1);
+
+    // Fetch the file
     const response = await fetch(url, { responseType: 'blob' });
     const blob = await response.blob();
+
+    // Create a temporary URL for the blob
     const downloadUrl = URL.createObjectURL(blob);
-    window.open(downloadUrl);
-  }
+
+    // Create an anchor element to trigger download
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = filename; // Use extracted filename
+    link.click();
+
+    // Cleanup
+    URL.revokeObjectURL(downloadUrl);
+}
+
 
   if (!fetched) {
     return (
