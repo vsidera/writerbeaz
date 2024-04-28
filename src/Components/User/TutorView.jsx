@@ -41,8 +41,12 @@ function TutorView(props) {
                         <>
                           <h1 className="text-xl font-bold">{profileData.tutor.username}</h1>
                           <p className="text-gray-600">{profileData.title}</p>
+                          <p className={profileData.tutor.is_active ? "text-green-500" : "text-red-500"}>
+                            {profileData.tutor.is_active ? "Active" : "Not Active"}
+                          </p>
                         </>
                       )}
+
                     </div>
                     <hr className="my-6 border-t border-gray-300" />
                     <div className="flex flex-col">
